@@ -6,7 +6,7 @@ int Game::objectsCount = 0;
 sf::RenderWindow* Game::window;
 Player* Game::player;
 std::vector<Object*> Game::objects;
-
+std::stack<State*> Game::states;
 
 sf::Event Game::event;
 sf::Clock Game::dtclock;
@@ -18,6 +18,9 @@ Game::Game(){
 Game::~Game(){
     delete window;
     delete player;
+
+    FreeMemory(objects);
+    FreeMemory(states);
 }
 
 
@@ -56,4 +59,17 @@ void Game::UpdateDeltaTime()noexcept{
 void Game::InstantiateObject(Object* newObj)noexcept{
     objects.push_back(newObj);
     ++objectsCount;
+}
+
+void Game::FreeMemory(std::vector<Object*>& objVec){
+    for(auto& obj : objVec){
+        delete obj;
+    }
+}
+
+void Game::FreeMemory(std::stack<State*>& statesStack){
+    while(!statesStack.empty()){
+        delete statesStack.top();
+        statesStack.pop();
+    }
 }

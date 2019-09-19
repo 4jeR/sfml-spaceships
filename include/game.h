@@ -1,7 +1,10 @@
 #pragma once
-#include <iostream>
 #include "player.h"
+#include "state.h"
+
+#include <iostream>
 #include <vector>
+#include <stack>
 
 class Game{
 public:
@@ -15,7 +18,8 @@ public:
     static void InstantiateObject(Object* newObj)noexcept;
 private:
     static void Init() noexcept;
-
+    static void FreeMemory(std::vector<Object*>& objVec);
+    static void FreeMemory(std::stack<State*>& statesStack);
     static float deltaTime;
     static int objectsCount;
 
@@ -25,5 +29,5 @@ private:
     static sf::RenderWindow* window;
     static Player* player;
     static std::vector<Object*> objects;
+    static std::stack<State*> states;
 };
-
