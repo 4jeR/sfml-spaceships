@@ -1,5 +1,6 @@
 #pragma once
 #include "sfml_headers.h"
+#include "missile.h"
 
 
 
@@ -18,5 +19,6 @@ private:
 
     int _lives;
     sf::RenderWindow* _window;
+    Missile* _missile;
 
 };
