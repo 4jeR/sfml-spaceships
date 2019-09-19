@@ -8,7 +8,7 @@ Object::Object(float x, float y, sf::RenderWindow* winptr)
 }
 
 Object::~Object(){
-    delete _window;
+    
 }
 
 Object& Object::operator=(const Object& rhs){
