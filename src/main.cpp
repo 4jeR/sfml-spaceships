@@ -1,15 +1,11 @@
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
+#include "game.h"
 
 
 
 int main(){
 
-    sf::RenderWindow window(sf::VideoMode(600, 800), "XD");
-
-    window.display();
+    Game game;
+    game.run();
 
     return 0;
 }
