@@ -1,45 +1,59 @@
 #include "game.h"
 
-float Game::_dTime;
-sf::RenderWindow* Game::_window;
-sf::Event Game::_event;
-sf::Clock Game::_clock;
+float Game::deltaTime;
+int Game::objectsCount = 0;
+
+sf::RenderWindow* Game::window;
+Player* Game::player;
+std::vector<Object*> Game::objects;
+
+
+sf::Event Game::event;
+sf::Clock Game::dtclock;
 
 Game::Game(){
-    
+    Init();
 }
 
 Game::~Game(){
-    delete _window;
+    delete window;
+    delete player;
 }
 
 
 void Game::Run()noexcept{
-    Init();
-    while (_window -> isOpen())
+    while (window -> isOpen())
     {
+        UpdateDeltaTime();
         Render();
         Update();
     }
 }
 
 void Game::Init() noexcept{
-    _window = new sf::RenderWindow(sf::VideoMode(800, 600), "Spaceships");
+    window = new sf::RenderWindow(sf::VideoMode(800, 600), "Spaceships");
+    player = new Player(400, 300, window);
 }
 
 
 void Game::Render()noexcept{
-    _window -> clear();
-    _window -> display();
+    window -> clear();
+    window -> display();
 }
 
 void Game::Update()noexcept{
-    while (_window -> pollEvent(_event)){
-        if (_event.type == sf::Event::Closed)
-            _window -> close();
+    while (window -> pollEvent(event)){
+        if (event.type == sf::Event::Closed)
+            window -> close();
     }
 }
 
 void Game::UpdateDeltaTime()noexcept{
-    _dTime = _clock.restart().asSeconds() / 1000.f;
+    deltaTime = dtclock.restart().asSeconds() / 1000.f;
+}
+
+
+void Game::InstantiateObject(Object* newObj)noexcept{
+    objects.push_back(newObj);
+    ++objectsCount;
 }

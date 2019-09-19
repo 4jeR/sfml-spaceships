@@ -11,3 +11,10 @@ Object::~Object(){
     delete _window;
 }
 
+Object& Object::operator=(const Object& rhs){
+    _x = rhs._x;
+    _y = rhs._y;
+    _window = rhs._window;
+
+    return *this;
+}

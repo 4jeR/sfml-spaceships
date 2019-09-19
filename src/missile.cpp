@@ -15,3 +15,10 @@ Missile::~Missile(){
 void Missile::draw (sf::RenderTarget &target, sf::RenderStates states) const {
     
 }
+
+
+Missile& Missile::operator=(const Missile& rhs){
+    Object::operator=(rhs);
+
+    return *this;
+}

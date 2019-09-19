@@ -4,6 +4,7 @@
 class Object : public sf::Drawable {
 public:
     Object(float x, float y, sf::RenderWindow* winptr = nullptr);
+    Object& operator=(const Object& rhs);
     virtual ~Object();
 protected:
     

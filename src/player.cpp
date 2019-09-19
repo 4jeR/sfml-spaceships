@@ -34,3 +34,10 @@ void Player::MoveInY(float value)noexcept{
 void Player::draw (sf::RenderTarget &target, sf::RenderStates states) const {
     _missile ->draw(target, states);
 }
+
+Player& Player::operator=(const Player& rhs){
+    Object::operator=(rhs);
+    _lives = rhs._lives;
+    
+    return *this;
+}
