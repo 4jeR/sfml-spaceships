@@ -9,18 +9,24 @@ Game::~Game(){
 }
 
 
-void Game::run()noexcept{
-    this->render();
-    this->update();
+void Game::Run()noexcept{
+    Init();
+    Render();
+    Update();
 }
 
-void Game::render()noexcept{
+void Game::Init() noexcept{
     _window = new sf::RenderWindow(sf::VideoMode(800, 600), "Spaceships");
 
+}
+
+
+void Game::Render()noexcept{
+   
     
 }
 
-void Game::update()noexcept{
+void Game::Update()noexcept{
     while (_window -> isOpen())
     {
         sf::Event event;

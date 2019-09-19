@@ -10,10 +10,11 @@ public:
     Game();
     ~Game();
 
-    void run()noexcept;
+    void Run() noexcept;
 private:
-    void render()noexcept;
-    void update()noexcept;
+    void Init() noexcept;
+    void Render() noexcept;
+    void Update() noexcept;
 
     sf::RenderWindow* _window;
 };
