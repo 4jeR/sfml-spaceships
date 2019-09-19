@@ -3,14 +3,14 @@
 
 
 Player::Player(float x, float y, sf::RenderWindow* winptr)
-:_x(x),_y(y), _window(winptr)
+:Object(x, y, winptr)
 {
     
 }
 
 
 Player::~Player(){
-    delete _window;
+    
 }
 
 
@@ -31,3 +31,6 @@ void Player::MoveInY(float value)noexcept{
     _y += value;
 }
 
+void Player::draw (sf::RenderTarget &target, sf::RenderStates states) const {
+    _missile ->draw(target, states);
+}

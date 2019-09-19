@@ -1,24 +1,22 @@
 #pragma once
-#include "sfml_headers.h"
+#include "object.h"
 #include "missile.h"
 
 
-
-class Player{
+class Player : public Object{
 public:
-    Player(float x, float y, sf::RenderWindow* = nullptr);
+    Player(float x, float y, sf::RenderWindow* winptr = nullptr);
     ~Player();
     static Player* InstantiatePlayer(float x, float y, sf::RenderWindow* window);
     
     void Shot()noexcept;
     void MoveInX(float value)noexcept;
     void MoveInY(float value)noexcept;
+    void draw (sf::RenderTarget &target, sf::RenderStates states) const override;
 private:
-    float _x;
-    float _y;
 
     int _lives;
-    sf::RenderWindow* _window;
+    
     Missile* _missile;
 
 };
