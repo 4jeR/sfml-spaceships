@@ -4,17 +4,23 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <iostream>
 
 class Game{
 public:
     Game();
     ~Game();
 
-    void Run() noexcept;
+    static void Run() noexcept;
+    static void UpdateDeltaTime()noexcept;
+    static void Render() noexcept;
+    static void Update() noexcept;
 private:
-    void Init() noexcept;
-    void Render() noexcept;
-    void Update() noexcept;
+    static void Init() noexcept;
 
-    sf::RenderWindow* _window;
+    static float _dTime;
+    static sf::RenderWindow* _window;
+    static sf::Event _event;
+    static sf::Clock _clock;
 };
+
