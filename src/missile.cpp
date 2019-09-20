@@ -9,12 +9,13 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
 
 
 Missile::~Missile(){
+    delete _shape;
 }
 
-
-void Missile::draw (sf::RenderTarget &target, sf::RenderStates states) const {
-    
+void Missile::Draw(const sf::Drawable& obj)const{
+    _window -> draw(obj);
 }
+
 
 
 Missile& Missile::operator=(const Missile& rhs){
@@ -22,3 +23,4 @@ Missile& Missile::operator=(const Missile& rhs){
 
     return *this;
 }
+

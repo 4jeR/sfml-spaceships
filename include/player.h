@@ -13,11 +13,11 @@ public:
     void Shot()noexcept;
     void MoveInX(float value)noexcept;
     void MoveInY(float value)noexcept;
-    void draw (sf::RenderTarget &target, sf::RenderStates states) const override;
+    void Draw(const sf::Drawable& obj)const override;
 private:
 
     int _lives;
     
     Missile* _missile;
-
+    sf::CircleShape* _shape;
 };
