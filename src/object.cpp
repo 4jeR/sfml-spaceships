@@ -2,7 +2,7 @@
 
 
 Object::Object(float x, float y, sf::RenderWindow* winptr)
-:_x(x), _y(y),_window(winptr)
+:_x(x), _y(y),_window(winptr),_angle(0.0f)
 {
 
 }

@@ -61,6 +61,7 @@ void Game::Update()noexcept{
         else if (event.type == sf::Event::Resized)
             UpdateWindowSize();
     }
+    UpdateObjects();
     UpdatePlayer();
 }
 
@@ -112,4 +113,10 @@ void Game::UpdatePlayer()noexcept{
 void Game::UpdateWindowSize()noexcept{
     WINDOWX = window -> getSize().x;
     WINDOWY = window -> getSize().y;
+}
+
+void Game::UpdateObjects()noexcept{
+    for(auto& obj : objects){
+        obj -> Update();
+    }
 }

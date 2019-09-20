@@ -39,3 +39,21 @@ sf::Shape* Missile::GetShape(){
     return _shape;
 }
 
+void Missile::Update() noexcept {
+    /**
+     * TODO: 
+     *      update its position based on direction it was shot,
+     *      and time passed 
+    */
+}
+
+void Missile::MoveInX(float value)noexcept{
+    _x += value;
+    _shape->move(value, 0.0f);
+}
+
+
+void Missile::MoveInY(float value)noexcept{
+    _y += value;
+    _shape->move(0.0f, value);
+}

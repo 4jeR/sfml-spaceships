@@ -21,6 +21,10 @@ Player::~Player(){
 
 
 Missile* Player::Shot()noexcept{
+    /**
+     * TODO: 
+     *      audio playing when shooting new missile
+    */
     _missile = new Missile(_x, _y + 15.0f, _window);
     return _missile;
 }
@@ -71,4 +75,8 @@ int Player::Cooldown()const noexcept{
 
 int Player::Lives()const noexcept{
     return _lives;
+}
+
+void Player::Update() noexcept{
+   
 }
