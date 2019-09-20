@@ -7,8 +7,8 @@ public:
     ~Missile();
 
     Missile& operator=(const Missile& rhs);
-
-    void draw (sf::RenderTarget &target, sf::RenderStates states) const override;
-private:
+    void Draw(const sf::Drawable& obj)const override;
     
+private:
+    sf::RectangleShape* _shape; 
 };
