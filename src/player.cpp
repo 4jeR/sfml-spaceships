@@ -3,7 +3,7 @@
 
 
 Player::Player(float x, float y, sf::RenderWindow* winptr)
-:Object(x, y, winptr)
+:Object(x, y, winptr),_cooldown(0)
 {
     _shape = new sf::CircleShape(50.0f, 3);
     std::cout << "Allocate memory for shape from Player::Player!" << std::endl;
@@ -20,8 +20,9 @@ Player::~Player(){
 }
 
 
-void Player::Shot()noexcept{
-    
+Missile* Player::Shot()noexcept{
+    _missile = new Missile(_x, _y + 15.0f, _window);
+    return _missile;
 }
 
 Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* window){
@@ -31,11 +32,13 @@ Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* window){
 
 void Player::MoveInX(float value)noexcept{
     _x += value;
+    _shape->move(value, 0.0f);
 }
 
 
 void Player::MoveInY(float value)noexcept{
     _y += value;
+    _shape->move(0.0f, value);
 }
 
 
@@ -52,4 +55,20 @@ void Player::Draw(const sf::Drawable& obj)const{
 
 sf::Shape* Player::GetShape(){
     return _shape;
+}
+
+int& Player::GetLives()noexcept{
+    return _lives;
+}
+
+int& Player::GetCooldown() noexcept{
+    return _cooldown;
+}
+
+int Player::Cooldown()const noexcept{
+    return _cooldown;
+}
+
+int Player::Lives()const noexcept{
+    return _lives;
 }

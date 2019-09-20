@@ -20,6 +20,7 @@ private:
     static void Init() noexcept;
     static void FreeMemory(std::vector<Object*>& objVec);
     static void FreeMemory(std::stack<State*>& statesStack);
+    static void UpdatePlayer()noexcept;
     static float deltaTime;
     static int objectsCount;
 

@@ -10,7 +10,12 @@ public:
     static Player* InstantiatePlayer(float x, float y, sf::RenderWindow* window);
     Player& operator=(const Player& rhs);
 
-    void Shot()noexcept;
+    int& GetLives()noexcept;
+    int& GetCooldown() noexcept;
+    int Cooldown()const noexcept;
+    int Lives()const noexcept;
+
+    Missile* Shot()noexcept;
     void MoveInX(float value)noexcept;
     void MoveInY(float value)noexcept;
     void Draw(const sf::Drawable& obj)const override;
@@ -18,7 +23,7 @@ public:
 private:
 
     int _lives;
-    
+    int _cooldown;
     Missile* _missile;
     sf::CircleShape* _shape;
 };

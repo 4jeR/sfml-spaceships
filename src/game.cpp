@@ -28,7 +28,6 @@ Game::~Game(){
 void Game::Run()noexcept{
     while (window -> isOpen())
     {
-        UpdateDeltaTime();
         Render(objects);
         Update();
     }
@@ -48,15 +47,16 @@ void Game::Render(const std::vector<Object*>& objVec)noexcept{
     for(auto& obj : objVec){
         window -> draw(*obj->GetShape());
     }
-
     window -> display();
 }
 
 void Game::Update()noexcept{
+    UpdateDeltaTime();
     while (window -> pollEvent(event)){
         if (event.type == sf::Event::Closed)
             window -> close();
     }
+    UpdatePlayer();
 }
 
 void Game::UpdateDeltaTime()noexcept{
@@ -81,5 +81,25 @@ void Game::FreeMemory(std::stack<State*>& statesStack){
         delete statesStack.top();
         std::cout << "Deleting state -freememory from game!" << std::endl;
         statesStack.pop();
+    }
+}
+
+void Game::UpdatePlayer()noexcept{
+    player -> GetCooldown()++;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
+        player -> MoveInY(-0.1f);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
+        player -> MoveInY(0.1f);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
+        player -> MoveInX(-0.1f);
+    } 
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
+        player -> MoveInX(0.1f);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 1000){
+        objects.push_back(player -> Shot());
+        player->GetCooldown() = 0;
     }
 }
