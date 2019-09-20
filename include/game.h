@@ -13,7 +13,7 @@ public:
     
     static void Run() noexcept;
     static void UpdateDeltaTime()noexcept;
-    static void Render() noexcept;
+    static void Render(const std::vector<Object*>& objects) noexcept;
     static void Update() noexcept;
     static void InstantiateObject(Object* newObj)noexcept;
 private:

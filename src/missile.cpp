@@ -24,3 +24,7 @@ Missile& Missile::operator=(const Missile& rhs){
     return *this;
 }
 
+sf::Shape* Missile::GetShape(){
+    return _shape;
+}
+

@@ -28,7 +28,7 @@ void Game::Run()noexcept{
     while (window -> isOpen())
     {
         UpdateDeltaTime();
-        Render();
+        Render(objects);
         Update();
     }
 }
@@ -39,8 +39,13 @@ void Game::Init() noexcept{
 }
 
 
-void Game::Render()noexcept{
+void Game::Render(const std::vector<Object*>& objVec)noexcept{
     window -> clear();
+    window -> draw(*player->GetShape());
+    for(auto& obj : objVec){
+        window -> draw(*obj->GetShape());
+    }
+
     window -> display();
 }
 

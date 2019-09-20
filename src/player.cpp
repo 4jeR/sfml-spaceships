@@ -46,3 +46,7 @@ Player& Player::operator=(const Player& rhs){
 void Player::Draw(const sf::Drawable& obj)const{
     _window -> draw(obj);
 }
+
+sf::Shape* Player::GetShape(){
+    return _shape;
+}

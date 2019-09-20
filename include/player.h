@@ -14,6 +14,7 @@ public:
     void MoveInX(float value)noexcept;
     void MoveInY(float value)noexcept;
     void Draw(const sf::Drawable& obj)const override;
+    sf::Shape* GetShape() override;
 private:
 
     int _lives;

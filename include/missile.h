@@ -8,7 +8,7 @@ public:
 
     Missile& operator=(const Missile& rhs);
     void Draw(const sf::Drawable& obj)const override;
-    
+    sf::Shape* GetShape() override;
 private:
     sf::RectangleShape* _shape; 
 };
