@@ -5,7 +5,7 @@
 Player::Player(float x, float y, sf::RenderWindow* winptr)
 :Object(x, y, winptr),_cooldown(0)
 {
-    _shape = new sf::CircleShape(50.0f, 3);
+    _shape = new sf::CircleShape(25.0f, 3);
     std::cout << "Allocate memory for shape from Player::Player!" << std::endl;
     _shape -> setPosition(x, y);
     _shape -> setFillColor(sf::Color::Transparent);

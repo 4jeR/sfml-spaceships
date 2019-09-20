@@ -16,6 +16,7 @@ public:
     static void Render(const std::vector<Object*>& objects) noexcept;
     static void Update() noexcept;
     static void InstantiateObject(Object* newObj)noexcept;
+    static void UpdateWindowSize()noexcept;
 private:
     static void Init() noexcept;
     static void FreeMemory(std::vector<Object*>& objVec);
@@ -26,6 +27,9 @@ private:
 
     static sf::Event event;
     static sf::Clock dtclock;
+    static unsigned int WINDOWX;
+    static unsigned int WINDOWY;
+
 
     static sf::RenderWindow* window;
     static Player* player;

@@ -5,9 +5,11 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
 :Object(x, y, winptr)
 {
     std::cout << "Allocate memory for shape from Missile::Missile!" << std::endl;
-    _shape = new sf::RectangleShape(sf::Vector2f(10.0f, 40.0f));
-    _shape -> setPosition(x, y);
+    _shape = new sf::RectangleShape(sf::Vector2f(2.0f, 8.0f));
+    _shape -> setPosition(x + 23.5f, y - 40.0f);
     _shape -> setOutlineColor(sf::Color::Red);
+    _shape -> setOutlineThickness(1.0f);
+    _shape -> setFillColor(sf::Color::Transparent);
 }
 
 Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* window){

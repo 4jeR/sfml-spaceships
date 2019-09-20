@@ -11,6 +11,9 @@ std::stack<State*> Game::states;
 sf::Event Game::event;
 sf::Clock Game::dtclock;
 
+unsigned int Game::WINDOWX = 800;
+unsigned int Game::WINDOWY = 600;
+
 Game::Game(){
     Init();
 }
@@ -34,9 +37,9 @@ void Game::Run()noexcept{
 }
 
 void Game::Init() noexcept{
-    window = new sf::RenderWindow(sf::VideoMode(800, 600), "Spaceships");
+    window = new sf::RenderWindow(sf::VideoMode(WINDOWX, WINDOWY), "Spaceships");
     std::cout << "Allocate memory for window from game::Init!" << std::endl;
-    player = new Player(400, 300, window);
+    player = new Player(static_cast<float>(WINDOWX) / 2, static_cast<float>(WINDOWY) / 2, window);
     std::cout << "Allocate memory for player from game::Init!" << std::endl;
 }
 
@@ -55,6 +58,8 @@ void Game::Update()noexcept{
     while (window -> pollEvent(event)){
         if (event.type == sf::Event::Closed)
             window -> close();
+        else if (event.type == sf::Event::Resized)
+            UpdateWindowSize();
     }
     UpdatePlayer();
 }
@@ -87,19 +92,24 @@ void Game::FreeMemory(std::stack<State*>& statesStack){
 void Game::UpdatePlayer()noexcept{
     player -> GetCooldown()++;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
-        player -> MoveInY(-0.1f);
+        player -> MoveInY(-0.0003f * static_cast<float>(WINDOWY));
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-        player -> MoveInY(0.1f);
+        player -> MoveInY(0.0003f  * static_cast<float>(WINDOWY));
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        player -> MoveInX(-0.1f);
+        player -> MoveInX(-0.0002f * static_cast<float>(WINDOWX));
     } 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-        player -> MoveInX(0.1f);
+        player -> MoveInX(0.0002f  * static_cast<float>(WINDOWX));
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 1000){
         objects.push_back(player -> Shot());
         player->GetCooldown() = 0;
     }
+}
+
+void Game::UpdateWindowSize()noexcept{
+    WINDOWX = window -> getSize().x;
+    WINDOWY = window -> getSize().y;
 }
