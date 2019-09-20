@@ -10,6 +10,7 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
 
 Missile::~Missile(){
     delete _shape;
+    std::cout << "Deleting missile from Missile class!" << std::endl;
 }
 
 void Missile::Draw(const sf::Drawable& obj)const{

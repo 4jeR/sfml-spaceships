@@ -6,6 +6,7 @@ Player::Player(float x, float y, sf::RenderWindow* winptr)
 :Object(x, y, winptr)
 {
     _shape = new sf::CircleShape(50.0f, 3);
+    std::cout << "Allocate memory for shape from Player::Player!" << std::endl;
     _shape -> setPosition(x, y);
     _shape -> setFillColor(sf::Color::Transparent);
     _shape -> setOutlineThickness(1.5f);
@@ -15,6 +16,7 @@ Player::Player(float x, float y, sf::RenderWindow* winptr)
 
 Player::~Player(){
     delete _shape;
+    std::cout << "Deleting shape from Playerclass!" << std::endl;
 }
 
 
@@ -23,6 +25,7 @@ void Player::Shot()noexcept{
 }
 
 Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* window){
+    std::cout << "Allocate memory for Player from Player:InstantiatePlayer!" << std::endl;
     return new Player(x, y, window);
 }
 

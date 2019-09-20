@@ -17,8 +17,9 @@ Game::Game(){
 
 Game::~Game(){
     delete window;
+    std::cout << "Deleting window from game!!" << std::endl;
     delete player;
-
+    std::cout << "Deleting player from game!" << std::endl;
     FreeMemory(objects);
     FreeMemory(states);
 }
@@ -35,7 +36,9 @@ void Game::Run()noexcept{
 
 void Game::Init() noexcept{
     window = new sf::RenderWindow(sf::VideoMode(800, 600), "Spaceships");
+    std::cout << "Allocate memory for window from game::Init!" << std::endl;
     player = new Player(400, 300, window);
+    std::cout << "Allocate memory for player from game::Init!" << std::endl;
 }
 
 
@@ -69,12 +72,14 @@ void Game::InstantiateObject(Object* newObj)noexcept{
 void Game::FreeMemory(std::vector<Object*>& objVec){
     for(auto& obj : objVec){
         delete obj;
+        std::cout << "Deleting obj -freememory from game!" << std::endl;
     }
 }
 
 void Game::FreeMemory(std::stack<State*>& statesStack){
     while(!statesStack.empty()){
         delete statesStack.top();
+        std::cout << "Deleting state -freememory from game!" << std::endl;
         statesStack.pop();
     }
 }

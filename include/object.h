@@ -1,5 +1,6 @@
 #pragma once
 #include "sfml_headers.h"
+#include <iostream>
 
 class Object{
 public:
