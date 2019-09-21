@@ -27,7 +27,6 @@ private:
     static void UpdateObjects()noexcept;
 
     static float deltaTime;
-    static int objectsCount;
 
     static sf::Event event;
     static sf::Clock dtclock;

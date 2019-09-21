@@ -1,7 +1,6 @@
 #include "game.h"
 
 float Game::deltaTime;
-int Game::objectsCount = 0;
 
 sf::RenderWindow* Game::window;
 Player* Game::player;
@@ -41,7 +40,7 @@ void Game::Render(const std::vector<Object*>& objVec)noexcept{
     for(auto& obj : objVec){
         window -> draw(*obj->GetShape());
     }
-    std::cout << "Current objects count -> " << objectsCount << std::endl;
+    std::cout << "Current objects count -> " << objects.size() << std::endl;
     window -> display();
 }
 
@@ -61,7 +60,6 @@ void Game::UpdateDeltaTime()noexcept{
 }
 void Game::InstantiateObject(Object* newObj)noexcept{
     objects.push_back(newObj);
-    ++objectsCount;
 }
 void Game::FreeMemory(std::vector<Object*>& objVec){
     for(auto& obj : objVec){

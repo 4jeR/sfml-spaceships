@@ -17,6 +17,7 @@ Player::Player(float x, float y, sf::RenderWindow* winptr)
     _dot = new sf::CircleShape(_radius / 7.0f);
     _dot -> setPosition(_x, _y);
     _dot -> setFillColor(sf::Color::Green);
+    
 
 }
 
