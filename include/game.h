@@ -1,6 +1,8 @@
 #pragma once
 #include "player.h"
 #include "state.h"
+#include "enemy.h"
+
 
 #include <iostream>
 #include <vector>
