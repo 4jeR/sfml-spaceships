@@ -17,7 +17,6 @@ public:
     static void Render(const std::vector<Object*>& objects) noexcept;
     static void UpdateAll() noexcept;
 private:
-    static void UpdateWindowSize()noexcept;
     static void InstantiateObject(Object* newObj)noexcept;
     static void Init() noexcept;
     static void FreeMemory(std::vector<Object*>& objVec);
@@ -30,8 +29,8 @@ private:
 
     static sf::Event event;
     static sf::Clock dtclock;
-    static unsigned int WINDOWX;
-    static unsigned int WINDOWY;
+    static const constexpr int WINDOWX = 1200;
+    static const constexpr int WINDOWY = 800;
     
 
     static sf::RenderWindow* window;

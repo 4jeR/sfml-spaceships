@@ -10,8 +10,8 @@ std::stack<State*> Game::states;
 sf::Event Game::event;
 sf::Clock Game::dtclock;
 
-unsigned int Game::WINDOWX = 1200;
-unsigned int Game::WINDOWY = 800;
+const int Game::WINDOWX;
+const int Game::WINDOWY;
 
 Game::Game(){
     Init();
@@ -49,8 +49,11 @@ void Game::UpdateAll()noexcept{
     while (window -> pollEvent(event)){
         if (event.type == sf::Event::Closed)
             window -> close();
-        else if (event.type == sf::Event::Resized)
-            UpdateWindowSize();
+        else if(event.type == sf::Event::Resized){
+            window ->setSize(sf::Vector2u(WINDOWX, WINDOWY));
+            
+        }
+            
     }
     UpdatePlayer();
     UpdateObjects();
@@ -83,11 +86,6 @@ void Game::UpdatePlayer()noexcept{
         objects.push_back(player -> Shot());
         player->GetCooldown() = 0;
     }
-}
-
-void Game::UpdateWindowSize()noexcept{
-    WINDOWX = window -> getSize().x;
-    WINDOWY = window -> getSize().y;
 }
 
 void Game::UpdateObjects()noexcept{
