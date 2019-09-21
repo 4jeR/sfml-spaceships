@@ -41,6 +41,7 @@ void Game::Render(const std::vector<Object*>& objVec)noexcept{
     for(auto& obj : objVec){
         window -> draw(*obj->GetShape());
     }
+    std::cout << "Current objects count -> " << objectsCount << std::endl;
     window -> display();
 }
 

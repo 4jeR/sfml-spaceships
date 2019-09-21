@@ -8,7 +8,6 @@ Player::Player(float x, float y, sf::RenderWindow* winptr)
     
 
     _shape = new sf::CircleShape(_radius, 3);
-    std::cout << "Allocate memory for shape from Player::Player!" << std::endl;
     _shape -> setPosition(_x, _y);
     _shape -> setFillColor(sf::Color::Transparent);
     _shape -> setOutlineThickness(1.5f);
@@ -25,7 +24,6 @@ Player::Player(float x, float y, sf::RenderWindow* winptr)
 Player::~Player(){
     delete _shape;
     delete _dot;
-    std::cout << "Deleting shape from Playerclass!" << std::endl;
 }
 
 
@@ -43,7 +41,6 @@ Missile* Player::Shot()noexcept{
 }
 
 Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* window){
-    std::cout << "Allocate memory for Player from Player:InstantiatePlayer!" << std::endl;
     return new Player(x, y, window);
 }
 
@@ -118,17 +115,11 @@ void Player::Accelerate()noexcept{
 void Player::Move() noexcept{
     float byX = 0.001f * _currentSpeed *  static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
     float byY = -0.001f * _currentSpeed *  static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
-    
-    // std::cout << "\n=====\nSpeed y-> " << std::abs(byY) << std::endl;
-    // std::cout << "Speed x-> " << std::abs(byX) << std::endl;
-    // std::cout << "Current speed -> " << _currentSpeed << std::endl;
-    std::cout << "\n------\n(x,y) -> (" << _x << ", " << _y << ")" << std::endl;
-    
+        
     GetShape() -> move(byX, byY );
     GetDot()   -> move(byX, byY );
     GetX() += byX;
     GetY() += byY;
-   
 }
 
 
