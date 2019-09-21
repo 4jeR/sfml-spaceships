@@ -2,7 +2,7 @@
 #include "player.h"
 #include "state.h"
 #include "enemy.h"
-
+#include "obj_cleaner.h"
 
 #include <iostream>
 #include <vector>
@@ -38,4 +38,5 @@ private:
     static Player* player;
     static std::vector<Object*> objects;
     static std::stack<State*> states;
+    static ObjectCleaner cleaner;
 };
