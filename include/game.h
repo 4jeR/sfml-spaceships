@@ -13,7 +13,7 @@ public:
     
     static void Run() noexcept;
     static void Render(const std::vector<Object*>& objects) noexcept;
-    static void Update() noexcept;
+    static void UpdateAll() noexcept;
 private:
     static void UpdateWindowSize()noexcept;
     static void InstantiateObject(Object* newObj)noexcept;

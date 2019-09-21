@@ -3,7 +3,7 @@
 
 
 Player::Player(float x, float y, sf::RenderWindow* winptr)
-:Object(x, y, winptr),_cooldown(0),_radius(36.0f)
+:Object(x, y, winptr),_cooldown(0),_radius(22.0f)
 {   
     
 
@@ -30,12 +30,11 @@ Player::~Player(){
 
 
 Missile* Player::Shot()noexcept{
-    std::cout << "SINUS 90: " << std::sin(M_PI*90 / 180) << std::endl;
     /**
      * TODO: 
      *      audio playing when shooting new missile
     */
-    _missile = new Missile(_x + 5.0f, _y, _window);
+    _missile = new Missile(_x, _y, _window);
     float byX =  1.5f * _radius * static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
     float byY = -1.5f * _radius * static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
     _missile -> GetShape() -> move(byX, byY );
@@ -84,34 +83,64 @@ int Player::Lives()const noexcept{
     return _lives;
 }
 
-void Player::Update() noexcept{
-   
+float Player::Radius()const noexcept{
+    return _radius;
+}
+
+float& Player::GetRadius() noexcept{
+    return _radius;
+}
+
+void Player::UpdateAll() noexcept{
+   UpdateTransforms();
+   ++_cooldown;
+   // and more stuff later on ...
 }
 
 
 void Player::UpdateTransforms()noexcept {
-
+    Accelerate();
+    Rotate();
 }
 
-void Player::Accelerate(float value)noexcept{
-    float accCoef = 0.000008f;
-    float byX = accCoef * value * _radius * static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
-    float byY = -accCoef * value * _radius * static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
-    _shape -> move(byX, byY );
-    _dot -> move(byX, byY );
-    _x += byX;
-    _y += byY;
+void Player::Accelerate()noexcept{
+    Move();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
+        if(_currentSpeed < 550.0f)
+            _currentSpeed += 1.5f;      // <-- THIS IS REAL ACCELERATION RATE
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
+        if(_currentSpeed > 0.0f)
+            _currentSpeed -= 2.0f;      // <-- THIS IS REAL DECCELERATION RATE
+    }
 }
 
-void Player::Rotate(float angle)noexcept {
-    float rotateCoef = -0.00036f;
-    _shape -> rotate(rotateCoef * angle);
-    _dot -> rotate(rotateCoef * angle);
-    std::cout << "\n=======\nCurrent rotation: " << _shape->getRotation() << std::endl;
-    std::cout << "Trangle origin: " << _shape->getOrigin().x << ", " << _shape->getOrigin().y << std::endl;
-    std::cout << "dot origin: " << _dot->getOrigin().x << ", " << _dot->getOrigin().y << std::endl;
-    std::cout << "\nTrangle position: :" <<  _shape->getPosition().x << ", " << _shape->getPosition().y << std::endl;
-    std::cout << "bdot position: :" <<  _dot->getPosition().x << ", " << _dot->getPosition().y << std::endl;
+void Player::Move() noexcept{
+    float byX = 0.001f * _currentSpeed *  static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    float byY = -0.001f * _currentSpeed *  static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    
+    // std::cout << "\n=====\nSpeed y-> " << std::abs(byY) << std::endl;
+    // std::cout << "Speed x-> " << std::abs(byX) << std::endl;
+    // std::cout << "Current speed -> " << _currentSpeed << std::endl;
+    std::cout << "\n------\n(x,y) -> (" << _x << ", " << _y << ")" << std::endl;
+    
+    GetShape() -> move(byX, byY );
+    GetDot()   -> move(byX, byY );
+    GetX() += byX;
+    GetY() += byY;
+   
+}
 
 
+void Player::Rotate()noexcept {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
+        float rotateCoef = -0.38f;
+        _shape -> rotate(rotateCoef);
+        _dot -> rotate(rotateCoef);
+    } 
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
+        float rotateCoef = 0.38f;
+        _shape -> rotate(rotateCoef);
+        _dot -> rotate(rotateCoef);
+    }
 }

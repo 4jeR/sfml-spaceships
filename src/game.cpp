@@ -11,39 +11,29 @@ std::stack<State*> Game::states;
 sf::Event Game::event;
 sf::Clock Game::dtclock;
 
-unsigned int Game::WINDOWX = 800;
-unsigned int Game::WINDOWY = 600;
+unsigned int Game::WINDOWX = 1200;
+unsigned int Game::WINDOWY = 800;
 
 Game::Game(){
     Init();
 }
-
 Game::~Game(){
     delete window;
-    std::cout << "Deleting window from game!!" << std::endl;
     delete player;
-    std::cout << "Deleting player from game!" << std::endl;
     FreeMemory(objects);
     FreeMemory(states);
 }
-
-
 void Game::Run()noexcept{
     while (window -> isOpen())
     {
         Render(objects);
-        Update();
+        UpdateAll();
     }
 }
-
 void Game::Init() noexcept{
     window = new sf::RenderWindow(sf::VideoMode(WINDOWX, WINDOWY), "Spaceships");
-    std::cout << "Allocate memory for window from game::Init!" << std::endl;
-    player = new Player(static_cast<float>(WINDOWX) / 2, static_cast<float>(WINDOWY) / 2, window);
-    std::cout << "Allocate memory for player from game::Init!" << std::endl;
+    player = Player::InstantiatePlayer(static_cast<float>(WINDOWX) / 2, static_cast<float>(WINDOWY) / 2, window);
 }
-
-
 void Game::Render(const std::vector<Object*>& objVec)noexcept{
     window -> clear();
     window -> draw(*player->GetShape());
@@ -54,7 +44,7 @@ void Game::Render(const std::vector<Object*>& objVec)noexcept{
     window -> display();
 }
 
-void Game::Update()noexcept{
+void Game::UpdateAll()noexcept{
     UpdateDeltaTime();
     while (window -> pollEvent(event)){
         if (event.type == sf::Event::Closed)
@@ -62,27 +52,22 @@ void Game::Update()noexcept{
         else if (event.type == sf::Event::Resized)
             UpdateWindowSize();
     }
-    UpdateObjects();
     UpdatePlayer();
+    UpdateObjects();
 }
-
 void Game::UpdateDeltaTime()noexcept{
     deltaTime = dtclock.restart().asSeconds() / 1000.f;
 }
-
-
 void Game::InstantiateObject(Object* newObj)noexcept{
     objects.push_back(newObj);
     ++objectsCount;
 }
-
 void Game::FreeMemory(std::vector<Object*>& objVec){
     for(auto& obj : objVec){
         delete obj;
         std::cout << "Deleting obj -freememory from game!" << std::endl;
     }
 }
-
 void Game::FreeMemory(std::stack<State*>& statesStack){
     while(!statesStack.empty()){
         delete statesStack.top();
@@ -90,29 +75,12 @@ void Game::FreeMemory(std::stack<State*>& statesStack){
         statesStack.pop();
     }
 }
-
 void Game::UpdatePlayer()noexcept{
-    player -> GetCooldown()++;
-    /**
-     * TODO:
-     *      change player moveiny,moveinx to rotate and moveforward
-     *      to make it look more intuitive and
-     *      fix moving player in proper direction 
-    */
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
-        player -> Accelerate(static_cast<float>(WINDOWY));
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-        player -> Accelerate(-static_cast<float>(WINDOWY));
-    }
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        player -> Rotate(static_cast<float>(WINDOWX));
-    } 
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-        player -> Rotate(-static_cast<float>(WINDOWX));
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 1000){
+    
+    player -> UpdateAll();
+    
+    
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 500){
         objects.push_back(player -> Shot());
         player->GetCooldown() = 0;
     }
@@ -125,6 +93,6 @@ void Game::UpdateWindowSize()noexcept{
 
 void Game::UpdateObjects()noexcept{
     for(auto& obj : objects){
-        obj -> Update();
+        obj -> UpdateAll();
     }
 }

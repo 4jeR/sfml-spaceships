@@ -10,6 +10,7 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
     _shape -> setOutlineColor(sf::Color::Red);
     _shape -> setOutlineThickness(1.0f);
     _shape -> setFillColor(sf::Color::Transparent);
+    _currentSpeed = 900.0f;
 }
 
 Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* window){
@@ -36,19 +37,26 @@ sf::Shape* Missile::GetShape()noexcept{
     return _shape;
 }
 
-void Missile::Update() noexcept {
-    
+void Missile::UpdateAll() noexcept {
+    UpdateTransforms();
     /**
      * TODO: 
      *      update its position based on direction it was shot,
      *      and time passed 
     */
+    // and more stuff later on ...
 }
 
 void Missile::UpdateTransforms()noexcept {
-
+    Rotate();
+    float byX = 0.001f * _currentSpeed *  static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    float byY = -0.001f * _currentSpeed *  static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+       
+    _shape -> move(byX, byY );
+    GetX() += byX;
+    GetY() += byY;
 }
 
-void Missile::Rotate(float angle)noexcept{
+void Missile::Rotate()noexcept{
     
 }
