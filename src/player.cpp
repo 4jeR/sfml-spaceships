@@ -16,7 +16,7 @@ Player::Player(float x, float y, sf::RenderWindow* winptr)
     _shape -> setOrigin(static_cast<float>(static_cast<double>(_radius) * std::sqrt(3)/ 2.0), _radius );
 
     _dot = new sf::CircleShape(_radius / 7.0f);
-    _dot ->setPosition(_x, _y);
+    _dot -> setPosition(_x, _y);
     _dot -> setFillColor(sf::Color::Green);
 
 }
@@ -30,11 +30,16 @@ Player::~Player(){
 
 
 Missile* Player::Shot()noexcept{
+    std::cout << "SINUS 90: " << std::sin(M_PI*90 / 180) << std::endl;
     /**
      * TODO: 
      *      audio playing when shooting new missile
     */
-    _missile = new Missile(_x, _y + 15.0f, _window);
+    _missile = new Missile(_x + 5.0f, _y, _window);
+    float byX =  1.5f * _radius * static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    float byY = -1.5f * _radius * static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    _missile -> GetShape() -> move(byX, byY );
+    _missile -> GetShape() -> rotate(_shape -> getRotation());
     return _missile;
 }
 
@@ -89,12 +94,19 @@ void Player::UpdateTransforms()noexcept {
 }
 
 void Player::Accelerate(float value)noexcept{
-
+    float accCoef = 0.000008f;
+    float byX = accCoef * value * _radius * static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    float byY = -accCoef * value * _radius * static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    _shape -> move(byX, byY );
+    _dot -> move(byX, byY );
+    _x += byX;
+    _y += byY;
 }
 
 void Player::Rotate(float angle)noexcept {
-    _shape -> rotate(angle);
-    _dot -> rotate(angle);
+    float rotateCoef = -0.00036f;
+    _shape -> rotate(rotateCoef * angle);
+    _dot -> rotate(rotateCoef * angle);
     std::cout << "\n=======\nCurrent rotation: " << _shape->getRotation() << std::endl;
     std::cout << "Trangle origin: " << _shape->getOrigin().x << ", " << _shape->getOrigin().y << std::endl;
     std::cout << "dot origin: " << _dot->getOrigin().x << ", " << _dot->getOrigin().y << std::endl;

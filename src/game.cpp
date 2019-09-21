@@ -100,16 +100,17 @@ void Game::UpdatePlayer()noexcept{
      *      fix moving player in proper direction 
     */
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
-        player -> Accelerate(-0.0003f * static_cast<float>(WINDOWY));
+        player -> Accelerate(static_cast<float>(WINDOWY));
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-        player -> Accelerate(0.0003f  * static_cast<float>(WINDOWY));
+        player -> Accelerate(-static_cast<float>(WINDOWY));
     }
+
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        player -> Rotate(-0.0002f * static_cast<float>(WINDOWX));
+        player -> Rotate(static_cast<float>(WINDOWX));
     } 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-        player -> Rotate(0.0002f  * static_cast<float>(WINDOWX));
+        player -> Rotate(-static_cast<float>(WINDOWX));
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 1000){
         objects.push_back(player -> Shot());

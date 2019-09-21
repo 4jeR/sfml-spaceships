@@ -6,7 +6,7 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
 {
     std::cout << "Allocate memory for shape from Missile::Missile!" << std::endl;
     _shape = new sf::RectangleShape(sf::Vector2f(2.0f, 8.0f));
-    _shape -> setPosition(x + 23.5f, y - 40.0f);
+    _shape -> setPosition(_x, _y);
     _shape -> setOutlineColor(sf::Color::Red);
     _shape -> setOutlineThickness(1.0f);
     _shape -> setFillColor(sf::Color::Transparent);
@@ -37,6 +37,7 @@ sf::Shape* Missile::GetShape()noexcept{
 }
 
 void Missile::Update() noexcept {
+    
     /**
      * TODO: 
      *      update its position based on direction it was shot,
@@ -49,5 +50,5 @@ void Missile::UpdateTransforms()noexcept {
 }
 
 void Missile::Rotate(float angle)noexcept{
-
+    
 }
