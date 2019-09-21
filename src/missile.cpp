@@ -23,9 +23,6 @@ Missile::~Missile(){
     std::cout << "Deleting missile from Missile class!" << std::endl;
 }
 
-void Missile::Draw(const sf::Drawable& obj)const{
-    _window -> draw(obj);
-}
 
 
 
@@ -35,7 +32,7 @@ Missile& Missile::operator=(const Missile& rhs){
     return *this;
 }
 
-sf::Shape* Missile::GetShape(){
+sf::Shape* Missile::GetShape()noexcept{
     return _shape;
 }
 
@@ -47,13 +44,10 @@ void Missile::Update() noexcept {
     */
 }
 
-void Missile::MoveInX(float value)noexcept{
-    _x += value;
-    _shape->move(value, 0.0f);
+void Missile::UpdateTransforms()noexcept {
+
 }
 
+void Missile::Rotate(float angle)noexcept{
 
-void Missile::MoveInY(float value)noexcept{
-    _y += value;
-    _shape->move(0.0f, value);
 }

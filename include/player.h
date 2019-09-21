@@ -16,15 +16,21 @@ public:
     int Lives()const noexcept;
 
     Missile* Shot()noexcept;
-    void MoveInX(float value)noexcept override;
-    void MoveInY(float value)noexcept override;
-    void Draw(const sf::Drawable& obj)const override;
+    void UpdateTransforms()noexcept override;
+    void Rotate(float angle)noexcept override;
+    void Accelerate(float value)noexcept;
     void Update() noexcept override;
-    sf::Shape* GetShape() override;
+    sf::Shape* GetShape() noexcept override;
+    sf::CircleShape* GetDot()noexcept;
+    void InitWings()noexcept;
 private:
+
+
 
     int _lives;
     int _cooldown;
+    float _radius;
     Missile* _missile;
     sf::CircleShape* _shape;
+    sf::CircleShape* _dot;
 };

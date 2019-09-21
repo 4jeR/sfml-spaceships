@@ -9,12 +9,11 @@ public:
     static Missile* InstantiateMissile(float x, float y, sf::RenderWindow* window);
     
     Missile& operator=(const Missile& rhs);
+    void UpdateTransforms()noexcept override;
+    void Rotate(float angle)noexcept override;
 
-    void MoveInX(float value)noexcept override;
-    void MoveInY(float value)noexcept override;
-    void Draw(const sf::Drawable& obj)const override;
     void Update() noexcept override;
-    sf::Shape* GetShape() override;
+    sf::Shape* GetShape() noexcept override;
 private:
     sf::RectangleShape* _shape; 
 };

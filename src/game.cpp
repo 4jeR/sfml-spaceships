@@ -47,6 +47,7 @@ void Game::Init() noexcept{
 void Game::Render(const std::vector<Object*>& objVec)noexcept{
     window -> clear();
     window -> draw(*player->GetShape());
+    window -> draw(*player->GetDot());
     for(auto& obj : objVec){
         window -> draw(*obj->GetShape());
     }
@@ -92,17 +93,23 @@ void Game::FreeMemory(std::stack<State*>& statesStack){
 
 void Game::UpdatePlayer()noexcept{
     player -> GetCooldown()++;
+    /**
+     * TODO:
+     *      change player moveiny,moveinx to rotate and moveforward
+     *      to make it look more intuitive and
+     *      fix moving player in proper direction 
+    */
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
-        player -> MoveInY(-0.0003f * static_cast<float>(WINDOWY));
+        player -> Accelerate(-0.0003f * static_cast<float>(WINDOWY));
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-        player -> MoveInY(0.0003f  * static_cast<float>(WINDOWY));
+        player -> Accelerate(0.0003f  * static_cast<float>(WINDOWY));
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        player -> MoveInX(-0.0002f * static_cast<float>(WINDOWX));
+        player -> Rotate(-0.0002f * static_cast<float>(WINDOWX));
     } 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-        player -> MoveInX(0.0002f  * static_cast<float>(WINDOWX));
+        player -> Rotate(0.0002f  * static_cast<float>(WINDOWX));
     }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 1000){
         objects.push_back(player -> Shot());

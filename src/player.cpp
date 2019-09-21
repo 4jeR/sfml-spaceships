@@ -3,19 +3,28 @@
 
 
 Player::Player(float x, float y, sf::RenderWindow* winptr)
-:Object(x, y, winptr),_cooldown(0)
-{
-    _shape = new sf::CircleShape(25.0f, 3);
+:Object(x, y, winptr),_cooldown(0),_radius(36.0f)
+{   
+    
+
+    _shape = new sf::CircleShape(_radius, 3);
     std::cout << "Allocate memory for shape from Player::Player!" << std::endl;
-    _shape -> setPosition(x, y);
+    _shape -> setPosition(_x, _y);
     _shape -> setFillColor(sf::Color::Transparent);
     _shape -> setOutlineThickness(1.5f);
     _shape -> setOutlineColor(sf::Color::Green);
+    _shape -> setOrigin(static_cast<float>(static_cast<double>(_radius) * std::sqrt(3)/ 2.0), _radius );
+
+    _dot = new sf::CircleShape(_radius / 7.0f);
+    _dot ->setPosition(_x, _y);
+    _dot -> setFillColor(sf::Color::Green);
+
 }
 
 
 Player::~Player(){
     delete _shape;
+    delete _dot;
     std::cout << "Deleting shape from Playerclass!" << std::endl;
 }
 
@@ -34,16 +43,7 @@ Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* window){
     return new Player(x, y, window);
 }
 
-void Player::MoveInX(float value)noexcept{
-    _x += value;
-    _shape->move(value, 0.0f);
-}
 
-
-void Player::MoveInY(float value)noexcept{
-    _y += value;
-    _shape->move(0.0f, value);
-}
 
 
 Player& Player::operator=(const Player& rhs){
@@ -53,12 +53,14 @@ Player& Player::operator=(const Player& rhs){
     return *this;
 }
 
-void Player::Draw(const sf::Drawable& obj)const{
-    _window -> draw(obj);
+
+
+sf::Shape* Player::GetShape()noexcept{
+    return _shape;
 }
 
-sf::Shape* Player::GetShape(){
-    return _shape;
+sf::CircleShape* Player::GetDot()noexcept{
+    return _dot;
 }
 
 int& Player::GetLives()noexcept{
@@ -79,4 +81,25 @@ int Player::Lives()const noexcept{
 
 void Player::Update() noexcept{
    
+}
+
+
+void Player::UpdateTransforms()noexcept {
+
+}
+
+void Player::Accelerate(float value)noexcept{
+
+}
+
+void Player::Rotate(float angle)noexcept {
+    _shape -> rotate(angle);
+    _dot -> rotate(angle);
+    std::cout << "\n=======\nCurrent rotation: " << _shape->getRotation() << std::endl;
+    std::cout << "Trangle origin: " << _shape->getOrigin().x << ", " << _shape->getOrigin().y << std::endl;
+    std::cout << "dot origin: " << _dot->getOrigin().x << ", " << _dot->getOrigin().y << std::endl;
+    std::cout << "\nTrangle position: :" <<  _shape->getPosition().x << ", " << _shape->getPosition().y << std::endl;
+    std::cout << "bdot position: :" <<  _dot->getPosition().x << ", " << _dot->getPosition().y << std::endl;
+
+
 }
