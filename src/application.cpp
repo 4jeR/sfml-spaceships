@@ -1,27 +1,27 @@
-#include "game.h"
+#include "application.h"
 
-float Game::deltaTime;
+float Application::deltaTime;
 
-sf::RenderWindow* Game::window;
-std::stack<State*> Game::states;
-Player* Game::player;
-ObjectCleaner Game::cleaner;
+sf::RenderWindow* Application::window;
+std::stack<State*> Application::states;
+Player* Application::player;
+ObjectCleaner Application::cleaner;
 
-sf::Event Game::event;
-sf::Clock Game::dtclock;
+sf::Event Application::event;
+sf::Clock Application::dtclock;
 
-const int Game::WINDOWX;
-const int Game::WINDOWY;
+const int Application::WINDOWX;
+const int Application::WINDOWY;
 
-Game::Game(){
+Application::Application(){
     InitWindow();
     InitStates();
 }
-Game::~Game(){
+Application::~Application(){
     delete window;
     FreeStatesMemory();
 }
-void Game::Run()noexcept{
+void Application::Run()noexcept{
     while (window -> isOpen())
     {
         Render();
@@ -30,7 +30,7 @@ void Game::Run()noexcept{
 }
 
 
-void Game::Render()noexcept{
+void Application::Render()noexcept{
     window -> clear();
     if(!states.empty()){
         states.top()->Render();
@@ -40,7 +40,7 @@ void Game::Render()noexcept{
     window -> display();
 }
 
-void Game::UpdateAll()noexcept{
+void Application::UpdateAll()noexcept{
     UpdateDeltaTime();
     while (window -> pollEvent(event)){
         if (event.type == sf::Event::Closed)
@@ -67,12 +67,12 @@ void Game::UpdateAll()noexcept{
 
     
 }
-void Game::UpdateDeltaTime()noexcept{
+void Application::UpdateDeltaTime()noexcept{
     deltaTime = dtclock.restart().asSeconds() / 1000.f;
 }
 
 
-void Game::FreeStatesMemory(){
+void Application::FreeStatesMemory(){
     while(!states.empty()){
         delete states.top();
         std::cout << "Deleting state -freememory from game!" << std::endl;
@@ -80,11 +80,11 @@ void Game::FreeStatesMemory(){
     }
 }
 
-void Game::InitWindow()noexcept{
+void Application::InitWindow()noexcept{
     window = new sf::RenderWindow(sf::VideoMode(WINDOWX, WINDOWY), "Spaceships");
 }
 
-void Game::InitStates()noexcept{
+void Application::InitStates()noexcept{
     states.push(new GameState(window));
     states.push(new MenuState(window));
     states.top()->InitState();

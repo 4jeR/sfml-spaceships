@@ -9,10 +9,10 @@
 #include <vector>
 #include <stack>
 
-class Game{
+class Application{
 public:
-    Game();
-    ~Game();
+    Application();
+    ~Application();
     
     static void Run() noexcept;
     static void Render() noexcept;
