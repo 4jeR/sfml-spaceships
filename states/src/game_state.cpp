@@ -58,9 +58,9 @@ void GameState::InitState()noexcept{
 
 
 void GameState::UpdateState() noexcept {
-    CheckForQuit();
     UpdatePlayer();
     UpdateObjects();
+    CheckForQuit();
 
 }
 
