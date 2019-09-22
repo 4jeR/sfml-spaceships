@@ -1,6 +1,6 @@
 #pragma once
 #include "player.h"
-#include "state.h"
+#include "game_state.h"
 #include "enemy.h"
 #include "obj_cleaner.h"
 
@@ -14,12 +14,12 @@ public:
     ~Game();
     
     static void Run() noexcept;
-    static void Render(const std::vector<Object*>& objects) noexcept;
+    static void Render() noexcept;
     static void UpdateAll() noexcept;
 private:
     static void InstantiateObject(Object* newObj)noexcept;
     static void Init() noexcept;
-    static void FreeMemory(std::vector<Object*>& objVec);
+    static void InitStates()noexcept;
     static void FreeMemory(std::stack<State*>& statesStack);
     static void UpdateDeltaTime()noexcept;
     static void UpdatePlayer()noexcept;
@@ -34,8 +34,6 @@ private:
     
 
     static sf::RenderWindow* window;
-    static Player* player;
-    static std::vector<Object*> objects;
     static std::stack<State*> states;
     static ObjectCleaner cleaner;
 };
