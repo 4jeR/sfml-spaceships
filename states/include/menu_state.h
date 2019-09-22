@@ -3,12 +3,13 @@
 
 class MenuState : public State{
 public:
-    MenuState(sf::RenderWindow);
+    MenuState(sf::RenderWindow* window);
     ~MenuState();
 
-    virtual void Render() noexcept = 0;
-    virtual void UpdateState() noexcept = 0;
-    virtual void InitState()noexcept = 0;
-    virtual bool CheckForQuit()noexcept = 0;
-
+    void Render() noexcept override;
+    void UpdateState() noexcept override;
+    void InitState()noexcept override;
+    bool CheckForQuit()noexcept override;
+private:
+    
 };

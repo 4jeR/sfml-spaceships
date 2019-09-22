@@ -53,6 +53,7 @@ void GameState::UpdateObjects()noexcept{
 
 
 void GameState::InitState()noexcept{
+    std::cout << "entering game state!"<<std::endl;
     player = Player::InstantiatePlayer(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
 }
 
@@ -60,19 +61,20 @@ void GameState::InitState()noexcept{
 void GameState::UpdateState() noexcept {
     UpdatePlayer();
     UpdateObjects();
-    CheckForQuit();
 
 }
 
 bool GameState::CheckForQuit()noexcept {
-    if(player->Lives() <= 2)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::T))
         _quitState = true;
+    
     /**
      * NOTE:
      *      this will be replaced by logic part (logic class maybe) later on
      * 
      * */ 
     if(_quitState){
+
         std::cout << "quitting gamestate!" << std::endl;
     }
     return _quitState;

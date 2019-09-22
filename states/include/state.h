@@ -1,6 +1,7 @@
 #pragma once
 #include "sfml_headers.h"
 #include <vector>
+#include <iostream>
 
 class State{
 public:

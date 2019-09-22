@@ -55,10 +55,12 @@ void Game::UpdateAll()noexcept{
         if(states.top()->CheckForQuit()){
             delete states.top();
             states.pop();
+            if(!states.empty())
+                states.top()->InitState();
         }
     }
     else{
-        std::cout << "states stack is empty -> closing window!";
+        std::cout << "states stack is empty -> closing window!" << std::endl;
         window -> close();
     }
 
@@ -83,8 +85,8 @@ void Game::InitWindow()noexcept{
 }
 
 void Game::InitStates()noexcept{
-    // states.push(new MenuState)
     states.push(new GameState(window));
+    states.push(new MenuState(window));
     states.top()->InitState();
     /**
      * NOTE:

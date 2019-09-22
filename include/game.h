@@ -1,6 +1,7 @@
 #pragma once
 #include "player.h"
 #include "game_state.h"
+#include "menu_state.h"
 #include "enemy.h"
 #include "obj_cleaner.h"
 
