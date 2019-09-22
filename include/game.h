@@ -36,4 +36,5 @@ private:
     static sf::RenderWindow* window;
     static std::stack<State*> states;
     static ObjectCleaner cleaner;
+    static Player* player;
 };

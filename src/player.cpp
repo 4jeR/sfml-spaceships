@@ -3,7 +3,7 @@
 
 
 Player::Player(float x, float y, sf::RenderWindow* winptr)
-:Object(x, y, winptr),_cooldown(0),_radius(22.0f)
+:Object(x, y, winptr),_cooldown(0),_lives(3),_radius(22.0f)
 {   
     
 

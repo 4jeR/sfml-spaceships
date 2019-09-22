@@ -4,7 +4,7 @@ float Game::deltaTime;
 
 sf::RenderWindow* Game::window;
 std::stack<State*> Game::states;
-
+Player* Game::player;
 sf::Event Game::event;
 sf::Clock Game::dtclock;
 
@@ -45,12 +45,19 @@ void Game::UpdateAll()noexcept{
             window -> close();
         else if(event.type == sf::Event::Resized){
             window ->setSize(sf::Vector2u(WINDOWX, WINDOWY));
-            
         }  
     }
-
+    
     if(!states.empty()){
-        states.top()->UpdateState(deltaTime);
+        states.top()->UpdateState();
+        if(states.top()->CheckForQuit()){
+            delete states.top();
+            states.pop();
+        }
+    }
+    else{
+        std::cout << "states stack is empty -> closing window!";
+        window -> close();
     }
 
 

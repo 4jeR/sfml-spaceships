@@ -53,8 +53,9 @@ void Missile::UpdateTransforms()noexcept {
     float byY = -0.001f * _currentSpeed *  static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
        
     _shape -> move(byX, byY );
-    GetX() += byX;
-    GetY() += byY;
+    _x += byX;
+    _y += byY;
+    
 }
 
 void Missile::Rotate()noexcept{

@@ -31,8 +31,8 @@ private:
     void UpdateTransforms()noexcept override;
     void Rotate()noexcept override;
     void Accelerate()noexcept;
-    int _lives;
     int _cooldown;
+    int _lives;
     float _radius;
     Missile* _missile;
     sf::CircleShape* _shape;
