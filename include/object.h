@@ -20,7 +20,8 @@ public:
     
     virtual void UpdateAll() noexcept = 0;
     virtual sf::Shape* GetShape() noexcept = 0;
-    float CalcAngularVelocity(float x)const noexcept;
+    float CalcAngularVelocity(float current_speed)const noexcept;
+    float CalcAcceleration(float current_speed, bool add)const noexcept;
 protected:
     virtual void UpdateTransforms()noexcept = 0;
     virtual void Rotate()noexcept = 0;

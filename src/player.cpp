@@ -103,14 +103,11 @@ void Player::UpdateTransforms()noexcept {
 
 void Player::Accelerate()noexcept{
     Move();
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){
-        if(_currentSpeed <= 570.0f)
-            _currentSpeed += 1.0f;      // <-- THIS IS REAL ACCELERATION RATE
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){
-        if(_currentSpeed > 0.0f)
-            _currentSpeed -= 0.5f;      // <-- THIS IS REAL DECCELERATION RATE
-    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+        _currentSpeed += CalcAcceleration(_currentSpeed, true);
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+        _currentSpeed += CalcAcceleration(_currentSpeed, false);   
+    
 }
 
 void Player::Move() noexcept{
@@ -123,16 +120,15 @@ void Player::Move() noexcept{
     GetY() += byY;
 }
 
-//f(x) = x / (1 + abs(x))
 void Player::Rotate()noexcept {
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
-        float rotateCoef = -(0.45f - CalcAngularVelocity(_currentSpeed));
+        float rotateCoef = -(0.35f - CalcAngularVelocity(_currentSpeed));
         _shape -> rotate(rotateCoef);
         _dot -> rotate(rotateCoef);
     } 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)){
-        float rotateCoef =  0.45f - CalcAngularVelocity(_currentSpeed);
+        float rotateCoef =  0.35f - CalcAngularVelocity(_currentSpeed);
         _shape -> rotate(rotateCoef);
         _dot -> rotate(rotateCoef);
     }

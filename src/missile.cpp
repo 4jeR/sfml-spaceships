@@ -10,7 +10,7 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
     _shape -> setOutlineColor(sf::Color::Red);
     _shape -> setOutlineThickness(1.0f);
     _shape -> setFillColor(sf::Color::Transparent);
-    _currentSpeed = 900.0f;
+    _currentSpeed = 1500.0f;
 }
 
 Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* window){

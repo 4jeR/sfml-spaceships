@@ -44,7 +44,42 @@ float& Object::GetY()noexcept{
 }
 
 
-float Object::CalcAngularVelocity(float x)const noexcept{
-    if(x >= 0.0f)
-        return 0.005f * std::sqrt(6.0f * x);
+float Object::CalcAngularVelocity(float current_speed)const noexcept{
+    float value = 0.0f;
+    if(0.0f <= current_speed && current_speed <= 200.0f){
+        value =  0.002f * std::sqrt(current_speed / 3.0f);
+    }
+    else if(200.0f < current_speed && current_speed <= 600.0f){
+        value  = 0.001f * std::sqrt(2.0f * current_speed / 3.0f);
+    }
+    else if(600.0f < current_speed && current_speed <= 895.0f){
+        value  = 0.007f * std::sqrt(4.0f * current_speed / 3.0f);
+    }
+
+    return value ;
+    //(current_speed >= 0.0f) ? 0.005f * std::sqrt(6.0f * current_speed) : 0.0f;
+}
+
+float Object::CalcAcceleration(float current_speed, bool add)const noexcept{
+    float value = 0.0f;
+    if(add){
+        if(0.0f <= current_speed && current_speed <= 200.0f){
+            value = 1.5f;
+        }
+        else if(200.0f < current_speed && current_speed <= 600.0f){
+            value  = 2.0f;
+        }
+        else if(600.0f < current_speed && current_speed <= 894.5f){
+            value  = 0.5f;
+        }
+    }
+    else if(!add){
+        if(1.0f <= current_speed && current_speed <= 200.0f){
+            value = -1.0f;
+        }
+        else if(200.0f <= current_speed){
+            value = -3.0f;
+        }
+    }
+    return value;
 }

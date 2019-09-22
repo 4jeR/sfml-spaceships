@@ -23,7 +23,8 @@ void GameState::Render() noexcept {
     for(auto& obj : objects){
         _window -> draw(*obj->GetShape());  
     }
-    //std::cout << "Current objects count -> " << objects.size() << std::endl;
+    std::cout << "Player speed -> " << player->CurrentSpeed() << std::endl;
+    
 
 }
 
