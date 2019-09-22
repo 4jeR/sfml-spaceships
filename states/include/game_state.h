@@ -2,6 +2,7 @@
 #include "state.h"
 #include "player.h"
 #include "enemy.h"
+#include <iterator>
 
 class GameState : public State{
 public:
@@ -13,9 +14,8 @@ public:
 private:
     static void UpdatePlayer()noexcept;
     static void UpdateObjects()noexcept;
-
-    static void Render(const std::vector<Object*>& objects) noexcept;
-    static void FreeMemory(std::vector<Object*>& objVec);
+    static void FreeDestroyedObjects();
+    static void FreeMemory();
     bool CheckForQuit()noexcept override;
     void InitState()noexcept override;
 

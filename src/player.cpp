@@ -92,6 +92,7 @@ float& Player::GetRadius() noexcept{
 void Player::UpdateAll() noexcept{
    UpdateTransforms();
    ++_cooldown;
+   
    // and more stuff later on ...
 }
 

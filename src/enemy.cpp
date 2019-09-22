@@ -45,6 +45,7 @@ float& Enemy::GetY()noexcept{
 
 void Enemy::UpdateAll() noexcept {
     UpdateTransforms();
+    DisappearedFromWindow();
     /**
      * and more stuff later on ...
     */

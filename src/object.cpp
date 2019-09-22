@@ -2,7 +2,7 @@
 
 
 Object::Object(float x, float y, sf::RenderWindow* winptr)
-:_x(x), _y(y),_window(winptr),_currentSpeed(0.0f)
+:_x(x), _y(y),_window(winptr),_currentSpeed(0.0f),_isDestroyed(false)
 {
 
 }
@@ -19,13 +19,6 @@ Object& Object::operator=(const Object& rhs){
     return *this;
 }
 
-float Object::CurrentSpeed()const noexcept{
-    return _currentSpeed;
-}
-
-float& Object::GetCurrentSpeed()noexcept{
-    return _currentSpeed;
-}
 
 float Object::X()const noexcept{
     return _x;
@@ -42,6 +35,33 @@ float Object::Y()const noexcept{
 float& Object::GetY()noexcept{
     return _y;
 }
+
+bool Object::IsDestroyed()const noexcept{
+    return _isDestroyed;
+}
+
+bool& Object::GetDestroyState()noexcept{
+    return _isDestroyed;
+}
+
+float Object::CurrentSpeed()const noexcept{
+    return _currentSpeed;
+}
+
+float& Object::GetCurrentSpeed()noexcept{
+    return _currentSpeed;
+}
+
+bool Object::DisappearedFromWindow()noexcept{
+    float xx = static_cast<float>(_window->getSize().x);
+    float yy = static_cast<float>(_window->getSize().y);
+    if(!((0 < _x && _x < xx) && (0 < _y && _y < yy))){
+        _isDestroyed = true;
+        return true;
+    }
+    return false;
+}
+
 
 
 float Object::CalcAngularVelocity(float current_speed)const noexcept{

@@ -13,7 +13,7 @@ GameState::GameState(sf::RenderWindow* window)
 
 GameState::~GameState(){
     delete player;
-    FreeMemory(objects);
+    FreeMemory();
 
 }
 
@@ -24,24 +24,21 @@ void GameState::Render() noexcept {
     for(auto& obj : objects){
         _window -> draw(*obj->GetShape());  
     }
-    std::cout << "Player speed -> " << player->CurrentSpeed() << std::endl;
-    
-
 }
 
 
 
-void GameState::FreeMemory(std::vector<Object*>& objVec){
-    for(auto& obj : objVec){
+void GameState::FreeMemory(){
+    for(auto& obj : objects){
         delete obj;
-        std::cout << "Deleting obj -freememory from game!" << std::endl;
+        std::cout << "Deleting obj - freememory application destructor!" << std::endl;
     }
 }
 
 void GameState::UpdatePlayer()noexcept{
     player -> UpdateAll();
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 500){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 250){
         objects.push_back(player -> Shot());
         player->GetCooldown() = 0;
     }
@@ -63,18 +60,13 @@ void GameState::InitState()noexcept{
 void GameState::UpdateState() noexcept {
     UpdatePlayer();
     UpdateObjects();
-
+    FreeDestroyedObjects();
 }
 
 bool GameState::CheckForQuit()noexcept {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::T))
         _quitState = true;
     
-    /**
-     * NOTE:
-     *      this will be replaced by logic part (logic class maybe) later on
-     * 
-     * */ 
     if(_quitState){
 
         std::cout << "quitting gamestate!" << std::endl;
@@ -82,3 +74,12 @@ bool GameState::CheckForQuit()noexcept {
     return _quitState;
 }
 
+
+void GameState::FreeDestroyedObjects(){
+    for(int i = 0; i < static_cast<int>(objects.size()); ++i){
+        if(objects.at(static_cast<long unsigned int>(i))->IsDestroyed()){
+            delete objects.at(static_cast<long unsigned int>(i));
+            objects.erase(objects.begin()+i);
+        }
+    }
+}

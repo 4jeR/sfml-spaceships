@@ -74,7 +74,7 @@ void Application::UpdateDeltaTime()noexcept{
 void Application::FreeStatesMemory(){
     while(!states.empty()){
         delete states.top();
-        std::cout << "Deleting state -freememory from game!" << std::endl;
+        std::cout << "Deleting state - freememory from application!" << std::endl;
         states.pop();
     }
 }

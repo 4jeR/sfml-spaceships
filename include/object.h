@@ -11,12 +11,14 @@ public:
 
     Object& operator=(const Object& rhs);
     
-    float CurrentSpeed()const noexcept;
-    float& GetCurrentSpeed()noexcept;
     float X()const noexcept;
     float& GetX()noexcept;
     float Y()const noexcept;
     float& GetY()noexcept;
+    float CurrentSpeed()const noexcept;
+    float& GetCurrentSpeed()noexcept;
+    bool IsDestroyed()const noexcept;
+    bool& GetDestroyState()noexcept;
     
     virtual void UpdateAll() noexcept = 0;
     virtual sf::Shape* GetShape() noexcept = 0;
@@ -25,8 +27,10 @@ public:
 protected:
     virtual void UpdateTransforms()noexcept = 0;
     virtual void Rotate()noexcept = 0;
+    bool DisappearedFromWindow()noexcept;
     float _x;
     float _y;
     sf::RenderWindow* _window;
     float _currentSpeed;
+    bool _isDestroyed;
 };
