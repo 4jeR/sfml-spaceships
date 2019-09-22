@@ -12,5 +12,4 @@ public:
     virtual void InitState()noexcept = 0;
 protected:
     sf::RenderWindow* _window;
-    std::vector<sf::Texture> _textures;
 };

@@ -12,11 +12,12 @@ const int Game::WINDOWX;
 const int Game::WINDOWY;
 
 Game::Game(){
-    Init();
+    InitWindow();
+    InitStates();
 }
 Game::~Game(){
     delete window;
-    FreeMemory(states);
+    FreeStatesMemory();
 }
 void Game::Run()noexcept{
     while (window -> isOpen())
@@ -25,11 +26,8 @@ void Game::Run()noexcept{
         UpdateAll();
     }
 }
-void Game::Init() noexcept{
-    window = new sf::RenderWindow(sf::VideoMode(WINDOWX, WINDOWY), "Spaceships");
-    InitStates();
-    
-}
+
+
 void Game::Render()noexcept{
     window -> clear();
     if(!states.empty()){
@@ -63,16 +61,30 @@ void Game::UpdateDeltaTime()noexcept{
 }
 
 
-void Game::FreeMemory(std::stack<State*>& statesStack){
-    while(!statesStack.empty()){
-        delete statesStack.top();
+void Game::FreeStatesMemory(){
+    while(!states.empty()){
+        delete states.top();
         std::cout << "Deleting state -freememory from game!" << std::endl;
-        statesStack.pop();
+        states.pop();
     }
 }
 
+void Game::InitWindow()noexcept{
+    window = new sf::RenderWindow(sf::VideoMode(WINDOWX, WINDOWY), "Spaceships");
+}
 
 void Game::InitStates()noexcept{
+    // states.push(new MenuState)
     states.push(new GameState(window));
     states.top()->InitState();
+    /**
+     * NOTE:
+     *      this should be probably organised in different sections 
+     *      states.push(mainmenu)
+     *      states.top()-InitState();
+     *      
+     *      then based on user input 
+     *      states.push(state [gamestate / options? / about / quitstate]
+     * 
+    */
 }

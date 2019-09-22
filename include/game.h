@@ -18,9 +18,9 @@ public:
     static void UpdateAll() noexcept;
 private:
     static void InstantiateObject(Object* newObj)noexcept;
-    static void Init() noexcept;
     static void InitStates()noexcept;
-    static void FreeMemory(std::stack<State*>& statesStack);
+    static void InitWindow()noexcept;
+    static void FreeStatesMemory();
     static void UpdateDeltaTime()noexcept;
     static void UpdatePlayer()noexcept;
     static void UpdateObjects()noexcept;
