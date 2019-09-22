@@ -3,6 +3,7 @@
 Player* GameState::player;
 std::vector<Object*> GameState::objects;
 
+
 GameState::GameState(sf::RenderWindow* window)
 :State(window)
 {

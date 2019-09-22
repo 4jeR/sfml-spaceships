@@ -23,8 +23,6 @@ private:
     static void InitWindow()noexcept;
     static void FreeStatesMemory();
     static void UpdateDeltaTime()noexcept;
-    static void UpdatePlayer()noexcept;
-    static void UpdateObjects()noexcept;
 
     static float deltaTime;
 
@@ -36,6 +34,5 @@ private:
 
     static sf::RenderWindow* window;
     static std::stack<State*> states;
-    static ObjectCleaner cleaner;
     static Player* player;
 };
