@@ -61,9 +61,3 @@ void Missile::UpdateTransforms()noexcept {
 void Missile::Rotate()noexcept{
     
 }
-
-void Missile::operator delete(void* ptr) {
-    
-    
-    
-}

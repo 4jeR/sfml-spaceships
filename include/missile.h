@@ -9,7 +9,7 @@ public:
     static Missile* InstantiateMissile(float x, float y, sf::RenderWindow* window = nullptr);
     
     Missile& operator=(const Missile& rhs);
-    void operator delete(void* ptr) ;
+    
     void UpdateAll() noexcept override;
     sf::Shape* GetShape() noexcept override;
 private:
