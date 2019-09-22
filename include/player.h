@@ -24,7 +24,6 @@ public:
     sf::Shape* GetShape() noexcept override;
     sf::CircleShape* GetDot()noexcept;
 
-
 private:
     void Move()noexcept;
     void InitWings()noexcept;

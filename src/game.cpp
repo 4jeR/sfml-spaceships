@@ -5,6 +5,8 @@ float Game::deltaTime;
 sf::RenderWindow* Game::window;
 std::stack<State*> Game::states;
 Player* Game::player;
+ObjectCleaner Game::cleaner;
+
 sf::Event Game::event;
 sf::Clock Game::dtclock;
 

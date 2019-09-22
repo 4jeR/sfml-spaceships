@@ -17,8 +17,7 @@ public:
     float& GetX()noexcept;
     float Y()const noexcept;
     float& GetY()noexcept;
-
-
+    
     virtual void UpdateAll() noexcept = 0;
     virtual sf::Shape* GetShape() noexcept = 0;
 protected:

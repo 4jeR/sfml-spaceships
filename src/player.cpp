@@ -136,3 +136,4 @@ void Player::Rotate()noexcept {
         _dot -> rotate(rotateCoef);
     }
 }
+
