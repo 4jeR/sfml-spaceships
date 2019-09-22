@@ -42,3 +42,9 @@ float Object::Y()const noexcept{
 float& Object::GetY()noexcept{
     return _y;
 }
+
+
+float Object::CalcAngularVelocity(float x)const noexcept{
+    if(x >= 0.0f)
+        return 0.005f * std::sqrt(6.0f * x);
+}

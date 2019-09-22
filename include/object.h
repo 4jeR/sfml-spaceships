@@ -20,6 +20,7 @@ public:
     
     virtual void UpdateAll() noexcept = 0;
     virtual sf::Shape* GetShape() noexcept = 0;
+    float CalcAngularVelocity(float x)const noexcept;
 protected:
     virtual void UpdateTransforms()noexcept = 0;
     virtual void Rotate()noexcept = 0;
