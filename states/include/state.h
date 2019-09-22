@@ -4,7 +4,9 @@
 
 class State{
 public:
-
-protected:
+    State();
+    virtual ~State();
     
+protected:
+    std::vector<sf::Texture> _textures;
 };

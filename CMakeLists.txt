@@ -22,11 +22,14 @@ set(EXECUTABLE_NAME "run")
 file(GLOB src ${PROJECT_SOURCE_DIR}/src/*.cpp)
 file(GLOB include ${PROJECT_SOURCE_DIR}/include/*.h)
 file(GLOB audio ${PROJECT_SOURCE_DIR}/audio/*)
+file(GLOB states_include ${PROJECT_SOURCE_DIR}/states/include/*.h)
+file(GLOB states_src ${PROJECT_SOURCE_DIR}/states/src/*.cpp)
 
 add_compile_options(-pedantic -Wall -g -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align  -Woverloaded-virtual -Wpedantic -Wconversion -Wunused -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast)
-add_executable(${EXECUTABLE_NAME} ${main} ${include} ${src} ${audio} )
+add_executable(${EXECUTABLE_NAME} ${main} ${include} ${src} ${audio} ${states_include} ${states_src} )
 
-include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS})
+include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/states/include)
+
 
 set(CMAKE_CXX_FLAGS "-pedantic -Wall -g -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -fsanitize=leak -fsanitize=address  -fsanitize=undefined  -fsanitize=pointer-compare  -fsanitize=pointer-subtract")
 
