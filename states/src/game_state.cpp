@@ -32,9 +32,11 @@ void GameState::Render() noexcept {
 
 
 void GameState::FreeMemory(){
-    for(auto& obj : objects){
-        delete obj;
-        std::cout << "Deleting obj - freememory application destructor!" << std::endl;
+    for(long unsigned int i = 0; i < objects.size(); ++i){
+            
+        delete objects.at(i);
+        objects.erase(objects.begin()+static_cast<int>(i));
+            
     }
 }
 
@@ -67,24 +69,43 @@ void GameState::UpdateState(std::stack<State*>& states, sf::RenderWindow* window
     UpdateObjects();
     FreeDestroyedObjects();
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
+        
         /**
          * TODO:
          *      pause state instead of delete
          * 
         */
+
+        // DELETE objects that were left in game if you pressed escape
+        // for(long unsigned int i = 0; i < objects.size(); ++i){
+            
+        //     delete objects.at(i);
+        //     objects.erase(objects.begin()+static_cast<int>(i));
+            
+        // }
         delete this;
         states.pop();
         std::cout << "after clicking escape, states stack size -> " << states.size() << std::endl;
     }
+    std::cout << "missiles count -> " << objects.size() << std::endl;
 }
 
 
 
 void GameState::FreeDestroyedObjects(){
-    for(int i = 0; i < static_cast<int>(objects.size()); ++i){
-        if(objects.at(static_cast<long unsigned int>(i))->IsDestroyed()){
-            delete objects.at(static_cast<long unsigned int>(i));
-            objects.erase(objects.begin()+i);
+    int i = 0;
+    for(auto& obj: objects){
+        if(obj && obj -> IsDestroyed()){
+            delete obj;
+            objects.erase(objects.begin() + i);
+            ++i;
         }
     }
+    
+    // for(int i = 0; i < static_cast<int>(objects.size()); ++i){
+    //     if(objects.at(static_cast<long unsigned int>(i))->IsDestroyed()){
+    //         delete objects.at(static_cast<long unsigned int>(i));
+    //         objects.erase(objects.begin()+i);
+    //     }
+    // }
 }
