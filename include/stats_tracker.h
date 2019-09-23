@@ -6,7 +6,8 @@ class StatsTracker{
 public:
     StatsTracker();
     ~StatsTracker();
-    void ShowStats(const Player* p, sf::RenderWindow* window)noexcept;
+    void UpdateStats(const Player* p)const noexcept;
+    sf::Text* Text()noexcept;
 private:
     sf::Text* _lives_text;
     sf::Font _font;

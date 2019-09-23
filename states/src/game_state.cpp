@@ -24,6 +24,8 @@ void GameState::Render() noexcept {
     for(auto& obj : objects){
         _window -> draw(*obj->GetShape());  
     }
+    tracker->UpdateStats(player);
+    _window -> draw(*tracker->Text());
 }
 
 
@@ -64,7 +66,6 @@ void GameState::UpdateState(std::stack<State*>& states, sf::RenderWindow* window
     UpdateObjects();
     FreeDestroyedObjects();
     
-    tracker->ShowStats(player, _window);
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
         delete this;

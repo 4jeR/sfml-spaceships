@@ -37,8 +37,7 @@ void PauseState::UpdateState([[maybe_unused]] std::stack<State*>& states,[[maybe
 
 void PauseState::InitState([[maybe_unused]] std::stack<State*>& states, sf::RenderWindow* window)noexcept {
 
-    if(!_font.loadFromFile("../leders st.ttf")){
-        
+    if(!_font.loadFromFile("../fonts/leders st.ttf")){
     }
     float xx = static_cast<float>(window->getSize().x) / 2.0f;
     float yy = static_cast<float>(window->getSize().y) / 2.0f;
