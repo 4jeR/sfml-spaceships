@@ -9,15 +9,14 @@ public:
     GameState(sf::RenderWindow* window);
     ~GameState();
     void Render() noexcept override;
-    void UpdateState() noexcept override;
+    void UpdateState(std::stack<State*>& states, sf::RenderWindow* window) noexcept override;
     
 private:
+    void InitState(std::stack<State*>& states, sf::RenderWindow* window)noexcept override;
     static void UpdatePlayer()noexcept;
     static void UpdateObjects()noexcept;
     static void FreeDestroyedObjects();
     static void FreeMemory();
-    bool CheckForQuit()noexcept override;
-    void InitState()noexcept override;
 
 
     static Player* player;

@@ -10,3 +10,8 @@ State::State(sf::RenderWindow* window)
 State::~State(){
     // STATE MUSTN'T DELETE  _window  POINTER
 }
+
+
+bool State::ShouldQuit()const noexcept{
+    return _quitState;
+}

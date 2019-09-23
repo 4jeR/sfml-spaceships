@@ -17,6 +17,7 @@ Application::Application(){
 }
 Application::~Application(){
     delete window;
+    delete player;
     FreeStatesMemory();
 }
 void Application::Run()noexcept{
@@ -46,16 +47,11 @@ void Application::UpdateAll()noexcept{
             window ->setSize(sf::Vector2u(WINDOWX, WINDOWY));
         }  
     }
-    
+    // switching through states logic will be moved in states' logic
     if(!states.empty()){
-        states.top()->UpdateState();
-        if(states.top()->CheckForQuit()){
-            delete states.top();
-            states.pop();
-            if(!states.empty())
-                states.top()->InitState();
-        }
+        states.top()->UpdateState(states, window);
     }
+    
     else{
         std::cout << "states stack is empty -> closing window!" << std::endl;
         window -> close();
@@ -80,14 +76,13 @@ void Application::InitWindow()noexcept{
 }
 
 void Application::InitStates()noexcept{
-    states.push(new GameState(window));
     states.push(new MenuState(window));
-    states.top()->InitState();
+    states.top()->InitState(states, window);
     /**
      * NOTE:
      *      this should be probably organised in different sections 
      *      states.push(mainmenu)
-     *      states.top()-InitState();
+     *      states.top()->InitState();
      *      
      *      then based on user input 
      *      states.push(state [gamestate / options? / about / quitstate]

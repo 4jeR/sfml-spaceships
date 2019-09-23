@@ -4,15 +4,18 @@ Player* GameState::player;
 std::vector<Object*> GameState::objects;
 
 
-GameState::GameState(sf::RenderWindow* window)
+GameState::GameState( sf::RenderWindow* window)
 :State(window)
 {
-  
+    if(!player)
+        player = Player::InstantiatePlayer(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
+   
 }
 
 
 GameState::~GameState(){
-    delete player;
+    
+        
     FreeMemory();
 
 }
@@ -51,28 +54,30 @@ void GameState::UpdateObjects()noexcept{
 }
 
 
-void GameState::InitState()noexcept{
+void GameState::InitState(std::stack<State*>& states, sf::RenderWindow* window)noexcept{
     std::cout << "entering game state!"<<std::endl;
+
+    std::cout << "states stack size -> " << states.size() << std::endl;
     player = Player::InstantiatePlayer(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
 }
 
 
-void GameState::UpdateState() noexcept {
+void GameState::UpdateState(std::stack<State*>& states, sf::RenderWindow* window) noexcept {
     UpdatePlayer();
     UpdateObjects();
     FreeDestroyedObjects();
-}
-
-bool GameState::CheckForQuit()noexcept {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::T))
-        _quitState = true;
-    
-    if(_quitState){
-
-        std::cout << "quitting gamestate!" << std::endl;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
+        /**
+         * TODO:
+         *      pause state instead of delete
+         * 
+        */
+        delete this;
+        states.pop();
+        std::cout << "after clicking escape, states stack size -> " << states.size() << std::endl;
     }
-    return _quitState;
 }
+
 
 
 void GameState::FreeDestroyedObjects(){
