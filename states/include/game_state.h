@@ -3,6 +3,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "pause_state.h"
+#include "stats_tracker.h"
 #include <iterator>
 
 class GameState : public State{
@@ -22,4 +23,5 @@ private:
 
     static Player* player;
     static std::vector<Object*> objects;
+    StatsTracker* tracker;
 };

@@ -2,7 +2,6 @@
 #include "object.h"
 #include "missile.h"
 
-
 class Player : public Object{
 public:
     Player(float x, float y, sf::RenderWindow* winptr = nullptr);
@@ -30,6 +29,10 @@ private:
     void UpdateTransforms()noexcept override;
     void Rotate()noexcept override;
     void Accelerate()noexcept;
+
+
+
+
     int _cooldown;
     int _lives;
     float _radius;

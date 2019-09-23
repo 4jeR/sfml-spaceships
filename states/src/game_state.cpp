@@ -3,17 +3,17 @@
 Player* GameState::player;
 std::vector<Object*> GameState::objects;
 
-
 GameState::GameState( sf::RenderWindow* window)
 :State(window)
 {
     if(!player)
         player = Player::InstantiatePlayer(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
-   
+    tracker = new StatsTracker();
 }
 
 
-GameState::~GameState(){        
+GameState::~GameState(){   
+    delete tracker;     
     FreeMemory();
 }
 
@@ -63,6 +63,9 @@ void GameState::UpdateState(std::stack<State*>& states, sf::RenderWindow* window
     UpdatePlayer();
     UpdateObjects();
     FreeDestroyedObjects();
+    
+    tracker->ShowStats(player, _window);
+
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
         delete this;
         states.pop();
