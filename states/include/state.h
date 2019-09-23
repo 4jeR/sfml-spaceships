@@ -2,6 +2,7 @@
 #include "sfml_headers.h"
 #include <vector>
 #include <iostream>
+#include <unistd.h>
 
 class State{
 public:

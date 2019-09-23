@@ -12,6 +12,9 @@ public:
     void UpdateState() noexcept override;
     void InitState()noexcept override;
     bool CheckForQuit()noexcept override;
+    int Cooldown()const noexcept;
 private:
     std::array<Button*, 5> menu_buttons;
+    long unsigned int selected_button;
+    int cooldown;
 };

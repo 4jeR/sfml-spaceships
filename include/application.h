@@ -22,9 +22,7 @@ private:
     static void InitStates()noexcept;
     static void InitWindow()noexcept;
     static void FreeStatesMemory();
-    static void UpdateDeltaTime()noexcept;
 
-    static float deltaTime;
 
     static sf::Event event;
     static sf::Clock dtclock;

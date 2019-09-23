@@ -1,6 +1,5 @@
 #include "application.h"
 
-float Application::deltaTime;
 
 sf::RenderWindow* Application::window;
 std::stack<State*> Application::states;
@@ -40,7 +39,6 @@ void Application::Render()noexcept{
 }
 
 void Application::UpdateAll()noexcept{
-    UpdateDeltaTime();
     while (window -> pollEvent(event)){
         if (event.type == sf::Event::Closed)
             window -> close();
@@ -66,9 +64,7 @@ void Application::UpdateAll()noexcept{
 
     
 }
-void Application::UpdateDeltaTime()noexcept{
-    deltaTime = dtclock.restart().asSeconds() / 1000.f;
-}
+
 
 
 void Application::FreeStatesMemory(){

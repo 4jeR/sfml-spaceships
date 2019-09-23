@@ -23,7 +23,7 @@ Button::~Button(){
 }
 
 
-sf::RectangleShape* Button::GetShape()noexcept{
+sf::RectangleShape*& Button::GetShape()noexcept{
     return _shape;
 }
 
