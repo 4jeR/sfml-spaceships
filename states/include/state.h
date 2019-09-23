@@ -4,6 +4,8 @@
 #include <iostream>
 #include <unistd.h>
 #include <stack>
+
+
 class State{
 public:
     State(sf::RenderWindow* window);

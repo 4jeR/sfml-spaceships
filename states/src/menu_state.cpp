@@ -24,7 +24,7 @@ void MenuState::Render() noexcept {
 
 }
 
-void MenuState::InitState(std::stack<State*>& states, sf::RenderWindow* window)noexcept {
+void MenuState::InitState([[maybe_unused]] std::stack<State*>& states,[[maybe_unused]]  sf::RenderWindow* window)noexcept {
     std::cout << "entering menu state!"<<std::endl;
     std::cout << "menu InitState: states stack size -> " << states.size() << std::endl;
     menu_buttons[0] = new Button(40, 200, " start game");

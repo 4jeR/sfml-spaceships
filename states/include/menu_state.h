@@ -4,6 +4,7 @@
 #include <array>
 #include "game_state.h"
 
+
 class MenuState : public State{
 public:
     MenuState(sf::RenderWindow* window);

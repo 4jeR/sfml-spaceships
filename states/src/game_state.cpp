@@ -51,7 +51,7 @@ void GameState::UpdateObjects()noexcept{
 }
 
 
-void GameState::InitState(std::stack<State*>& states, sf::RenderWindow* window)noexcept{
+void GameState::InitState([[maybe_unused]] std::stack<State*>& states,[[maybe_unused]]  sf::RenderWindow* window)noexcept{
     std::cout << "entering game state!"<<std::endl;
 
     std::cout << "states stack size -> " << states.size() << std::endl;
@@ -64,23 +64,14 @@ void GameState::UpdateState(std::stack<State*>& states, sf::RenderWindow* window
     UpdateObjects();
     FreeDestroyedObjects();
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
-        
-        /**
-         * TODO:
-         *      pause state instead of delete
-         * 
-        */
-
-        // DELETE objects that were left in game if you pressed escape
-        // for(long unsigned int i = 0; i < objects.size(); ++i){
-            
-        //     delete objects.at(i);
-        //     objects.erase(objects.begin()+static_cast<int>(i));
-            
-        // }
         delete this;
         states.pop();
         std::cout << "after clicking escape, states stack size -> " << states.size() << std::endl;
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)){
+        
+        states.push(new PauseState(states, window));
+        std::cout << "after clicking pause, states stack size -> " << states.size() << std::endl;
     }
 }
 
