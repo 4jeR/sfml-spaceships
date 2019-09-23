@@ -13,5 +13,5 @@ public:
     void InitState()noexcept override;
     bool CheckForQuit()noexcept override;
 private:
-    std::array<Button*, 3> menu_buttons;
+    std::array<Button*, 5> menu_buttons;
 };
