@@ -37,12 +37,6 @@ sf::Shape* Missile::GetShape()noexcept{
 void Missile::UpdateAll() noexcept {
     UpdateTransforms();
     DisappearedFromWindow();
-    /**
-     * TODO: 
-     *      update its position based on direction it was shot,
-     *      and time passed 
-    */
-    // and more stuff later on ...
 }
 
 void Missile::UpdateTransforms()noexcept {
@@ -53,9 +47,8 @@ void Missile::UpdateTransforms()noexcept {
     _shape -> move(byX, byY );
     _x += byX;
     _y += byY;
-    
 }
 
 void Missile::Rotate()noexcept{
-    
+    // when hits another object...
 }

@@ -3,7 +3,6 @@
 #include "game_state.h"
 #include "menu_state.h"
 #include "enemy.h"
-#include "obj_cleaner.h"
 
 #include <iostream>
 #include <vector>

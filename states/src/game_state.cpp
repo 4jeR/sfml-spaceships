@@ -13,11 +13,8 @@ GameState::GameState( sf::RenderWindow* window)
 }
 
 
-GameState::~GameState(){
-    
-        
+GameState::~GameState(){        
     FreeMemory();
-
 }
 
 
@@ -33,10 +30,8 @@ void GameState::Render() noexcept {
 
 void GameState::FreeMemory(){
     for(long unsigned int i = 0; i < objects.size(); ++i){
-            
         delete objects.at(i);
-        objects.erase(objects.begin()+static_cast<int>(i));
-            
+        objects.erase(objects.begin()+static_cast<int>(i)); 
     }
 }
 
@@ -87,7 +82,6 @@ void GameState::UpdateState(std::stack<State*>& states, sf::RenderWindow* window
         states.pop();
         std::cout << "after clicking escape, states stack size -> " << states.size() << std::endl;
     }
-    std::cout << "missiles count -> " << objects.size() << std::endl;
 }
 
 
@@ -101,11 +95,4 @@ void GameState::FreeDestroyedObjects(){
             ++i;
         }
     }
-    
-    // for(int i = 0; i < static_cast<int>(objects.size()); ++i){
-    //     if(objects.at(static_cast<long unsigned int>(i))->IsDestroyed()){
-    //         delete objects.at(static_cast<long unsigned int>(i));
-    //         objects.erase(objects.begin()+i);
-    //     }
-    // }
 }
