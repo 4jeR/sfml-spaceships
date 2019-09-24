@@ -19,8 +19,9 @@ private:
     static void UpdateObjects()noexcept;
     static void FreeDestroyedObjects();
 
-
+    static int enemies_count;
     static Player* player;
     static std::vector<Object*> objects;
     StatsTracker* tracker;
+    static sf::RenderWindow* window_ptr;
 };

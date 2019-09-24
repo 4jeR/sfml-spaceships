@@ -2,10 +2,15 @@
 
 Player* GameState::player;
 std::vector<Object*> GameState::objects;
+int GameState::enemies_count = 0;
+sf::RenderWindow* GameState::window_ptr;
+
 
 GameState::GameState(std::array<State*, 3>& states, sf::RenderWindow* window)
 :State(window)
 {
+    srand(time(NULL));
+    window_ptr = window;
     InitState(states);
 }
 
@@ -55,11 +60,19 @@ void GameState::UpdatePlayer()noexcept{
 }
 
 void GameState::UpdateObjects()noexcept{
+    // SPAWN ENEMIES
+    if(enemies_count <= 2){
+        float randX = static_cast<float>(std::rand()%400+1);
+        float randY = static_cast<float>(std::rand()%700+1);
+        objects.push_back(Enemy::InstantiateEnemy(randX, randY, window_ptr));
+        ++enemies_count;
+    }
+    
+
     for(auto& obj : objects){
         obj -> UpdateAll();
     }
 }
-
 
 
 void GameState::InitState(std::array<State*, 3>& states)noexcept{
@@ -73,7 +86,7 @@ void GameState::InitState(std::array<State*, 3>& states)noexcept{
 void GameState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long unsigned int& current_state) noexcept {
     UpdatePlayer();
     UpdateObjects();
-    FreeDestroyedObjects();
+    // FreeDestroyedObjects();
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
         current_state = 0;

@@ -9,14 +9,17 @@ public:
     static Player* InstantiatePlayer(float x, float y, sf::RenderWindow* window = nullptr);
     Player& operator=(const Player& rhs);
 
-    int& GetLives()noexcept;
-    int& GetCooldown() noexcept;
-    float& GetRadius()noexcept;
-    int Lives()const noexcept;
     int Cooldown()const noexcept;
+    int& GetCooldown() noexcept;
+
+    int Lives()const noexcept;
+    int& GetLives()noexcept;
+
     float Radius()const noexcept;
-    int& GetScore()noexcept;
+    float& GetRadius()noexcept;
+    
     int Score()const noexcept;
+    int& GetScore()noexcept;
 
 
     Missile* Shot()noexcept;

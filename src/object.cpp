@@ -76,7 +76,6 @@ float Object::CalcAngularVelocity(float current_speed)const noexcept{
     }
 
     return value ;
-    //(current_speed >= 0.0f) ? 0.005f * std::sqrt(6.0f * current_speed) : 0.0f;
 }
 
 float Object::CalcAcceleration(float current_speed, bool add)const noexcept{

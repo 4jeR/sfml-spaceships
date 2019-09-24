@@ -4,6 +4,7 @@
 Missile::Missile(float x, float y, sf::RenderWindow* winptr)
 :Object(x, y, winptr)
 {
+    std::cout << "New missile spawn. IsDestroyed -> " << _isDestroyed << std::endl;
     _shape = new sf::RectangleShape(sf::Vector2f(2.0f, 8.0f));
     _shape -> setPosition(_x, _y);
     _shape -> setOutlineColor(sf::Color::Red);
@@ -11,7 +12,6 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
     _shape -> setFillColor(sf::Color::Transparent);
     _currentSpeed = 1500.0f;
 
-    std::cout << "New missile spawn. IsDestroyed -> " << _isDestroyed << std::endl;
 }
 
 Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* window){
@@ -20,8 +20,8 @@ Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* window)
 
 
 Missile::~Missile(){
-    delete _shape;
     std::cout << "deleting missile" <<std::endl;
+    delete _shape;
 }
 
 
@@ -33,14 +33,15 @@ Missile& Missile::operator=(const Missile& rhs){
     return *this;
 }
 
-sf::Shape* Missile::GetShape()noexcept{
-    return _shape;
-}
-
 void Missile::UpdateAll() noexcept {
     UpdateTransforms();
     DisappearedFromWindow();
 }
+
+sf::Shape* Missile::GetShape()noexcept{
+    return _shape;
+}
+
 
 void Missile::UpdateTransforms()noexcept {
     Rotate();
