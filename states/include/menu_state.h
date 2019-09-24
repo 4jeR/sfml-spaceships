@@ -23,4 +23,7 @@ private:
 
     sf::SoundBuffer _sound_buffer;
     sf::Sound _sound;
+
+    sf::Texture _menutexture;
+    sf::Sprite _sprite;
 };

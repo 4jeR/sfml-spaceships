@@ -7,8 +7,11 @@ MenuState::MenuState(std::array<State*, 3>& states, sf::RenderWindow* window)
     if(!_sound_buffer.loadFromFile("../audio/menu-switch.wav")){
 
     }
-    
-    
+
+    if (!_menutexture.loadFromFile("../img/screenshot.jpg")){
+       
+    }
+    _sprite.setTexture(_menutexture);
     _sound.setBuffer(_sound_buffer);
     _sound.setVolume(70);
 }
@@ -16,12 +19,12 @@ MenuState::MenuState(std::array<State*, 3>& states, sf::RenderWindow* window)
 MenuState::~MenuState(){
     for(auto& button : menu_buttons)
         delete button;
-    
 }
 
 
 
 void MenuState::Render() noexcept {
+    _window->draw(_sprite);
     for(auto& button:menu_buttons){
         _window -> draw(*button->GetShape());
         _window -> draw(*button->GetText());
@@ -30,11 +33,11 @@ void MenuState::Render() noexcept {
 }
 
 void MenuState::InitState([[maybe_unused]] std::array<State*, 3>& states)noexcept {
-    menu_buttons[0] = new Button(40, 200, " start game");
-    menu_buttons[1] = new Button(90, 300, "multiplayer");
-    menu_buttons[2] = new Button(40, 400, "   options");
-    menu_buttons[3] = new Button(90, 500, " how to play");
-    menu_buttons[4] = new Button(40, 600, "  quit game");
+    menu_buttons[0] = new Button(90, 100, " start game");
+    menu_buttons[1] = new Button(140, 200, "multiplayer");
+    menu_buttons[2] = new Button(90, 300, "   options");
+    menu_buttons[3] = new Button(140, 400, " how to play");
+    menu_buttons[4] = new Button(90, 500, "  quit game");
 }
 
 
