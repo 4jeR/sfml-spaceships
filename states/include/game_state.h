@@ -2,9 +2,10 @@
 #include "state.h"
 #include "player.h"
 #include "enemy.h"
-#include "pause_state.h"
 #include "stats_tracker.h"
+#include "pause_state.h"
 #include <iterator>
+#include "sfml_headers.h"
 
 class GameState : public State{
 public:
@@ -23,5 +24,8 @@ private:
     static Player* player;
     static std::vector<Object*> objects;
     StatsTracker* tracker;
-    static sf::RenderWindow* window_ptr;
+    static sf::RenderWindow* window_ptr;    
+
+    sf::SoundBuffer _sound_buffer;
+    sf::Sound _sound;
 };

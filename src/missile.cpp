@@ -11,6 +11,7 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
     _shape -> setOutlineThickness(1.0f);
     _shape -> setFillColor(sf::Color::Transparent);
     _currentSpeed = 1500.0f;
+    
 
 }
 

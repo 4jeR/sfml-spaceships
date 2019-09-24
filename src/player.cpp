@@ -17,8 +17,11 @@ Player::Player(float x, float y, sf::RenderWindow* winptr)
     _dot = new sf::CircleShape(_radius / 7.0f);
     _dot -> setPosition(_x, _y);
     _dot -> setFillColor(sf::Color::Green);
-    
+    if(!_sound_buffer.loadFromFile("../audio/laser-shot.wav")){
 
+    }
+    _sound.setBuffer(_sound_buffer);
+    _sound.setVolume(40);
 }
 
 
@@ -34,6 +37,7 @@ Missile* Player::Shot()noexcept{
      *      audio playing when shooting new missile
     */
     _missile = new Missile(_x, _y, _window);
+    _sound.play();
     float byX =  1.5f * _radius * static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
     float byY = -1.5f * _radius * static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
     _missile -> GetShape() -> move(byX, byY );

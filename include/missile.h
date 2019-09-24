@@ -18,4 +18,5 @@ private:
 
 
     sf::RectangleShape* _shape; 
+    
 };

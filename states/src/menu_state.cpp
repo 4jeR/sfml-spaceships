@@ -4,12 +4,21 @@ MenuState::MenuState(std::array<State*, 3>& states, sf::RenderWindow* window)
 :State(window),selected_button(0),cooldown(121)
 {
     InitState(states);
+    if(!_sound_buffer.loadFromFile("../audio/menu-switch.wav")){
+
+    }
+    
+    
+    _sound.setBuffer(_sound_buffer);
+    _sound.setVolume(70);
 }
 
 MenuState::~MenuState(){
     for(auto& button : menu_buttons)
         delete button;
+    
 }
+
 
 
 void MenuState::Render() noexcept {
@@ -38,11 +47,14 @@ void MenuState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long 
     long unsigned int prev = selected_button;
     if(cooldown > 100){
         cooldown = 0;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && selected_button > 0)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && selected_button > 0){
             --selected_button; 
+            _sound.play();
+        }
             
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)  && selected_button < menu_buttons.max_size()-1){
             ++selected_button;
+            _sound.play();
         }
 
         menu_buttons[prev]->GetShape()->setFillColor(sf::Color::Transparent);
@@ -56,6 +68,7 @@ void MenuState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long 
             break;
 
             case 4:
+                _sound.play();
                 _window->close();
             break;
         }

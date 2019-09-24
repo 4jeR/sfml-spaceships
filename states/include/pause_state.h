@@ -20,6 +20,7 @@ private:
     sf::Text* _unpauseText;
     sf::Font _font;
     int _cooldown;
-    
+    sf::SoundBuffer _sound_buffer;
+    sf::Sound _sound;
 
 };

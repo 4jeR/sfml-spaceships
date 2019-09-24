@@ -5,6 +5,12 @@ PauseState::PauseState(std::array<State*, 3>& states, sf::RenderWindow* window)
 :State(window),_cooldown(0)
 {
     InitState(states);
+    if(!_sound_buffer.loadFromFile("../audio/pause.wav")){
+
+    }
+    _sound.setBuffer(_sound_buffer);
+    _sound.setVolume(40);
+    _sound.setPitch(0.80f);
 }
 
 
@@ -13,6 +19,8 @@ PauseState::~PauseState(){
     delete _pause.second;
     delete _text;
     delete _unpauseText;
+
+    
 }
 
 
@@ -24,11 +32,13 @@ void PauseState::Render() noexcept {
 }
 
 
-void PauseState::UpdateState(std::array<State*, 3>& states,long unsigned int& current_state) noexcept {
+void PauseState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long unsigned int& current_state) noexcept {
     Render();
     RotateText(_unpauseText);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
         current_state = 1;
+        _sound.play();
+        
     }
 }
 

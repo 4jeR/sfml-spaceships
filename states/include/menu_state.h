@@ -20,4 +20,7 @@ private:
     std::array<Button*, 5> menu_buttons;
     long unsigned int selected_button;
     int cooldown;
+
+    sf::SoundBuffer _sound_buffer;
+    sf::Sound _sound;
 };

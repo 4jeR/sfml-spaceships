@@ -44,4 +44,7 @@ private:
     sf::CircleShape* _shape;
     sf::CircleShape* _dot;
     int _score;
+
+    sf::SoundBuffer _sound_buffer;
+    sf::Sound _sound;
 };

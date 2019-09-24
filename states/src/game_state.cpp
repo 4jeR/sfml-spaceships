@@ -12,6 +12,13 @@ GameState::GameState(std::array<State*, 3>& states, sf::RenderWindow* window)
     srand(time(NULL));
     window_ptr = window;
     InitState(states);
+
+    if(!_sound_buffer.loadFromFile("../audio/pause.wav")){
+
+    }
+    
+    _sound.setBuffer(_sound_buffer);
+    _sound.setVolume(40);
 }
 
 
@@ -88,10 +95,13 @@ void GameState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long 
     UpdateObjects();
     // FreeDestroyedObjects();
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
         current_state = 0;
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P))
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)){
+        _sound.play();   
         current_state = 2;
+    }
 
 }
 
