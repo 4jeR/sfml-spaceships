@@ -34,6 +34,7 @@ void MenuState::Render() noexcept {
 
 void MenuState::InitState([[maybe_unused]] std::array<State*, 3>& states)noexcept {
     menu_buttons[0] = new Button(90, 100, " start game");
+    RotateButton(menu_buttons[0], true);
     menu_buttons[1] = new Button(140, 200, "multiplayer");
     menu_buttons[2] = new Button(90, 300, "   options");
     menu_buttons[3] = new Button(140, 400, " how to play");
@@ -48,22 +49,27 @@ int MenuState::Cooldown()const noexcept{
 void MenuState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long unsigned int& current_state) noexcept {
     ++cooldown;
     long unsigned int prev = selected_button;
+    
     if(cooldown > 100){
         cooldown = 0;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && selected_button > 0){
             --selected_button; 
             _sound.play();
+            RotateButton(menu_buttons[selected_button], true);
+            RotateButton(menu_buttons[prev],false);
         }
             
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)  && selected_button < menu_buttons.max_size()-1){
             ++selected_button;
             _sound.play();
+            RotateButton(menu_buttons[selected_button], true);
+            RotateButton(menu_buttons[prev],false);
         }
 
         menu_buttons[prev]->GetShape()->setFillColor(sf::Color::Transparent);
         menu_buttons[selected_button]->GetShape()->setFillColor(sf::Color::Blue);
     }
-
+    
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
         switch(selected_button){
             case 0:
@@ -79,3 +85,14 @@ void MenuState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long 
 }
 
 
+void MenuState::RotateButton(Button* button, bool clockwise )noexcept{
+    
+    if(clockwise){
+       button->GetShape()->rotate(5.0f);
+       button->GetText()->rotate(5.0f);
+    }   
+    else if(!clockwise){
+        button->GetShape()->rotate(-5.0f);
+        button->GetText()->rotate(-5.0f);
+    }
+}

@@ -15,12 +15,13 @@ public:
    
     void InitState(std::array<State*, 3>& states)noexcept override;
     int Cooldown()const noexcept;
+    void RotateButton(Button* button, bool clockwise)noexcept;
 private:
 
     std::array<Button*, 5> menu_buttons;
     long unsigned int selected_button;
     int cooldown;
-
+    
     sf::SoundBuffer _sound_buffer;
     sf::Sound _sound;
 

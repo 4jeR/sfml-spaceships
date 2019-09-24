@@ -6,7 +6,7 @@ class Button{
 public:
     Button(float x, float y, sf::String string);
     ~Button();
-    sf::RectangleShape*& GetShape()noexcept;
+    sf::RectangleShape* GetShape()noexcept;
     sf::Text* GetText()noexcept;
     sf::Font GetFont()noexcept;
 private:
