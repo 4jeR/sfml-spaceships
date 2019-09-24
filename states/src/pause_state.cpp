@@ -2,7 +2,7 @@
 
 
 PauseState::PauseState(std::array<State*, 3>& states, sf::RenderWindow* window)
-:State(window)
+:State(window),_cooldown(0)
 {
     InitState(states);
 }
@@ -26,7 +26,7 @@ void PauseState::Render() noexcept {
 
 void PauseState::UpdateState(std::array<State*, 3>& states,long unsigned int& current_state) noexcept {
     Render();
-
+    RotateText(_unpauseText);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
         current_state = 1;
     }
@@ -62,10 +62,13 @@ void PauseState::InitState([[maybe_unused]] std::array<State*, 3>& states)noexce
     _text ->setFont(_font);
     _text->setFillColor(sf::Color::Red);
 
+    
     _unpauseText = new sf::Text("to unpause press [enter]", _font, 15);
-    _unpauseText ->setPosition(xx - 150.0f, yy + 150.0f);
+    _unpauseText ->setPosition(xx , yy + 140.0f);
     _unpauseText ->setFont(_font);
     _unpauseText->setFillColor(sf::Color::Red);
+    _unpauseText->setOrigin(150.0f , 10.0f );
+    _unpauseText->setRotation(-6.8f);
 }
 
 
@@ -83,6 +86,11 @@ sf::Font PauseState::GetFont()noexcept{
     return _font;
 }
 
+void PauseState::RotateText(sf::Text* txt)noexcept{
+    ++_cooldown;
+    if(_cooldown % 800 /* 0-99 */ < 400)
+        txt->rotate(0.025f );
+    else 
+        txt->rotate(-0.025f);
 
-
-
+}

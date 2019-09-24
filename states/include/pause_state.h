@@ -11,7 +11,7 @@ public:
     std::pair<sf::RectangleShape*, sf::RectangleShape*>& GetPause()noexcept;
     sf::Text* GetText()noexcept;
     sf::Font GetFont()noexcept;
-
+    void RotateText(sf::Text* txt)noexcept;
     void InitState(std::array<State*, 3>& states)noexcept override;
 private:
 
@@ -19,5 +19,7 @@ private:
     sf::Text* _text;
     sf::Text* _unpauseText;
     sf::Font _font;
+    int _cooldown;
+    
 
 };
