@@ -1,9 +1,9 @@
 #include "menu_state.h"
 
-MenuState::MenuState(sf::RenderWindow* window)
+MenuState::MenuState(std::array<State*, 3>& states, sf::RenderWindow* window)
 :State(window),selected_button(0),cooldown(121)
 {
-    
+    InitState(states, window);
 }
 
 MenuState::~MenuState(){
@@ -24,7 +24,7 @@ void MenuState::Render() noexcept {
 
 }
 
-void MenuState::InitState([[maybe_unused]] std::stack<State*>& states,[[maybe_unused]]  sf::RenderWindow* window)noexcept {
+void MenuState::InitState(std::array<State*, 3>& states, sf::RenderWindow* window)noexcept {
     std::cout << "entering menu state!"<<std::endl;
     std::cout << "menu InitState: states stack size -> " << states.size() << std::endl;
     menu_buttons[0] = new Button(40, 200, " start game");
@@ -39,7 +39,7 @@ int MenuState::Cooldown()const noexcept{
     return cooldown;
 }
 
-void MenuState::UpdateState(std::stack<State*>& states, sf::RenderWindow* window) noexcept {
+void MenuState::UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept {
     // menu choosing
     ++cooldown;
     long unsigned int prev = selected_button;
@@ -59,22 +59,14 @@ void MenuState::UpdateState(std::stack<State*>& states, sf::RenderWindow* window
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
         switch(selected_button){
             case 0:
-                std::cout << "case 0 pre gamestate push: states stack size -> " << states.size() << std::endl;
-                states.push(new GameState(window));
-                /**
-                 * TODO:
-                 *      states.top() now is NOT deleted somehow
-                 * 
-                 *      so each run-time sequence: 
-                 *      [start game] -> [enter] -> [escape]
-                 *      works fine visually, but causes 24 bytes leak
-                */
+                current_state = 1;
+                std::cout << "case 0 states array size -> " << states.size() << std::endl;
+                
             break;
-
+    
             case 4:
-                delete this;
-                states.pop();
-                std::cout << "case 4: states stack size -> " << states.size() << std::endl;
+                window->close();
+                std::cout << "case 4: states array size -> " << states.size() << std::endl;
             break;
         }
     }

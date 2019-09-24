@@ -1,7 +1,7 @@
 #include "pause_state.h"
 
 
-PauseState::PauseState(std::stack<State*>& states, sf::RenderWindow* window)
+PauseState::PauseState(std::array<State*, 3>& states, sf::RenderWindow* window)
 :State(window)
 {
     InitState(states, window);
@@ -24,18 +24,22 @@ void PauseState::Render() noexcept {
 }
 
 
-void PauseState::UpdateState([[maybe_unused]] std::stack<State*>& states,[[maybe_unused]]  sf::RenderWindow* window) noexcept {
+void PauseState::UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept {
     Render();
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
-        delete this;
-        states.pop();
+      
+        // delete this;
+        // states.pop();
+        current_state = 1;
         std::cout << "after clicking escape, states stack size -> " << states.size() << std::endl;
     }
 }
 
 
-void PauseState::InitState([[maybe_unused]] std::stack<State*>& states, sf::RenderWindow* window)noexcept {
+void PauseState::InitState([[maybe_unused]] std::array<State*, 3>& states, sf::RenderWindow* window)noexcept {
+    std::cout << "entering pause state!"<<std::endl;
+    std::cout << "states stack size -> " << states.size() << std::endl;
 
     if(!_font.loadFromFile("../fonts/leders st.ttf")){
     }

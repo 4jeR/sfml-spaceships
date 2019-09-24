@@ -3,17 +3,23 @@
 Player* GameState::player;
 std::vector<Object*> GameState::objects;
 
-GameState::GameState( sf::RenderWindow* window)
+GameState::GameState(std::array<State*, 3>& states, sf::RenderWindow* window)
 :State(window)
 {
-    if(!player)
-        player = Player::InstantiatePlayer(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
-    tracker = new StatsTracker();
+    InitState(states, window);
+        
 }
 
 
 GameState::~GameState(){   
     delete tracker;     
+    FreeDestroyedObjects();
+}
+
+
+void GameState::FreeDestroyedObjects(){
+    for(auto& obj: objects)
+        delete obj;
 }
 
 
@@ -48,43 +54,30 @@ void GameState::UpdateObjects()noexcept{
 }
 
 
-void GameState::InitState([[maybe_unused]] std::stack<State*>& states,[[maybe_unused]]  sf::RenderWindow* window)noexcept{
+void GameState::InitState(std::array<State*, 3>& states, sf::RenderWindow* window)noexcept{
     std::cout << "entering game state!"<<std::endl;
-
     std::cout << "states stack size -> " << states.size() << std::endl;
     player = Player::InstantiatePlayer(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
+    tracker = new StatsTracker();
 }
 
 
-void GameState::UpdateState(std::stack<State*>& states, sf::RenderWindow* window) noexcept {
+void GameState::UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept {
     UpdatePlayer();
     UpdateObjects();
-    FreeDestroyedObjects();
     
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
-        delete this;
-        states.pop();
+        // delete this;
+        // states.pop();
+        current_state = 0;
         std::cout << "after clicking escape, states stack size -> " << states.size() << std::endl;
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)){
         
-        states.push(new PauseState(states, window));
+        current_state = 2;
         std::cout << "after clicking pause, states stack size -> " << states.size() << std::endl;
     }
 }
 
 
-
-void GameState::FreeDestroyedObjects(){
-    int i = 0;
-    for(auto& obj: objects){
-        if(obj && obj -> IsDestroyed()){
-            delete obj;
-            std::cout << "[GameState::FreeDestroyedObjects] deleting obj at index : "<< i << std::endl;
-            std::cout << "missile size: "<< sizeof(Missile) << std::endl;
-            objects.erase(objects.begin() + i);
-            ++i;
-        }
-    }
-}

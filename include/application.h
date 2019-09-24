@@ -17,9 +17,7 @@ public:
     static void Render() noexcept;
     static void UpdateAll() noexcept;
 private:
-    static void InstantiateObject(Object* newObj)noexcept;
     static void InitStates()noexcept;
-    static void InitWindow()noexcept;
     static void FreeStatesMemory();
 
 
@@ -30,6 +28,7 @@ private:
     
 
     static sf::RenderWindow* window;
-    static std::stack<State*> states;
-    static Player* player;
+    // static std::stack<State*> states;
+    static std::array<State*, 3> states;
+    static long unsigned int currentState;
 };

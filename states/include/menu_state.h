@@ -7,15 +7,15 @@
 
 class MenuState : public State{
 public:
-    MenuState(sf::RenderWindow* window);
+    MenuState(std::array<State*, 3>& states, sf::RenderWindow* window);
     ~MenuState();
 
-    void UpdateState(std::stack<State*>& states, sf::RenderWindow* window) noexcept override;
+    void UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept override;
     void Render() noexcept override;
    
+    void InitState(std::array<State*, 3>& states, sf::RenderWindow* window)noexcept override;
     int Cooldown()const noexcept;
 private:
-    void InitState(std::stack<State*>& states, sf::RenderWindow* window)noexcept override;
 
     std::array<Button*, 5> menu_buttons;
     long unsigned int selected_button;

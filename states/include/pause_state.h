@@ -3,17 +3,17 @@
 
 class PauseState : public State{
 public:
-    PauseState(std::stack<State*>& states, sf::RenderWindow* window);
+    PauseState(std::array<State*, 3>& states, sf::RenderWindow* window);
     ~PauseState();
     void Render() noexcept override;
-    void UpdateState(std::stack<State*>& states, sf::RenderWindow* window) noexcept override;
+    void UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept override;
     
     std::pair<sf::RectangleShape*, sf::RectangleShape*>& GetPause()noexcept;
     sf::Text* GetText()noexcept;
     sf::Font GetFont()noexcept;
 
+    void InitState(std::array<State*, 3>& states, sf::RenderWindow* window)noexcept override;
 private:
-    void InitState([[maybe_unused]] std::stack<State*>& states,[[maybe_unused]] sf::RenderWindow* window)noexcept override;
 
     std::pair<sf::RectangleShape*, sf::RectangleShape*> _pause;
     sf::Text* _text;

@@ -8,13 +8,13 @@
 
 class GameState : public State{
 public:
-    GameState(sf::RenderWindow* window);
+    GameState(std::array<State*, 3>& states, sf::RenderWindow* window);
     ~GameState();
     void Render() noexcept override;
-    void UpdateState(std::stack<State*>& states, sf::RenderWindow* window) noexcept override;
+    void UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept override;
+    void InitState(std::array<State*, 3>& states, sf::RenderWindow* window)noexcept override;
     
 private:
-    void InitState([[maybe_unused]] std::stack<State*>& states, sf::RenderWindow* window)noexcept override;
     static void UpdatePlayer()noexcept;
     static void UpdateObjects()noexcept;
     static void FreeDestroyedObjects();
