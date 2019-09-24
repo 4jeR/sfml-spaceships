@@ -15,7 +15,8 @@ public:
     int Lives()const noexcept;
     int Cooldown()const noexcept;
     float Radius()const noexcept;
-
+    int& GetScore()noexcept;
+    int Score()const noexcept;
 
 
     Missile* Shot()noexcept;
@@ -39,4 +40,5 @@ private:
     Missile* _missile;
     sf::CircleShape* _shape;
     sf::CircleShape* _dot;
+    int _score;
 };

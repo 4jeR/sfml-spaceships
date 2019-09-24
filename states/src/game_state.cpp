@@ -25,7 +25,8 @@ void GameState::Render() noexcept {
         _window -> draw(*obj->GetShape());  
     }
     tracker->UpdateStats(player);
-    _window -> draw(*tracker->Text());
+    _window -> draw(*tracker->LivesText());
+    _window -> draw(*tracker->ScoreText());
 }
 
 

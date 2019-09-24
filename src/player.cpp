@@ -3,7 +3,7 @@
 
 
 Player::Player(float x, float y, sf::RenderWindow* winptr)
-:Object(x, y, winptr),_cooldown(0),_lives(3),_radius(22.0f)
+:Object(x, y, winptr),_cooldown(0),_lives(3),_radius(22.0f), _score(0)
 {   
     
 
@@ -88,6 +88,15 @@ float Player::Radius()const noexcept{
 float& Player::GetRadius() noexcept{
     return _radius;
 }
+
+
+int& Player::GetScore()noexcept{
+    return _score;
+}
+int Player::Score()const noexcept{
+    return _score;
+}
+
 
 void Player::UpdateAll() noexcept{
    UpdateTransforms();
