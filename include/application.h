@@ -28,7 +28,6 @@ private:
     
 
     static sf::RenderWindow* window;
-    // static std::stack<State*> states;
     static std::array<State*, 3> states;
     static long unsigned int currentState;
 };

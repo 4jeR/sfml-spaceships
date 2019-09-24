@@ -6,20 +6,27 @@ std::vector<Object*> GameState::objects;
 GameState::GameState(std::array<State*, 3>& states, sf::RenderWindow* window)
 :State(window)
 {
-    InitState(states, window);
-        
+    InitState(states);
 }
 
 
 GameState::~GameState(){   
-    delete tracker;     
-    FreeDestroyedObjects();
+    delete tracker; 
+    for(auto& obj: objects){
+        delete obj;
+    }    
 }
 
 
 void GameState::FreeDestroyedObjects(){
-    for(auto& obj: objects)
-        delete obj;
+    int i = 0;
+    for(auto& obj: objects){
+        if(obj->IsDestroyed()){
+            delete obj;
+            objects.erase(objects.begin()+i);
+            ++i;
+        }
+    }
 }
 
 
@@ -54,7 +61,8 @@ void GameState::UpdateObjects()noexcept{
 }
 
 
-void GameState::InitState(std::array<State*, 3>& states, sf::RenderWindow* window)noexcept{
+
+void GameState::InitState(std::array<State*, 3>& states)noexcept{
     std::cout << "entering game state!"<<std::endl;
     std::cout << "states stack size -> " << states.size() << std::endl;
     player = Player::InstantiatePlayer(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
@@ -62,22 +70,16 @@ void GameState::InitState(std::array<State*, 3>& states, sf::RenderWindow* windo
 }
 
 
-void GameState::UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept {
+void GameState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long unsigned int& current_state) noexcept {
     UpdatePlayer();
     UpdateObjects();
-    
+    FreeDestroyedObjects();
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
-        // delete this;
-        // states.pop();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
         current_state = 0;
-        std::cout << "after clicking escape, states stack size -> " << states.size() << std::endl;
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)){
-        
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P))
         current_state = 2;
-        std::cout << "after clicking pause, states stack size -> " << states.size() << std::endl;
-    }
+
 }
 
 

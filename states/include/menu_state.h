@@ -10,10 +10,10 @@ public:
     MenuState(std::array<State*, 3>& states, sf::RenderWindow* window);
     ~MenuState();
 
-    void UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept override;
+    void UpdateState(std::array<State*, 3>& states,long unsigned int& current_state) noexcept override;
     void Render() noexcept override;
    
-    void InitState(std::array<State*, 3>& states, sf::RenderWindow* window)noexcept override;
+    void InitState(std::array<State*, 3>& states)noexcept override;
     int Cooldown()const noexcept;
 private:
 

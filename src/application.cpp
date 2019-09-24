@@ -13,23 +13,19 @@ const int Application::WINDOWY;
 
 Application::Application()
 {
-    // init window
     window = new sf::RenderWindow(sf::VideoMode(WINDOWX, WINDOWY), "Spaceships");
-
-    // init states
-    states[0] = new MenuState(states, window);
-    states[1] = new GameState(states, window);
-    states[2] = new PauseState(states, window);
-    currentState = 0;
+    InitStates();
 }
+
+
 Application::~Application(){
     delete window;
-    
     FreeStatesMemory();
 }
+
+
 void Application::Run()noexcept{
-    while (window -> isOpen())
-    {
+    while (window -> isOpen()){
         Render();
         UpdateAll();
     }
@@ -41,8 +37,6 @@ void Application::Render()noexcept{
     if(!states.empty()){
         states[currentState]->Render();
     }
-
-    
     window -> display();
 }
 
@@ -54,12 +48,8 @@ void Application::UpdateAll()noexcept{
             window ->setSize(sf::Vector2u(WINDOWX, WINDOWY));
         }  
     }
-    // switching through states logic will be moved in states' logic
-    
-    states[currentState]->UpdateState(states, currentState, window);
-    
+    states[currentState]->UpdateState(states, currentState);
 }
-
 
 
 void Application::FreeStatesMemory(){
@@ -68,16 +58,9 @@ void Application::FreeStatesMemory(){
     }
 }
 
+
 void Application::InitStates()noexcept{
-    
-    /**
-     * NOTE:
-     *      this should be probably organised in different sections 
-     *      states.push(mainmenu)
-     *      states.top()->InitState();
-     *      
-     *      then based on user input 
-     *      states.push(state [gamestate / options? / about / quitstate]
-     * 
-    */
+    states[0] = new MenuState(states, window);
+    states[1] = new GameState(states, window);
+    states[2] = new PauseState(states, window);
 }

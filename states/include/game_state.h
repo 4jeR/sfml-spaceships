@@ -11,8 +11,8 @@ public:
     GameState(std::array<State*, 3>& states, sf::RenderWindow* window);
     ~GameState();
     void Render() noexcept override;
-    void UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept override;
-    void InitState(std::array<State*, 3>& states, sf::RenderWindow* window)noexcept override;
+    void UpdateState(std::array<State*, 3>& states,long unsigned int& current_state) noexcept override;
+    void InitState(std::array<State*, 3>& states)noexcept override;
     
 private:
     static void UpdatePlayer()noexcept;

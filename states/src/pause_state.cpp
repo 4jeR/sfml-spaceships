@@ -4,7 +4,7 @@
 PauseState::PauseState(std::array<State*, 3>& states, sf::RenderWindow* window)
 :State(window)
 {
-    InitState(states, window);
+    InitState(states);
 }
 
 
@@ -24,7 +24,7 @@ void PauseState::Render() noexcept {
 }
 
 
-void PauseState::UpdateState(std::array<State*, 3>& states,long unsigned int& current_state, sf::RenderWindow* window) noexcept {
+void PauseState::UpdateState(std::array<State*, 3>& states,long unsigned int& current_state) noexcept {
     Render();
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
@@ -37,14 +37,14 @@ void PauseState::UpdateState(std::array<State*, 3>& states,long unsigned int& cu
 }
 
 
-void PauseState::InitState([[maybe_unused]] std::array<State*, 3>& states, sf::RenderWindow* window)noexcept {
+void PauseState::InitState([[maybe_unused]] std::array<State*, 3>& states)noexcept {
     std::cout << "entering pause state!"<<std::endl;
     std::cout << "states stack size -> " << states.size() << std::endl;
 
     if(!_font.loadFromFile("../fonts/leders st.ttf")){
     }
-    float xx = static_cast<float>(window->getSize().x) / 2.0f;
-    float yy = static_cast<float>(window->getSize().y) / 2.0f;
+    float xx = static_cast<float>(_window->getSize().x) / 2.0f;
+    float yy = static_cast<float>(_window->getSize().y) / 2.0f;
     _pause.first = new sf::RectangleShape(sf::Vector2f(xx, yy));
     _pause.second = new sf::RectangleShape(sf::Vector2f(xx + 40.0f, yy));
 
