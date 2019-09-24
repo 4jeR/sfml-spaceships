@@ -10,6 +10,8 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
     _shape -> setOutlineThickness(1.0f);
     _shape -> setFillColor(sf::Color::Transparent);
     _currentSpeed = 1500.0f;
+
+    std::cout << "New missile spawn. IsDestroyed -> " << _isDestroyed << std::endl;
 }
 
 Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* window){
@@ -19,6 +21,7 @@ Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* window)
 
 Missile::~Missile(){
     delete _shape;
+    std::cout << "deleting missile" <<std::endl;
 }
 
 

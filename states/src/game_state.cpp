@@ -14,7 +14,6 @@ GameState::GameState( sf::RenderWindow* window)
 
 GameState::~GameState(){   
     delete tracker;     
-    FreeMemory();
 }
 
 
@@ -22,7 +21,8 @@ void GameState::Render() noexcept {
     _window -> draw(*player->GetShape());
     _window -> draw(*player->GetDot());
     for(auto& obj : objects){
-        _window -> draw(*obj->GetShape());  
+        if(!obj->IsDestroyed())
+            _window -> draw(*obj->GetShape());  
     }
     tracker->UpdateStats(player);
     _window -> draw(*tracker->LivesText());
@@ -31,12 +31,6 @@ void GameState::Render() noexcept {
 
 
 
-void GameState::FreeMemory(){
-    for(long unsigned int i = 0; i < objects.size(); ++i){
-        delete objects.at(i);
-        objects.erase(objects.begin()+static_cast<int>(i)); 
-    }
-}
 
 void GameState::UpdatePlayer()noexcept{
     player -> UpdateAll();
@@ -87,6 +81,8 @@ void GameState::FreeDestroyedObjects(){
     for(auto& obj: objects){
         if(obj && obj -> IsDestroyed()){
             delete obj;
+            std::cout << "[GameState::FreeDestroyedObjects] deleting obj at index : "<< i << std::endl;
+            std::cout << "missile size: "<< sizeof(Missile) << std::endl;
             objects.erase(objects.begin() + i);
             ++i;
         }

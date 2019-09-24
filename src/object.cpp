@@ -57,9 +57,8 @@ bool Object::DisappearedFromWindow()noexcept{
     float yy = static_cast<float>(_window->getSize().y);
     if(!((0 < _x && _x < xx) && (0 < _y && _y < yy))){
         _isDestroyed = true;
-        return true;
     }
-    return false;
+    return _isDestroyed;
 }
 
 

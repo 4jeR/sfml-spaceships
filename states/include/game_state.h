@@ -18,7 +18,6 @@ private:
     static void UpdatePlayer()noexcept;
     static void UpdateObjects()noexcept;
     static void FreeDestroyedObjects();
-    static void FreeMemory();
 
 
     static Player* player;
