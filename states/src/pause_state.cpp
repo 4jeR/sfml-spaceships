@@ -28,11 +28,7 @@ void PauseState::UpdateState(std::array<State*, 3>& states,long unsigned int& cu
     Render();
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
-      
-        // delete this;
-        // states.pop();
         current_state = 1;
-        std::cout << "after clicking escape, states stack size -> " << states.size() << std::endl;
     }
 }
 
