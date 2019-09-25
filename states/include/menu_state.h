@@ -18,7 +18,7 @@ public:
     void RotateButton(Button* button, bool clockwise)noexcept;
 private:
 
-    std::array<Button*, 5> menu_buttons;
+    std::array<Button*, 4> menu_buttons;
     long unsigned int selected_button;
     int cooldown;
     

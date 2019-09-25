@@ -8,7 +8,7 @@ MenuState::MenuState(std::array<State*, 3>& states, sf::RenderWindow* window)
 
     }
 
-    if (!_menutexture.loadFromFile("../img/screenshot.jpg")){
+    if (!_menutexture.loadFromFile("../img/background.jpg")){
        
     }
     _sprite.setTexture(_menutexture);
@@ -33,12 +33,11 @@ void MenuState::Render() noexcept {
 }
 
 void MenuState::InitState([[maybe_unused]] std::array<State*, 3>& states)noexcept {
-    menu_buttons[0] = new Button(90, 100, " start game");
+    menu_buttons[0] = new Button(90, 150, " start game");
     RotateButton(menu_buttons[0], true);
-    menu_buttons[1] = new Button(140, 200, "multiplayer");
-    menu_buttons[2] = new Button(90, 300, "   options");
-    menu_buttons[3] = new Button(140, 400, " how to play");
-    menu_buttons[4] = new Button(90, 500, "  quit game");
+    menu_buttons[1] = new Button(140, 270, "multiplayer");
+    menu_buttons[2] = new Button(90, 390, "   options");
+    menu_buttons[3] = new Button(140, 510, "  quit game");
 }
 
 
@@ -76,7 +75,7 @@ void MenuState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long 
                 current_state = 1;
             break;
 
-            case 4:
+            case 3:
                 _sound.play();
                 _window->close();
             break;
