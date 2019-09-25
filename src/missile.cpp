@@ -12,7 +12,7 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr, float radius)
     _shape -> setFillColor(sf::Color::Transparent);
     _currentSpeed = 1500.0f;
     
-     _name = "missile";
+    _name = "missile";
 }
 
 Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* winptr, float radius){
@@ -42,6 +42,7 @@ void Missile::UpdateAll() noexcept {
 sf::Shape* Missile::GetShape()noexcept{
     return _shape;
 }
+
 
 
 void Missile::UpdateTransforms()noexcept {

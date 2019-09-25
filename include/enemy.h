@@ -1,6 +1,6 @@
 #pragma once
 #include "object.h"
-
+#include "missile.h"
 
 class Enemy : public Object{
 public:
@@ -18,7 +18,5 @@ private:
     void Rotate()noexcept override;
 
     sf::CircleShape* _shape;
-    float _radius;
-
-    
+    float _radius;  
 };

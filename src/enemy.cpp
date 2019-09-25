@@ -35,6 +35,7 @@ sf::Shape* Enemy::GetShape() noexcept {
     return _shape;
 }
 
+
 void Enemy::UpdateTransforms()noexcept{
     //Rotate();
     

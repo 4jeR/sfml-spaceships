@@ -48,6 +48,10 @@ Missile* Player::Shoot()noexcept{
     
     
     _missile = new Missile(_x, _y, _window, _radius);
+    
+    // _missile->_source = this; // Object* _source = this;  -> error
+
+
     _missile -> GetShape() -> move(byX, byY );
     _missile -> GetShape() -> rotate(_shape -> getRotation());
     return _missile;
@@ -58,6 +62,9 @@ Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* winptr,flo
 }
 
 
+void Player::AddScore(int value)noexcept{
+    _score += value;
+}
 
 
 Player& Player::operator=(const Player& rhs){
