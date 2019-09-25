@@ -22,4 +22,5 @@ private:
     sf::SoundBuffer _sound_buffer;
     sf::Sound _sound;
 
+    State* _gameptr;
 };

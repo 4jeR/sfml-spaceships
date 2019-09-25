@@ -4,6 +4,7 @@
 PauseState::PauseState(std::array<State*, 4>& states, sf::RenderWindow* window)
 :State(window)
 {
+    _gameptr = states[1];
     InitState(states);
     if(!_sound_buffer.loadFromFile("../audio/pause.wav")){
 
@@ -25,6 +26,7 @@ PauseState::~PauseState(){
 
 
 void PauseState::Render() noexcept {
+    _gameptr->Render();
     _window -> draw(*_pause.first);
     _window -> draw(*_pause.second);
     _window -> draw(*_text);
