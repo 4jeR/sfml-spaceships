@@ -77,24 +77,23 @@ void Object::OnCollide(Object* other)noexcept{
 
 
 float Object::CalcAngularVelocity(float current_speed)const noexcept{
-    float value = 0.0f;
-    if(0.0f <= current_speed && current_speed <= 200.0f){
-        value =  0.002f * std::sqrt(current_speed / 3.0f);
+    float abs_speed = std::abs(current_speed);
+    if(abs_speed <= 200.0f){
+        return 0.002f * std::sqrt(abs_speed / 3.0f);
     }
-    else if(200.0f < current_speed && current_speed <= 600.0f){
-        value  = 0.001f * std::sqrt(2.0f * current_speed / 3.0f);
+    else if(200.0f < abs_speed&& abs_speed <= 600.0f){
+        return 0.001f * std::sqrt(2.0f * abs_speed / 3.0f);
     }
-    else if(600.0f < current_speed && current_speed <= 895.0f){
-        value  = 0.007f * std::sqrt(4.0f * current_speed / 3.0f);
+    else if(600.0f < abs_speed){
+        return 0.007f * std::sqrt(4.0f * abs_speed / 3.0f);
     }
-
-    return value ;
+    else return 0.0f;
 }
 
 float Object::CalcAcceleration(float current_speed, bool add)const noexcept{
     float value = 0.0f;
     if(add){
-        if(0.0f <= current_speed && current_speed <= 200.0f){
+        if(current_speed <= 200.0f){
             value = 1.5f;
         }
         else if(200.0f < current_speed && current_speed <= 600.0f){

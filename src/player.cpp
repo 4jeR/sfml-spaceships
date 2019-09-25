@@ -39,10 +39,14 @@ Missile* Player::Shot()noexcept{
      * TODO: 
      *      audio playing when shooting new missile
     */
-    _missile = new Missile(_x, _y, _window, _radius);
     _sound.play();
     float byX =  1.5f * _radius * static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
     float byY = -1.5f * _radius * static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    
+    _currentSpeed -= 60.0f;
+    
+    
+    _missile = new Missile(_x, _y, _window, _radius);
     _missile -> GetShape() -> move(byX, byY );
     _missile -> GetShape() -> rotate(_shape -> getRotation());
     return _missile;

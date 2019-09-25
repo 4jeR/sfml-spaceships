@@ -61,7 +61,7 @@ void GameState::Render() noexcept {
 void GameState::UpdatePlayer()noexcept{
     player -> UpdateAll();
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 250){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && player-> Cooldown() > 334){
         objects.push_back(player -> Shot());
         player->GetCooldown() = 0;
     }
