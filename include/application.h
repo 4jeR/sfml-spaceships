@@ -27,7 +27,7 @@ private:
     static const constexpr int WINDOWX = 1200;
     static const constexpr int WINDOWY = 800;
     
-
+    
     static sf::RenderWindow* window;
     static std::array<State*, 4> states;
     static long unsigned int currentState;

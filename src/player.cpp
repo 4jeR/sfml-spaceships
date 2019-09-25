@@ -22,6 +22,7 @@ Player::Player(float x, float y, sf::RenderWindow* winptr, float radius)
     }
     _sound.setBuffer(_sound_buffer);
     _sound.setVolume(40);
+    _name = "player";
 }
 
 

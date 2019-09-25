@@ -30,14 +30,14 @@ GameState::~GameState(){
 }
 
 
-void GameState::FreeDestroyedObjects(){
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-    int i = 0;
-    for(auto& obj: objects){
-        if(obj->IsDestroyed()){
-            delete obj;
-            objects.erase(objects.begin()+i);
-            ++i;
+void GameState::FreeDestroyedObjects(){                
+    for(auto it = objects.begin(); it != objects.end(); ){
+        if((*it)->IsDestroyed()){
+            delete *it;
+            it = objects.erase(it);
+        }
+        else{
+            ++it;
         }
     }
 }
@@ -97,7 +97,7 @@ void GameState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcep
 void GameState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long unsigned int& current_state) noexcept {
     UpdatePlayer();
     UpdateObjects();
-    // FreeDestroyedObjects();
+    FreeDestroyedObjects();
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
        _sound.play();   

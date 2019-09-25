@@ -13,10 +13,11 @@ Object::Object(float x, float y, sf::RenderWindow* winptr, float radius)
 }
 
 Object::~Object(){
-    // std::cout << __PRETTY_FUNCTION__ << std::endl;
+
 }
 
 bool Object::operator==(const Object& rhs)const noexcept{
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     return this == &rhs;
 }
 
@@ -57,6 +58,11 @@ sf::Sound& Object::Sound()noexcept{
     return _sound_destroy;
 }
 
+
+std::string Object::Name()const noexcept{
+    return _name;
+}
+
 bool Object::DisappearedFromWindow()noexcept{
     float xx = static_cast<float>(_window->getSize().x);
     float yy = static_cast<float>(_window->getSize().y);
@@ -68,11 +74,32 @@ bool Object::DisappearedFromWindow()noexcept{
 
 
 void Object::OnCollide(Object* other)noexcept{
-    if(_x == other->_x && _y == other->_y){
-        std::cout << "collision detected!" << std::endl;
-        delete this;
-        delete other;
+    /*
+    
+    var circle1 = {radius: 20, x: 5, y: 5};   circle1.x -> this->_x, circle1.y ->this->_y,
+    var circle2 = {radius: 12, x: 10, y: 5};
+
+    var dx = circle1.x - circle2.x;
+    var dy = circle1.y - circle2.y;
+    var distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < circle1.radius + circle2.radius) {
+        // collision detected!
     }
+    
+    */
+    float dx = this->_x - other->_x;
+    float dy = this->_y - other->_y;
+    float distance = std::sqrt(dx*dx + dy*dy);
+    if(distance <= this->_radius + other->_radius){
+        std::cout << "collision detected! between"<<  _name << " and " << other->Name() << std::endl;
+        this->GetDestroyState() = true;
+        other->GetDestroyState() = true;
+    }
+
+    
+        
+    
 }
 
 

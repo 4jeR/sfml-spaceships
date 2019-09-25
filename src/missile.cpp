@@ -12,7 +12,7 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr, float radius)
     _shape -> setFillColor(sf::Color::Transparent);
     _currentSpeed = 1500.0f;
     
-
+     _name = "missile";
 }
 
 Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* winptr, float radius){
@@ -21,6 +21,7 @@ Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* winptr,
 
 
 Missile::~Missile(){
+    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     delete _shape;
 }
 

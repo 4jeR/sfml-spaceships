@@ -26,8 +26,8 @@ Application::~Application(){
 
 void Application::Run()noexcept{
     while (window -> isOpen()){
-        Render();
         UpdateAll();
+        Render();
     }
 }
 

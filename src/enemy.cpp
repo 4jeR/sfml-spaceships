@@ -11,7 +11,7 @@ Enemy::Enemy(float x, float y, sf::RenderWindow* winptr, float radius)
     _shape -> setOutlineColor(sf::Color::Red);
     _currentSpeed = 200.0f;
 
-    
+    _name = "enemy";
 }
 
 Enemy* Enemy::InstantiateEnemy(float x, float y, sf::RenderWindow* winptr, float radius){
@@ -20,13 +20,13 @@ Enemy* Enemy::InstantiateEnemy(float x, float y, sf::RenderWindow* winptr, float
 
 
 Enemy::~Enemy(){
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     delete _shape;
 }
 
 
 void Enemy::UpdateAll() noexcept {
-    UpdateTransforms();
+    // UpdateTransforms();
     DisappearedFromWindow();
     
 }
