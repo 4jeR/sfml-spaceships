@@ -46,9 +46,6 @@ void PauseState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long
 
 
 void PauseState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcept {
-    std::cout << "entering pause state!"<<std::endl;
-    std::cout << "states stack size -> " << states.size() << std::endl;
-
     if(!_font.loadFromFile("../fonts/leders st.ttf")){
     }
     float xx = static_cast<float>(_window->getSize().x) / 2.0f;

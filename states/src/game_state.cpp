@@ -31,6 +31,7 @@ GameState::~GameState(){
 
 
 void GameState::FreeDestroyedObjects(){
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     int i = 0;
     for(auto& obj: objects){
         if(obj->IsDestroyed()){
@@ -69,7 +70,7 @@ void GameState::UpdatePlayer()noexcept{
 void GameState::UpdateObjects()noexcept{
     // SPAWN ENEMIES
     if(enemies_count <= 2){
-        float randX = static_cast<float>(std::rand()%400+1);
+        float randX = static_cast<float>(std::rand()%900+1);
         float randY = static_cast<float>(std::rand()%700+1);
         objects.push_back(Enemy::InstantiateEnemy(randX, randY, window_ptr));
         ++enemies_count;
@@ -78,14 +79,17 @@ void GameState::UpdateObjects()noexcept{
 
     for(auto& obj : objects){
         obj -> UpdateAll();
+        for(auto& other : objects){
+            if(!(obj == other))
+                obj->OnCollide(other);
+            
+        }
     }
 }
 
 
-void GameState::InitState(std::array<State*, 4>& states)noexcept{
-    std::cout << "entering game state!"<<std::endl;
-    std::cout << "states stack size -> " << states.size() << std::endl;
-    player = Player::InstantiatePlayer(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
+void GameState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcept{
+    player = new Player(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
     tracker = new StatsTracker();
 }
 

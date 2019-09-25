@@ -4,9 +4,9 @@
 
 class Player : public Object{
 public:
-    Player(float x, float y, sf::RenderWindow* winptr = nullptr);
+    Player(float x, float y,sf::RenderWindow* window = nullptr,  float radius = 22.0f);
     ~Player();
-    static Player* InstantiatePlayer(float x, float y, sf::RenderWindow* window = nullptr);
+    static Player* InstantiatePlayer(float x, float y, sf::RenderWindow* window = nullptr, float radius = 22.0f);
     Player& operator=(const Player& rhs);
 
     int Cooldown()const noexcept;
@@ -39,7 +39,6 @@ private:
 
     int _cooldown;
     int _lives;
-    float _radius;
     Missile* _missile;
     sf::CircleShape* _shape;
     sf::CircleShape* _dot;

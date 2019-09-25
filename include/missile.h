@@ -3,10 +3,10 @@
 
 class Missile: public Object{
 public:
-    Missile(float x, float y, sf::RenderWindow* winptr = nullptr);
+    Missile(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 3.0f);
     ~Missile();
     
-    static Missile* InstantiateMissile(float x, float y, sf::RenderWindow* window = nullptr);
+    static Missile* InstantiateMissile(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 3.0f);
     
     Missile& operator=(const Missile& rhs);
     

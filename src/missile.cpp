@@ -1,10 +1,10 @@
 #include "missile.h"
 
 
-Missile::Missile(float x, float y, sf::RenderWindow* winptr)
-:Object(x, y, winptr)
+Missile::Missile(float x, float y, sf::RenderWindow* winptr, float radius)
+:Object(x, y, winptr, radius)
 {
-    std::cout << "New missile spawn. IsDestroyed -> " << _isDestroyed << std::endl;
+    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     _shape = new sf::RectangleShape(sf::Vector2f(2.0f, 8.0f));
     _shape -> setPosition(_x, _y);
     _shape -> setOutlineColor(sf::Color::Red);
@@ -15,13 +15,12 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr)
 
 }
 
-Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* window){
-    return new Missile(x, y, window);
+Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* winptr, float radius){
+    return new Missile(x, y, winptr, radius);
 }
 
 
 Missile::~Missile(){
-    std::cout << "deleting missile" <<std::endl;
     delete _shape;
 }
 

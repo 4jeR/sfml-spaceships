@@ -4,10 +4,10 @@
 
 class Enemy : public Object{
 public:
-    Enemy(float x, float y, sf::RenderWindow* winptr = nullptr);
+    Enemy(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 12.0f);
     ~Enemy();
 
-    static Enemy* InstantiateEnemy(float x, float y, sf::RenderWindow* window = nullptr);
+    static Enemy* InstantiateEnemy(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 12.0f);
 
 
 
@@ -19,4 +19,6 @@ private:
 
     sf::CircleShape* _shape;
     float _radius;
+
+    
 };

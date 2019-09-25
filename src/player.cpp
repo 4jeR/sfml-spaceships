@@ -2,19 +2,19 @@
 
 
 
-Player::Player(float x, float y, sf::RenderWindow* winptr)
-:Object(x, y, winptr),_cooldown(0),_lives(3),_radius(22.0f), _score(0)
+Player::Player(float x, float y, sf::RenderWindow* winptr, float radius)
+:Object(x, y, winptr, radius),_cooldown(0),_lives(3), _score(0)
 {   
     
-
-    _shape = new sf::CircleShape(_radius, 3);
+    // std::cout << __PRETTY_FUNCTION__ << std::endl;
+    _shape = new sf::CircleShape(radius, 3);
     _shape -> setPosition(_x, _y);
     _shape -> setFillColor(sf::Color::Transparent);
     _shape -> setOutlineThickness(1.5f);
     _shape -> setOutlineColor(sf::Color::Green);
-    _shape -> setOrigin(static_cast<float>(static_cast<double>(_radius) * std::sqrt(3)/ 2.0), _radius );
+    _shape -> setOrigin(static_cast<float>(static_cast<double>(radius) * std::sqrt(3)/ 2.0), radius );
 
-    _dot = new sf::CircleShape(_radius / 7.0f);
+    _dot = new sf::CircleShape(radius / 7.0f);
     _dot -> setPosition(_x, _y);
     _dot -> setFillColor(sf::Color::Green);
     if(!_sound_buffer.loadFromFile("../audio/laser-shot.wav")){
@@ -26,17 +26,20 @@ Player::Player(float x, float y, sf::RenderWindow* winptr)
 
 
 Player::~Player(){
+    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     delete _shape;
     delete _dot;
 }
 
 
 Missile* Player::Shot()noexcept{
+    // std::cout << __PRETTY_FUNCTION__ << std::endl;
+    
     /**
      * TODO: 
      *      audio playing when shooting new missile
     */
-    _missile = new Missile(_x, _y, _window);
+    _missile = new Missile(_x, _y, _window, _radius);
     _sound.play();
     float byX =  1.5f * _radius * static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
     float byY = -1.5f * _radius * static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
@@ -45,8 +48,8 @@ Missile* Player::Shot()noexcept{
     return _missile;
 }
 
-Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* window){
-    return new Player(x, y, window);
+Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* winptr,float radius){
+    return new Player(x, y, winptr, radius);
 }
 
 

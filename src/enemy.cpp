@@ -1,26 +1,27 @@
 #include "enemy.h"
 
-Enemy::Enemy(float x, float y, sf::RenderWindow* winptr)
-:Object(x, y, winptr),_radius(12.0f)
+Enemy::Enemy(float x, float y, sf::RenderWindow* winptr, float radius)
+:Object(x, y, winptr, radius)
 {
-    std::cout << "Allocate memory for shape from Enemy::enemy!" << std::endl;
-    _shape = new sf::CircleShape(_radius, 5);
+    // std::cout << __PRETTY_FUNCTION__ << std::endl;
+    _shape = new sf::CircleShape(radius, 5);
     _shape -> setPosition(_x, _y);
     _shape -> setFillColor(sf::Color::Transparent);
     _shape -> setOutlineThickness(2.0f);
     _shape -> setOutlineColor(sf::Color::Red);
     _currentSpeed = 200.0f;
+
+    
 }
 
-Enemy* Enemy::InstantiateEnemy(float x, float y, sf::RenderWindow* window){
-    return new Enemy(x, y, window);
+Enemy* Enemy::InstantiateEnemy(float x, float y, sf::RenderWindow* winptr, float radius){
+    return new Enemy(x, y, winptr, radius);
 }
 
 
 Enemy::~Enemy(){
-    std::cout << "deleting enemy" <<std::endl;
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     delete _shape;
-
 }
 
 
@@ -35,7 +36,7 @@ sf::Shape* Enemy::GetShape() noexcept {
 }
 
 void Enemy::UpdateTransforms()noexcept{
-    Rotate();
+    //Rotate();
     
     float byX = 0.001f * _currentSpeed *  static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
     float byY = 0.001f * _currentSpeed *  static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
