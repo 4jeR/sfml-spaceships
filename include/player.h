@@ -22,7 +22,7 @@ public:
     int& GetScore()noexcept;
 
 
-    Missile* Shot()noexcept;
+    Missile* Shoot()noexcept;
     void UpdateAll() noexcept override;
     sf::Shape* GetShape() noexcept override;
     sf::CircleShape* GetDot()noexcept;

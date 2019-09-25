@@ -32,7 +32,7 @@ Player::~Player(){
 }
 
 
-Missile* Player::Shot()noexcept{
+Missile* Player::Shoot()noexcept{
     // std::cout << __PRETTY_FUNCTION__ << std::endl;
     
     /**
