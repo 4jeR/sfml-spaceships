@@ -1,6 +1,8 @@
+#include "options_state.h"
+
 #include "menu_state.h"
 
-MenuState::MenuState(std::array<State*, 4>& states, sf::RenderWindow* window)
+OptionsState::OptionsState(std::array<State*, 4>& states, sf::RenderWindow* window)
 :State(window),selected_button(0)
 {
     InitState(states);
@@ -8,7 +10,7 @@ MenuState::MenuState(std::array<State*, 4>& states, sf::RenderWindow* window)
 
     }
 
-    if (!_menutexture.loadFromFile("../img/background.jpg")){
+    if (!_menutexture.loadFromFile("../img/bg-options.jpg")){
        
     }
     _sprite.setTexture(_menutexture);
@@ -16,14 +18,14 @@ MenuState::MenuState(std::array<State*, 4>& states, sf::RenderWindow* window)
     _sound.setVolume(70);
 }
 
-MenuState::~MenuState(){
+OptionsState::~OptionsState(){
     for(auto& button : menu_buttons)
         delete button;
 }
 
 
 
-void MenuState::Render() noexcept {
+void OptionsState::Render() noexcept {
     _window->draw(_sprite);
     for(auto& button:menu_buttons){
         _window -> draw(*button->GetShape());
@@ -32,25 +34,24 @@ void MenuState::Render() noexcept {
 
 }
 
-void MenuState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcept {
-    menu_buttons[0] = new Button(90, 150, " start game");
+void OptionsState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcept {
+    menu_buttons[0] = new Button(90, 150, "todo...");
     RotateButton(menu_buttons[0], true);
-    menu_buttons[1] = new Button(140, 270, "multiplayer");
-    menu_buttons[2] = new Button(90, 390, "   options");
-    menu_buttons[3] = new Button(140, 510, "  quit game");
+    menu_buttons[1] = new Button(140, 270, "back");
 }
 
 
-void MenuState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long unsigned int& current_state) noexcept {
+
+void OptionsState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long unsigned int& current_state) noexcept {
     ++_cooldown;
     ++_cooldown2;
     long unsigned int prev = selected_button;
-    
     if(_cooldown > 100){
         _cooldown = 0;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && selected_button > 0){
             --selected_button; 
             _sound.play();
+            
             RotateButton(menu_buttons[selected_button], true);
             RotateButton(menu_buttons[prev],false);
         }
@@ -65,34 +66,29 @@ void MenuState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long 
         menu_buttons[prev]->GetShape()->setFillColor(sf::Color::Transparent);
         menu_buttons[selected_button]->GetShape()->setFillColor(sf::Color::Blue);
     }
-    
+    // 0 menustate
+    // 1 - game
+    // 2- pause
+    // 3 - options
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && _cooldown2 > 200){
         switch(selected_button){
-            // 0 menustate
-            // 1 - game
-            // 2- pause
-            // 3 - options
             case 0:
-                current_state = 1;
+                // current_state = 0
             break;
+
             case 1:
-            break;
-            case 2:
                 _sound.play();
-                states[3]->GetCooldown() = 0;
+                states[0]->GetCooldown() = 0;
                 _cooldown2 = 0;
-                current_state = 3;
-            break;
-            case 3:
-                _sound.play();
-                _window->close();
+                current_state = 0;
             break;
         }
     }
+    
 }
 
 
-void MenuState::RotateButton(Button* button, bool clockwise )noexcept{
+void OptionsState::RotateButton(Button* button, bool clockwise )noexcept{
     
     if(clockwise){
        button->GetShape()->rotate(5.0f);

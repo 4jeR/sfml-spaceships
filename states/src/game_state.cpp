@@ -6,7 +6,7 @@ int GameState::enemies_count = 0;
 sf::RenderWindow* GameState::window_ptr;
 
 
-GameState::GameState(std::array<State*, 3>& states, sf::RenderWindow* window)
+GameState::GameState(std::array<State*, 4>& states, sf::RenderWindow* window)
 :State(window)
 {
     srand(time(NULL));
@@ -82,7 +82,7 @@ void GameState::UpdateObjects()noexcept{
 }
 
 
-void GameState::InitState(std::array<State*, 3>& states)noexcept{
+void GameState::InitState(std::array<State*, 4>& states)noexcept{
     std::cout << "entering game state!"<<std::endl;
     std::cout << "states stack size -> " << states.size() << std::endl;
     player = Player::InstantiatePlayer(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
@@ -90,18 +90,16 @@ void GameState::InitState(std::array<State*, 3>& states)noexcept{
 }
 
 
-void GameState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long unsigned int& current_state) noexcept {
+void GameState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long unsigned int& current_state) noexcept {
     UpdatePlayer();
     UpdateObjects();
     // FreeDestroyedObjects();
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
-        current_state = 0;
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)){
-        _sound.play();   
+       _sound.play();   
         current_state = 2;
     }
+    
 
 }
 

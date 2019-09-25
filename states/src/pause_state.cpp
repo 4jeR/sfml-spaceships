@@ -1,8 +1,8 @@
 #include "pause_state.h"
 
 
-PauseState::PauseState(std::array<State*, 3>& states, sf::RenderWindow* window)
-:State(window),_cooldown(0)
+PauseState::PauseState(std::array<State*, 4>& states, sf::RenderWindow* window)
+:State(window)
 {
     InitState(states);
     if(!_sound_buffer.loadFromFile("../audio/pause.wav")){
@@ -32,7 +32,7 @@ void PauseState::Render() noexcept {
 }
 
 
-void PauseState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long unsigned int& current_state) noexcept {
+void PauseState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long unsigned int& current_state) noexcept {
     Render();
     RotateText(_unpauseText);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
@@ -43,7 +43,7 @@ void PauseState::UpdateState([[maybe_unused]] std::array<State*, 3>& states,long
 }
 
 
-void PauseState::InitState([[maybe_unused]] std::array<State*, 3>& states)noexcept {
+void PauseState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcept {
     std::cout << "entering pause state!"<<std::endl;
     std::cout << "states stack size -> " << states.size() << std::endl;
 

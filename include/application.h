@@ -2,6 +2,7 @@
 #include "player.h"
 #include "game_state.h"
 #include "menu_state.h"
+#include "options_state.h"
 #include "enemy.h"
 
 #include <iostream>
@@ -28,6 +29,6 @@ private:
     
 
     static sf::RenderWindow* window;
-    static std::array<State*, 3> states;
+    static std::array<State*, 4> states;
     static long unsigned int currentState;
 };

@@ -1,14 +1,11 @@
 #pragma once
 #include "state.h"
 #include "button.h"
-#include <array>
-#include "game_state.h"
 
-
-class MenuState : public State{
+class OptionsState : public State{
 public:
-    MenuState(std::array<State*, 4>& states, sf::RenderWindow* window);
-    ~MenuState();
+    OptionsState(std::array<State*, 4>& states, sf::RenderWindow* window);
+    ~OptionsState();
 
     void UpdateState(std::array<State*, 4>& states,long unsigned int& current_state) noexcept override;
     void Render() noexcept override;
@@ -16,10 +13,8 @@ public:
     void InitState(std::array<State*, 4>& states)noexcept override;
     void RotateButton(Button* button, bool clockwise)noexcept;
 private:
-
-    std::array<Button*, 4> menu_buttons;
+    std::array<Button*, 2> menu_buttons;
     long unsigned int selected_button;
-    
     sf::SoundBuffer _sound_buffer;
     sf::Sound _sound;
 
