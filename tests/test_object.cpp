@@ -5,67 +5,66 @@
 
 
 TEST(Object, get_x_copy) { 
-    Enemy enemy(20.0f, 30.0f);
-    Object* ptr = &enemy;
-    EXPECT_FLOAT_EQ(ptr->X(), 20.0f);
-    EXPECT_TRUE(ptr->X() == 20.0f);
-    EXPECT_FALSE(ptr->X() == 20.0002f);
+    Enemy e(20.0f, 30.0f);
+    EXPECT_FLOAT_EQ(e.X(), 20.0f);
+    EXPECT_TRUE(e.X() == 20.0f);
+    EXPECT_FALSE(e.X() == 20.0002f);
 }
+
 
 TEST(Object, get_y_copy) { 
-    Enemy enemy(120.0f, 35.0f);
-    Object* ptr = &enemy;
-    EXPECT_EQ(ptr->Y(), 35.0f);
-    EXPECT_TRUE(ptr->Y() == 35.0f);
-    EXPECT_FALSE(ptr->Y() == 34.99998f);
+    Enemy e(120.0f, 35.0f);
+    EXPECT_EQ(e.Y(), 35.0f);
+    EXPECT_TRUE(e.Y() == 35.0f);
+    EXPECT_FALSE(e.Y() == 34.99998f);
 }
 
+
 TEST(Object, get_x_ref) { 
-    Enemy enemy(120.0f, 35.0f);
-    Object* ptr = &enemy;
-    ptr->GetX() = 60.0f;
-    EXPECT_EQ(ptr->GetX(), 60.0f);
-    EXPECT_TRUE(ptr->GetX() == 60.0f);
-    EXPECT_FALSE(ptr->GetX() == 120.0f);
+    Enemy e(120.0f, 35.0f);
+    e.GetX() = 60.0f;
+    EXPECT_EQ(e.GetX(), 60.0f);
+    EXPECT_TRUE(e.GetX() == 60.0f);
+    EXPECT_FALSE(e.GetX() == 120.0f);
 }
 
 
 TEST(Object, get_y_ref) { 
-    Enemy enemy(120.0f, 333.0f);
-    Object* ptr = &enemy;
-    ptr->GetY() = 260.0f;
-    EXPECT_FLOAT_EQ(ptr->GetY(), 260.0f);
-    EXPECT_TRUE(ptr->GetY() == 260.0f);
-    EXPECT_FALSE(ptr->GetY() == 333.0f);
+    Enemy e(120.0f, 333.0f);
+    e.GetY() = 260.0f;
+    EXPECT_FLOAT_EQ(e.GetY(), 260.0f);
+    EXPECT_TRUE(e.GetY() == 260.0f);
+    EXPECT_FALSE(e.GetY() == 333.0f);
 }
+
 
 TEST(Object, get_currentspeed_copy){
     Enemy e(0.0f, 10.0f);
-    Object* ptr = &e;
-    EXPECT_FLOAT_EQ(ptr->CurrentSpeed(), 200.0f);
+    EXPECT_FLOAT_EQ(e.CurrentSpeed(), 200.0f);
 }
+
 
 TEST(Object, get_currentspeed_ref){
     Enemy e(0.0f, 10.0f);
-    Object* ptr = &e;
-    ptr->GetCurrentSpeed() = 250.0f;
-    EXPECT_FLOAT_EQ(ptr->GetCurrentSpeed(), 250.0f);
+    e.GetCurrentSpeed() = 250.0f;
+    EXPECT_FLOAT_EQ(e.GetCurrentSpeed(), 250.0f);
 }
+
 
 TEST(Object, get_destroystate_copy){
     Enemy e(0.0f, 10.0f);
-    Object* ptr = &e;
-    EXPECT_TRUE(!ptr->IsDestroyed());
-    EXPECT_FALSE(ptr->IsDestroyed());
+    EXPECT_TRUE(!e.IsDestroyed());
+    EXPECT_FALSE(e.IsDestroyed());
 }
+
 
 TEST(Object, get_destroystate_ref){
     Enemy e(0.0f, 10.0f);
-    Object* ptr = &e;
-    EXPECT_TRUE(!ptr->GetDestroyState());
-    ptr->GetDestroyState() = true;
-    EXPECT_TRUE(ptr->GetDestroyState());
+    EXPECT_TRUE(!e.GetDestroyState());
+    e.GetDestroyState() = true;
+    EXPECT_TRUE(e.GetDestroyState());
 }
+
 
 TEST(Object, calc_angular_velocity){
     Enemy e(0.0f, 10.0f);
@@ -80,7 +79,6 @@ TEST(Object, calc_angular_velocity){
     e.GetCurrentSpeed() = 700.0f;
     expected = e.CalcAngularVelocity(e.CurrentSpeed());
     ASSERT_FLOAT_EQ(0.213853532f, expected);
-
 }
 
 
@@ -98,36 +96,3 @@ TEST(Object, calc_acceleration){
     EXPECT_FLOAT_EQ(1.5f, e.CalcAcceleration(-1000.0f, true));  
     EXPECT_FLOAT_EQ(0.0f, e.CalcAcceleration(-5200.0f, false));  
 }
-
-
-
-
-
-/**
-    float CalcAcceleration(float current_speed, bool add)const noexcept;
-
-
-float Object::CalcAcceleration(float current_speed, bool add)const noexcept{
-    float value = 0.0f;
-    if(add){
-        if(current_speed <= 200.0f){
-            value = 1.5f;
-        }
-        else if(200.0f < current_speed && current_speed <= 600.0f){
-            value  = 2.0f;
-        }
-        else if(600.0f < current_speed && current_speed <= 894.5f){
-            value  = 0.5f;
-        }
-    }
-    else if(!add){
-        if(1.0f <= current_speed && current_speed <= 200.0f){
-            value = -1.0f;
-        }
-        else if(200.0f <= current_speed){
-            value = -3.0f;
-        }
-    }
-    return value;
-}
-*/
