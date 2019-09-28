@@ -84,30 +84,28 @@ TEST(Object, calc_angular_velocity){
 }
 
 
+TEST(Object, calc_acceleration){
+    Enemy e(40.0f, 180.0f);
+    EXPECT_FLOAT_EQ(1.5f, e.CalcAcceleration(100.0f, true));
+    EXPECT_FLOAT_EQ(2.0f, e.CalcAcceleration(300.0f, true));
+    EXPECT_FLOAT_EQ(0.5f, e.CalcAcceleration(800.0f, true));
 
+    EXPECT_FLOAT_EQ(-1.0f, e.CalcAcceleration(100.0f, false));
+    EXPECT_FLOAT_EQ(-3.0f, e.CalcAcceleration(300.0f, false));   
 
-
-/**
- * float CalcAngularVelocity(float current_speed)const noexcept;
-    float CalcAcceleration(float current_speed, bool add)const noexcept;
-*/
-
-/**
- * 
-
-float Object::CalcAngularVelocity(float current_speed)const noexcept{
-    float abs_speed = std::abs(current_speed);
-    if(abs_speed <= 200.0f){
-        return 0.002f * std::sqrt(abs_speed / 3.0f);
-    }
-    else if(200.0f < abs_speed&& abs_speed <= 600.0f){
-        return 0.001f * std::sqrt(2.0f * abs_speed / 3.0f);
-    }
-    else if(600.0f < abs_speed){
-        return 0.007f * std::sqrt(4.0f * abs_speed / 3.0f);
-    }
-    else return 0.0f;
+    EXPECT_FLOAT_EQ(-3.0f, e.CalcAcceleration(1000.0f, false));  
+    EXPECT_FLOAT_EQ(0.0f, e.CalcAcceleration(1000.0f, true));  
+    EXPECT_FLOAT_EQ(1.5f, e.CalcAcceleration(-1000.0f, true));  
+    EXPECT_FLOAT_EQ(0.0f, e.CalcAcceleration(-5200.0f, false));  
 }
+
+
+
+
+
+/**
+    float CalcAcceleration(float current_speed, bool add)const noexcept;
+
 
 float Object::CalcAcceleration(float current_speed, bool add)const noexcept{
     float value = 0.0f;
