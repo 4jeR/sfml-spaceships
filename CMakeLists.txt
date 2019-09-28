@@ -44,6 +44,17 @@ target_link_libraries(run sfml-graphics sfml-audio sfml-window sfml-system)
 enable_testing() 
 file(GLOB test_src_files ${PROJECT_SOURCE_DIR}/tests/*.cpp)
 
-# add_executable(runAllTests ${test_src_files})
-# add_test(Tests runAllTests)
-# target_link_libraries(runAllTests sfml-graphics sfml-audio sfml-window sfml-system ${GTEST_LIBRARIES} pthread)
+add_executable(testsRunAll 
+                            ${PROJECT_SOURCE_DIR}/src/enemy.cpp
+                            ${PROJECT_SOURCE_DIR}/src/button.cpp
+                            ${PROJECT_SOURCE_DIR}/src/missile.cpp
+                            ${PROJECT_SOURCE_DIR}/src/object.cpp
+                            ${PROJECT_SOURCE_DIR}/src/player.cpp
+                            ${PROJECT_SOURCE_DIR}/src/stats_tracker.cpp
+                            ${test_src_files} 
+)
+
+add_test(Tests testsRunAll )
+
+
+target_link_libraries(testsRunAll  sfml-graphics sfml-audio sfml-window sfml-system ${GTEST_LIBRARIES} pthread)

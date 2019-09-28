@@ -6,7 +6,7 @@
 
 class Object{
 public:
-    Object(float x, float y, sf::RenderWindow* winptr , float radius );
+    Object(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 0.0f);
     virtual ~Object();
 
     bool operator==(const Object& rhs)const noexcept;
@@ -19,6 +19,8 @@ public:
     float& GetCurrentSpeed()noexcept;
     bool IsDestroyed()const noexcept;
     bool& GetDestroyState()noexcept;
+    float Radius()const noexcept;
+    float& GetRadius()noexcept;
     
     virtual void UpdateAll() noexcept = 0;
     virtual sf::Shape* GetShape() noexcept = 0;

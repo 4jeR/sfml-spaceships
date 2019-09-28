@@ -15,8 +15,6 @@ public:
     int Lives()const noexcept;
     int& GetLives()noexcept;
 
-    float Radius()const noexcept;
-    float& GetRadius()noexcept;
     
     int Score()const noexcept;
     int& GetScore()noexcept;

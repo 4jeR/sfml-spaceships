@@ -100,13 +100,7 @@ int Player::Lives()const noexcept{
     return _lives;
 }
 
-float Player::Radius()const noexcept{
-    return _radius;
-}
 
-float& Player::GetRadius() noexcept{
-    return _radius;
-}
 
 
 int& Player::GetScore()noexcept{

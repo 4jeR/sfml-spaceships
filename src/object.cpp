@@ -63,6 +63,15 @@ std::string Object::Name()const noexcept{
     return _name;
 }
 
+float Object::Radius()const noexcept{
+    return _radius;
+}
+
+float& Object::GetRadius() noexcept{
+    return _radius;
+}
+
+
 bool Object::DisappearedFromWindow()noexcept{
     float xx = static_cast<float>(_window->getSize().x);
     float yy = static_cast<float>(_window->getSize().y);
