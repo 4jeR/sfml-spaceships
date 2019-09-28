@@ -15,20 +15,21 @@ public:
     float& GetX()noexcept;
     float Y()const noexcept;
     float& GetY()noexcept;
+    sf::RenderWindow* Window()noexcept;
     float CurrentSpeed()const noexcept;
     float& GetCurrentSpeed()noexcept;
     bool IsDestroyed()const noexcept;
     bool& GetDestroyState()noexcept;
     float Radius()const noexcept;
     float& GetRadius()noexcept;
+    sf::Sound& Sound()noexcept;
+    std::string Name()const noexcept;
     
     virtual void UpdateAll() noexcept = 0;
     virtual sf::Shape* GetShape() noexcept = 0;
     float CalcAngularVelocity(float current_speed)const noexcept;
     float CalcAcceleration(float current_speed, bool add)const noexcept;
     virtual void OnCollide(Object* other)noexcept;
-    sf::Sound& Sound()noexcept;
-    std::string Name()const noexcept;
 protected:
     virtual void UpdateTransforms()noexcept = 0;
     virtual void Rotate()noexcept = 0;

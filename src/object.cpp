@@ -38,6 +38,10 @@ float& Object::GetY()noexcept{
     return _y;
 }
 
+sf::RenderWindow* Object::Window()noexcept{
+    return _window;
+}
+
 bool Object::IsDestroyed()const noexcept{
     return _isDestroyed;
 }
