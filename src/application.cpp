@@ -15,6 +15,7 @@ Application::Application()
 {
     srand(static_cast<unsigned int>(std::rand()%RAND_MAX));
     window = new sf::RenderWindow(sf::VideoMode(WINDOWX, WINDOWY), "Spaceships");
+    window -> setFramerateLimit(600);
     InitStates();
 }
 

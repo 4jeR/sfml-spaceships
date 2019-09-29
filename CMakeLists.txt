@@ -31,7 +31,7 @@ add_executable(${EXECUTABLE_NAME} ${main} ${include} ${src} ${audio} ${states_in
 include_directories(${PROJECT_SOURCE_DIR}/include ${GTEST_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR}/states/include)
 
 
-set(CMAKE_CXX_FLAGS "-pedantic -Wall -g -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -fsanitize=leak -fsanitize=address  -fsanitize=undefined  -fsanitize=pointer-compare  -fsanitize=pointer-subtract")
+set(CMAKE_CXX_FLAGS "-pedantic -Ofast") #-Wall -g -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -fsanitize=leak -fsanitize=address  -fsanitize=undefined  -fsanitize=pointer-compare  -fsanitize=pointer-subtract")
 
 set(SFML_DIR "./library/frameworks/SFML-2.5.1/lib/cmake/SFML")
 
