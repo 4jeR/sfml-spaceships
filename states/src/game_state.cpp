@@ -74,7 +74,7 @@ void GameState::UpdatePlayer()noexcept{
 
 void GameState::UpdateObjects()noexcept{
     // SPAWN ENEMIES
-    if(enemies_count <= 5){
+    if(enemies_count < 3){
         float randX = static_cast<float>(std::rand()%900+1);
         float randY = static_cast<float>(std::rand()%700+1);
         objects.push_back(Enemy::InstantiateEnemy(randX, randY, window_ptr));
@@ -85,8 +85,14 @@ void GameState::UpdateObjects()noexcept{
     for(auto& obj : objects){
         obj -> UpdateAll();
         for(auto& other : objects){
-            if(obj->Name() != "player" && !(obj == other))
+            if(!(obj == other)){
                 obj->OnCollide(other);
+                if(obj->IsDestroyed() && other -> IsDestroyed()){
+                    player->AddScore(20);
+                    --enemies_count;
+                }
+            }
+
         }
     }
     for(auto& obj : objects){

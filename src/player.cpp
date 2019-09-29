@@ -42,7 +42,6 @@ Missile* Player::Shoot()noexcept{
     
     _missile = new Missile(_x + byX, _y + byY, _window, _radius);
     _missile -> SetForeign(1);
-    // _missile -> GetShape() -> setOrigin(static_cast<float>(static_cast<double>(_radius) * std::sqrt(3)/ 2.0), _radius );
     _missile -> GetShape() -> rotate(_dot -> getRotation());
     return _missile;
 }
