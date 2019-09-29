@@ -4,9 +4,9 @@
 
 class Player : public Object{
 public:
-    Player(float x, float y,sf::RenderWindow* window = nullptr,  float radius = 22.0f);
+    Player(float x, float y,sf::RenderWindow* window = nullptr,  float radius = 22.0f, int foreign = 1);
     ~Player();
-    static Player* InstantiatePlayer(float x, float y, sf::RenderWindow* window = nullptr, float radius = 22.0f);
+    static Player* InstantiatePlayer(float x, float y, sf::RenderWindow* window = nullptr, float radius = 22.0f, int foreign = 1);
     Player& operator=(const Player& rhs);
 
     int Cooldown()const noexcept;

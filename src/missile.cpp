@@ -1,12 +1,12 @@
 #include "missile.h"
 
 
-Missile::Missile(float x, float y, sf::RenderWindow* winptr, float radius)
-:Object(x, y, winptr, radius)
+Missile::Missile(float x, float y, sf::RenderWindow* winptr, float radius, int foreign)
+:Object(x, y, winptr, radius, foreign)
 {
     // std::cout << __PRETTY_FUNCTION__ << std::endl;
     _shape = new sf::RectangleShape(sf::Vector2f(2.0f, 8.0f));
-    _shape -> setPosition(_x, _y);
+    _shape -> setPosition(_x, _y );
     _shape -> setOutlineColor(sf::Color::Red);
     _shape -> setOutlineThickness(1.0f);
     _shape -> setFillColor(sf::Color::Transparent);
@@ -15,8 +15,8 @@ Missile::Missile(float x, float y, sf::RenderWindow* winptr, float radius)
     _name = "missile";
 }
 
-Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* winptr, float radius){
-    return new Missile(x, y, winptr, radius);
+Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* winptr, float radius, int foreign){
+    return new Missile(x, y, winptr, radius, foreign);
 }
 
 
@@ -24,7 +24,6 @@ Missile::~Missile(){
     // std::cout << __PRETTY_FUNCTION__ << std::endl;
     delete _shape;
 }
-
 
 
 

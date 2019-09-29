@@ -6,7 +6,7 @@
 
 class Object{
 public:
-    Object(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 0.0f);
+    Object(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 0.0f, int foreign = 0);
     virtual ~Object();
 
     bool operator==(const Object& rhs)const noexcept;
@@ -24,12 +24,15 @@ public:
     float& GetRadius()noexcept;
     sf::Sound& Sound()noexcept;
     std::string Name()const noexcept;
-    
+    int Foreign()const noexcept;
+    int& GetForeign() noexcept;
+
     virtual void UpdateAll() noexcept = 0;
     virtual sf::Shape* GetShape() noexcept = 0;
     float CalcAngularVelocity(float current_speed)const noexcept;
     float CalcAcceleration(float current_speed, bool add)const noexcept;
     virtual void OnCollide(Object* other)noexcept;
+    virtual void SetForeign(int value)noexcept;
 protected:
     virtual void UpdateTransforms()noexcept = 0;
     virtual void Rotate()noexcept = 0;
@@ -43,11 +46,5 @@ protected:
     std::string _name;
     sf::SoundBuffer _sb_destroy;
     sf::Sound _sound_destroy;
-    /**
-     * TODO:
-     *      In Every class inherited from Object (and Object itself) add vector of objects, so every object can 
-     *      modify the objects (delete himself from vector) 
-     * 
-    */
-
+    int _foreign;
 };

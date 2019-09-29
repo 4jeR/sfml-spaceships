@@ -1,8 +1,8 @@
 #include "object.h"
 
 
-Object::Object(float x, float y, sf::RenderWindow* winptr, float radius)
-:_x(x), _y(y),_window(winptr),_radius(radius),_currentSpeed(0.0f),_isDestroyed(false)
+Object::Object(float x, float y, sf::RenderWindow* winptr, float radius, int foreign)
+:_x(x), _y(y),_window(winptr),_radius(radius),_currentSpeed(0.0f),_isDestroyed(false),_foreign(foreign)
 {
     // std::cout << __PRETTY_FUNCTION__ << std::endl;
     if(!_sb_destroy.loadFromFile("../audio/destroy.wav")){
@@ -75,6 +75,14 @@ float& Object::GetRadius() noexcept{
     return _radius;
 }
 
+int Object::Foreign()const noexcept{
+    return _foreign;
+}
+
+int& Object::GetForeign() noexcept{
+    return _foreign;
+}
+
 
 bool Object::DisappearedFromWindow()noexcept{
     float xx = static_cast<float>(_window->getSize().x);
@@ -87,13 +95,16 @@ bool Object::DisappearedFromWindow()noexcept{
 
 
 void Object::OnCollide(Object* other)noexcept{
-    float dx = this->_x - other->_x;
-    float dy = this->_y - other->_y;
-    float distance = std::sqrt(dx*dx + dy*dy);
-    if(distance <= this->_radius + other->_radius){
-        std::cout << "collision detected! between"<<  _name << " and " << other->Name() << std::endl;
-        this->GetDestroyState() = true;
-        other->GetDestroyState() = true;
+    if(this->_foreign != other ->_foreign){
+        float dx = this->_x - other->_x;
+        float dy = this->_y - other->_y;
+        float distance = std::sqrt(dx*dx + dy*dy);
+        // this->_radius + other->_radius
+        if(distance <= 15.5f){
+            std::cout << "collision detected! between "<<  _name << " and " << other->Name() << std::endl;
+            this->GetDestroyState() = true;
+            other->GetDestroyState() = true;
+        }
     }
 }
 
@@ -134,4 +145,8 @@ float Object::CalcAcceleration(float current_speed, bool add)const noexcept{
         }
     }
     return value;
+}
+
+void Object::SetForeign(int value)noexcept{
+    _foreign = value;
 }

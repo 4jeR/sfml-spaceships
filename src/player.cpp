@@ -2,8 +2,8 @@
 
 
 
-Player::Player(float x, float y, sf::RenderWindow* winptr, float radius)
-:Object(x, y, winptr, radius),_cooldown(0),_lives(3), _score(0)
+Player::Player(float x, float y, sf::RenderWindow* winptr, float radius, int foreign)
+:Object(x, y, winptr, radius, foreign),_cooldown(0),_lives(3), _score(0)
 {   
     
     // std::cout << __PRETTY_FUNCTION__ << std::endl;
@@ -34,31 +34,21 @@ Player::~Player(){
 
 
 Missile* Player::Shoot()noexcept{
-    // std::cout << __PRETTY_FUNCTION__ << std::endl;
-    
-    /**
-     * TODO: 
-     *      audio playing when shooting new missile
-    */
     _sound.play();
-    float byX =  1.5f * _radius * static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
-    float byY = -1.5f * _radius * static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    float byX =  1.5f * _radius * static_cast<float>(std::sin(static_cast<double>(_dot->getRotation()) * M_PI / 180.0));
+    float byY = -1.5f * _radius * static_cast<float>(std::cos(static_cast<double>(_dot->getRotation()) * M_PI / 180.0));
     
     _currentSpeed -= 60.0f;
     
-    
-    _missile = new Missile(_x, _y, _window, _radius);
-    
-    // _missile->_source = this; // Object* _source = this;  -> error
-
-
-    _missile -> GetShape() -> move(byX, byY );
-    _missile -> GetShape() -> rotate(_shape -> getRotation());
+    _missile = new Missile(_x + byX, _y + byY, _window, _radius);
+    _missile -> SetForeign(1);
+    // _missile -> GetShape() -> setOrigin(static_cast<float>(static_cast<double>(_radius) * std::sqrt(3)/ 2.0), _radius );
+    _missile -> GetShape() -> rotate(_dot -> getRotation());
     return _missile;
 }
 
-Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* winptr,float radius){
-    return new Player(x, y, winptr, radius);
+Player* Player::InstantiatePlayer(float x, float y, sf::RenderWindow* winptr,float radius, int foreign ){
+    return new Player(x, y, winptr, radius, foreign);
 }
 
 
@@ -158,12 +148,14 @@ void Player::Rotate()noexcept {
 }
 
 void Player::OnCollide(Object* other)noexcept{
-    float dx = this->_x - other->X();
-    float dy = this->_y - other->Y();
-    float distance = std::sqrt(dx*dx + dy*dy);
-    if(distance <= this->_radius + other->Radius()){
-        std::cout << "collision detected! between"<<  _name << " and " << other->Name() << std::endl;
-        --_lives;
-        other->GetDestroyState() = true;
+    if(this->_foreign != other ->Foreign()){
+        float dx = this->_x - other->X();
+        float dy = this->_y - other->Y();
+        float distance = std::sqrt(dx*dx + dy*dy);
+        if(distance <= this->_radius + other->Radius()){
+            std::cout << "collision detected! between "<<  _name << " and " << other->Name() << std::endl;
+            --_lives;
+            other->GetDestroyState() = true;
+        }
     }
 }

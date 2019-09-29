@@ -1,21 +1,21 @@
 #include "enemy.h"
 
-Enemy::Enemy(float x, float y, sf::RenderWindow* winptr, float radius)
-:Object(x, y, winptr, radius)
+Enemy::Enemy(float x, float y, sf::RenderWindow* winptr, float radius, int foreign)
+:Object(x, y, winptr, radius, foreign)
 {
     // std::cout << __PRETTY_FUNCTION__ << std::endl;
-    _shape = new sf::CircleShape(radius, 5);
+    _shape = new sf::CircleShape(radius);
     _shape -> setPosition(_x, _y);
     _shape -> setFillColor(sf::Color::Transparent);
     _shape -> setOutlineThickness(2.0f);
     _shape -> setOutlineColor(sf::Color::Red);
+    _shape -> setOrigin(radius / 2.0f, radius / 2.0f );
     _currentSpeed = 200.0f;
-
     _name = "enemy";
 }
 
-Enemy* Enemy::InstantiateEnemy(float x, float y, sf::RenderWindow* winptr, float radius){
-    return new Enemy(x, y, winptr, radius);
+Enemy* Enemy::InstantiateEnemy(float x, float y, sf::RenderWindow* winptr, float radius, int foreign ){
+    return new Enemy(x, y, winptr, radius, foreign);
 }
 
 
