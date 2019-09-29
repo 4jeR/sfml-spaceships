@@ -1,6 +1,8 @@
 #pragma once
 #include "state.h"
 #include <time.h>
+#include "game_state.h"
+
 class EndState : public State{
 public:
     EndState(std::array<State*, 5>& states, sf::RenderWindow* window);

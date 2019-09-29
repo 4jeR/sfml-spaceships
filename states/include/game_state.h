@@ -14,7 +14,7 @@ public:
     void Render() noexcept override;
     void UpdateState(std::array<State*, 5>& states,long unsigned int& current_state) noexcept override;
     void InitState(std::array<State*, 5>& states)noexcept override;
-    
+    static Player* GetPlayer()noexcept;
 private:
     static void UpdatePlayer()noexcept;
     static void UpdateObjects()noexcept;
@@ -28,6 +28,6 @@ private:
     StatsTracker* tracker;
     static sf::RenderWindow* window_ptr;    
 
-    sf::SoundBuffer _sound_buffer[2];
-    sf::Sound _sound[2];
+    static sf::SoundBuffer _sound_buffer[3];
+    static sf::Sound _sound[3];
 };

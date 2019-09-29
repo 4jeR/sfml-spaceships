@@ -92,7 +92,6 @@ bool Object::OnCollide(Object* other)noexcept{
         float dy = this->_y - other->_y;
         float distance = std::sqrt(dx*dx + dy*dy);
         if(distance <= 15.5f){
-            std::cout << "collision detected! between "<<  _name << " and " << other->Name() << std::endl;
             this->GetDestroyState() = true;
             other->GetDestroyState() = true;
             return true;

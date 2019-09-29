@@ -153,7 +153,6 @@ bool Player::OnCollide(Object* other)noexcept{
         float dy = this->_y - other->Y();
         float distance = std::sqrt(dx*dx + dy*dy);
         if(distance <= this->_radius + other->Radius()){
-            std::cout << "collision detected! between "<<  _name << " and " << other->Name() << std::endl;
             --_lives;
             other->GetDestroyState() = true;
             return true;

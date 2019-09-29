@@ -4,12 +4,13 @@ Player* GameState::player;
 std::vector<Object*> GameState::objects;
 int GameState::enemies_count = 0;
 sf::RenderWindow* GameState::window_ptr;
-
+sf::SoundBuffer GameState::_sound_buffer[3];
+sf::Sound GameState::_sound[3];
 
 GameState::GameState(std::array<State*, 5>& states, sf::RenderWindow* window)
 :State(window)
 {
-    srand(time(NULL));
+    srand(static_cast<unsigned int>(std::rand()%RAND_MAX));
     window_ptr = window;
     InitState(states);
 
@@ -22,6 +23,12 @@ GameState::GameState(std::array<State*, 5>& states, sf::RenderWindow* window)
 
     _sound[1].setBuffer(_sound_buffer[1]);
     _sound[1].setVolume(60.0f);
+    _sound[1].setPitch(0.9f);
+
+    if(!_sound_buffer[2].loadFromFile("../audio/explosion.wav")){}
+    _sound[2].setBuffer(_sound_buffer[2]);
+    _sound[2].setVolume(40.0f);
+    _sound[2].setPitch(1.5f);
 }
 
 
@@ -72,14 +79,14 @@ void GameState::UpdatePlayer()noexcept{
 
 void GameState::UpdateObjects()noexcept{
     // SPAWN ENEMIES
-    if(enemies_count <= 2){
+    if(enemies_count <= 3 + player->Score() / 100){
         float randX = static_cast<float>(std::rand()%900+1);
         float randY = static_cast<float>(std::rand()%700+1);
         objects.push_back(Enemy::InstantiateEnemy(randX, randY, window_ptr));
         ++enemies_count;
     }
     
-    bool destroyed = true;
+    bool destroyed = false;
     for(auto& obj : objects){
         obj -> UpdateAll();
         for(auto& other : objects){
@@ -88,13 +95,17 @@ void GameState::UpdateObjects()noexcept{
                     destroyed=true;
                     player->AddScore(20);
                     --enemies_count;
+                    _sound[2].play();
                 }
                     
             }
         }
     }
     for(auto& obj : objects){
-        player->OnCollide(obj);
+        if(player->OnCollide(obj)){
+            --enemies_count;
+            _sound[1].play();
+        }
     }
 }
 
@@ -122,7 +133,13 @@ void GameState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long 
 
 void GameState::CheckForGameOver([[maybe_unused]] std::array<State*, 5>& states,long unsigned int& current_state)noexcept{
     if(player->Lives() <= 0){
+        _sound[1].setPitch(0.7f);
         _sound[1].play(); 
         current_state = 4;
     }
 }  
+
+
+Player* GameState::GetPlayer()noexcept{
+    return player;
+}
