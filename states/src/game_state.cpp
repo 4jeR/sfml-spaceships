@@ -89,6 +89,7 @@ void GameState::UpdateObjects()noexcept{
             if(!(obj == other) && obj->OnCollide(other)){
                 if(!destroyed){
                     destroyed=true;
+                    // XDDXXD
                     player->AddScore(20);
                     --enemies_count;
                 }
