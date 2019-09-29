@@ -1,8 +1,7 @@
 #include "stats_tracker.h"
 
 StatsTracker::StatsTracker(){
-    if(!_font.loadFromFile("../fonts/Arcade.ttf")){
-    }
+    if(!_font.loadFromFile("../fonts/Arcade.ttf")){}
 
     _lives_text = new sf::Text;
     _lives_text ->setPosition(10.0f, 5.0f);
@@ -15,7 +14,6 @@ StatsTracker::StatsTracker(){
     _score_text ->setFont(_font);
     _score_text ->setCharacterSize(30);
     _score_text->setFillColor(sf::Color::Yellow);
-
 }
 
 StatsTracker::~StatsTracker(){

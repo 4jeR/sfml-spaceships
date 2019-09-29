@@ -4,13 +4,9 @@ MenuState::MenuState(std::array<State*, 5>& states, sf::RenderWindow* window)
 :State(window),selected_button(0)
 {
     InitState(states);
-    if(!_sound_buffer.loadFromFile("../audio/menu-switch.wav")){
+    if(!_sound_buffer.loadFromFile("../audio/menu-switch.wav")){}
 
-    }
-
-    if (!_menutexture.loadFromFile("../img/background.jpg")){
-       
-    }
+    if (!_menutexture.loadFromFile("../img/background.jpg")){}
     _sprite.setTexture(_menutexture);
     _sound.setBuffer(_sound_buffer);
     _sound.setVolume(30);
@@ -29,7 +25,6 @@ void MenuState::Render() noexcept {
         _window -> draw(*button->GetShape());
         _window -> draw(*button->GetText());
     }
-
 }
 
 void MenuState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexcept {
@@ -45,7 +40,6 @@ void MenuState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long 
     ++_cooldown;
     ++_cooldown2;
     long unsigned int prev = selected_button;
-    
     if(_cooldown > 100){
         _cooldown = 0;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && selected_button > 0){
@@ -54,24 +48,18 @@ void MenuState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long 
             RotateButton(menu_buttons[selected_button], true);
             RotateButton(menu_buttons[prev],false);
         }
-            
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)  && selected_button < menu_buttons.max_size()-1){
             ++selected_button;
             _sound.play();
             RotateButton(menu_buttons[selected_button], true);
             RotateButton(menu_buttons[prev],false);
         }
-
         menu_buttons[prev]->GetShape()->setFillColor(sf::Color::Transparent);
         menu_buttons[selected_button]->GetShape()->setFillColor(sf::Color::Blue);
     }
     
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && _cooldown2 > 200){
         switch(selected_button){
-            // 0 menustate
-            // 1 - game
-            // 2- pause
-            // 3 - options
             case 0:
                 current_state = 1;
             break;
@@ -93,7 +81,6 @@ void MenuState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long 
 
 
 void MenuState::RotateButton(Button* button, bool clockwise )noexcept{
-    
     if(clockwise){
        button->GetShape()->rotate(5.0f);
        button->GetText()->rotate(5.0f);

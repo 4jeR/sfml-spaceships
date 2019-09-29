@@ -7,7 +7,6 @@ PauseState::PauseState(std::array<State*, 5>& states, sf::RenderWindow* window)
     _gameptr = states[1];
     InitState(states);
     if(!_sound_buffer.loadFromFile("../audio/pause.wav")){}
-
     _sound.setBuffer(_sound_buffer);
     _sound.setVolume(30);
     _sound.setPitch(0.70f);

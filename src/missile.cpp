@@ -28,10 +28,10 @@ void Missile::UpdateAll() noexcept {
     DisappearedFromWindow();
 }
 
+
 sf::Shape* Missile::GetShape()noexcept{
     return _shape;
 }
-
 
 
 void Missile::UpdateTransforms()noexcept {
@@ -45,5 +45,4 @@ void Missile::UpdateTransforms()noexcept {
 }
 
 void Missile::Rotate()noexcept{
-    // when hits another object...
 }

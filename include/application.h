@@ -13,23 +13,30 @@
 class Application{
 public:
     Application();
+    
     ~Application();
     
     static void Run() noexcept;
+
     static void Render() noexcept;
+
     static void UpdateAll() noexcept;
 private:
     static void InitStates()noexcept;
+
     static void FreeStatesMemory();
 
-
     static sf::Event event;
+
     static sf::Clock dtclock;
+
     static const constexpr int WINDOWX = 1200;
+
     static const constexpr int WINDOWY = 800;
-    
-    
+
     static sf::RenderWindow* window;
+
     static std::array<State*, 5> states;
+
     static long unsigned int currentState;
 };

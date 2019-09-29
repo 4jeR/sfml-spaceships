@@ -54,9 +54,8 @@ void Application::UpdateAll()noexcept{
 
 
 void Application::FreeStatesMemory(){
-    for(auto& state : states){
+    for(auto& state : states)
         delete state;
-    }
 }
 
 

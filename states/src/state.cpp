@@ -1,7 +1,6 @@
 #include "state.h"
 
 
-
 State::State(sf::RenderWindow* window)
 :_window(window),_quitState(false),_cooldown(0),_cooldown2(0)
 {   

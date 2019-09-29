@@ -33,9 +33,8 @@ GameState::GameState(std::array<State*, 5>& states, sf::RenderWindow* window)
 
 GameState::~GameState(){   
     delete tracker; 
-    for(auto& obj: objects){
+    for(auto& obj: objects)
         delete obj;
-    }    
 }
 
 
@@ -45,9 +44,8 @@ void GameState::FreeDestroyedObjects(){
             delete *it;
             it = objects.erase(it);
         }
-        else{
+        else
             ++it;
-        }
     }
 }
 

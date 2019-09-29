@@ -5,8 +5,6 @@
 Player::Player(float x, float y, sf::RenderWindow* winptr, float radius, int foreign)
 :Object(x, y, winptr, radius, foreign),_cooldown(0),_lives(3), _score(0)
 {   
-    
-    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     _shape = new sf::CircleShape(radius, 3);
     _shape -> setPosition(_x, _y);
     _shape -> setFillColor(sf::Color::Transparent);
@@ -17,9 +15,8 @@ Player::Player(float x, float y, sf::RenderWindow* winptr, float radius, int for
     _dot = new sf::CircleShape(radius / 7.0f);
     _dot -> setPosition(_x, _y);
     _dot -> setFillColor(sf::Color::Green);
-    if(!_sound_buffer.loadFromFile("../audio/laser-shot.wav")){
 
-    }
+    if(!_sound_buffer.loadFromFile("../audio/laser-shot.wav")){   }
     _sound.setBuffer(_sound_buffer);
     _sound.setVolume(30);
     _name = "player";
@@ -27,7 +24,6 @@ Player::Player(float x, float y, sf::RenderWindow* winptr, float radius, int for
 
 
 Player::~Player(){
-    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     delete _shape;
     delete _dot;
 }
@@ -37,9 +33,7 @@ Missile* Player::Shoot()noexcept{
     _sound.play();
     float byX =  1.5f * _radius * static_cast<float>(std::sin(static_cast<double>(_dot->getRotation()) * M_PI / 180.0));
     float byY = -1.5f * _radius * static_cast<float>(std::cos(static_cast<double>(_dot->getRotation()) * M_PI / 180.0));
-    
     _currentSpeed -= 60.0f;
-    
     _missile = new Missile(_x + byX, _y + byY, _window, _radius);
     _missile -> SetForeign(1);
     _missile -> GetShape() -> rotate(_dot -> getRotation());
@@ -90,11 +84,10 @@ int Player::Lives()const noexcept{
 }
 
 
-
-
 int& Player::GetScore()noexcept{
     return _score;
 }
+
 int Player::Score()const noexcept{
     return _score;
 }
@@ -104,8 +97,6 @@ void Player::UpdateAll() noexcept{
    UpdateTransforms();
    DisappearedFromWindow();
    ++_cooldown;
-   
-   // and more stuff later on ...
 }
 
 
@@ -134,7 +125,6 @@ void Player::Move() noexcept{
 }
 
 void Player::Rotate()noexcept {
-
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)){
         float rotateCoef = -(0.35f - CalcAngularVelocity(_currentSpeed));
         _shape -> rotate(rotateCoef);

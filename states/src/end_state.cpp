@@ -22,9 +22,8 @@ void EndState::UpdateState([[maybe_unused]] std::array<State*, 5>& states, [[may
     _scoretext -> setString("Score " + std::to_string(score));
     Render();
     
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return))
         _window->close();
-    }
 }
 
 
@@ -37,14 +36,11 @@ sf::Font EndState::GetFont()noexcept{
 }
 
 void EndState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexcept{
-    if(!_font.loadFromFile("../fonts/Arcade.ttf")){
-    }
+    if(!_font.loadFromFile("../fonts/Arcade.ttf")){}
 
-    
     float xx = static_cast<float>(_window->getSize().x) / 2.0f;
     float yy = static_cast<float>(_window->getSize().y) / 2.0f;
     
-
     _text = new sf::Text("Game over",_font, 55);
     _text ->setPosition(xx - 200.0f, yy - 120.0f);
     _text ->setFont(_font);
@@ -55,5 +51,4 @@ void EndState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexcept
     _scoretext -> setFont(_font);
     _scoretext -> setCharacterSize(55);
     _scoretext -> setFillColor(sf::Color::Yellow); 
-    
 }

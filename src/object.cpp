@@ -4,7 +4,6 @@
 Object::Object(float x, float y, sf::RenderWindow* winptr, float radius, int foreign)
 :_x(x), _y(y),_window(winptr),_radius(radius),_currentSpeed(0.0f),_isDestroyed(false),_foreign(foreign)
 {
-    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     
 }
 
@@ -12,7 +11,6 @@ Object::~Object(){
 }
 
 bool Object::operator==(const Object& rhs)const noexcept{
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
     return this == &rhs;
 }
 
@@ -21,55 +19,66 @@ float Object::X()const noexcept{
     return _x;
 }
 
+
 float& Object::GetX()noexcept{
     return _x;
 }
+
 
 float Object::Y()const noexcept{
     return _y;
 }
 
+
 float& Object::GetY()noexcept{
     return _y;
 }
+
 
 sf::RenderWindow* Object::Window()noexcept{
     return _window;
 }
 
+
 bool Object::IsDestroyed()const noexcept{
     return _isDestroyed;
 }
+
 
 bool& Object::GetDestroyState()noexcept{
     return _isDestroyed;
 }
 
+
 float Object::CurrentSpeed()const noexcept{
     return _currentSpeed;
 }
+
 
 float& Object::GetCurrentSpeed()noexcept{
     return _currentSpeed;
 }
 
 
-
 std::string Object::Name()const noexcept{
     return _name;
 }
+
 
 float Object::Radius()const noexcept{
     return _radius;
 }
 
+
 float& Object::GetRadius() noexcept{
     return _radius;
 }
 
+
 int Object::Foreign()const noexcept{
     return _foreign;
 }
+
 
 int& Object::GetForeign() noexcept{
     return _foreign;
@@ -79,9 +88,9 @@ int& Object::GetForeign() noexcept{
 bool Object::DisappearedFromWindow()noexcept{
     float xx = static_cast<float>(_window->getSize().x);
     float yy = static_cast<float>(_window->getSize().y);
-    if(!((0 < _x && _x < xx) && (0 < _y && _y < yy))){
+    if(!((0 < _x && _x < xx) && (0 < _y && _y < yy)))
         _isDestroyed = true;
-    }
+    
     return _isDestroyed;
 }
 
@@ -118,23 +127,21 @@ float Object::CalcAngularVelocity(float current_speed)const noexcept{
 float Object::CalcAcceleration(float current_speed, bool add)const noexcept{
     float value = 0.0f;
     if(add){
-        if(current_speed <= 200.0f){
+        if(current_speed <= 200.0f)
             value = 1.5f;
-        }
-        else if(200.0f < current_speed && current_speed <= 600.0f){
+
+        else if(200.0f < current_speed && current_speed <= 600.0f)
             value  = 2.0f;
-        }
-        else if(600.0f < current_speed && current_speed <= 894.5f){
+        
+        else if(600.0f < current_speed && current_speed <= 894.5f)
             value  = 0.5f;
-        }
     }
     else if(!add){
-        if(1.0f <= current_speed && current_speed <= 200.0f){
+        if(1.0f <= current_speed && current_speed <= 200.0f)
             value = -1.0f;
-        }
-        else if(200.0f <= current_speed){
+
+        else if(200.0f <= current_speed)
             value = -3.0f;
-        }
     }
     return value;
 }
