@@ -9,6 +9,7 @@ EndState::EndState(std::array<State*, 5>& states, sf::RenderWindow* window)
 
 EndState::~EndState(){
     delete _text;
+    delete _scoretext;
 }
 
 void EndState::Render() noexcept{
@@ -45,5 +46,11 @@ void EndState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexcept
     _text ->setPosition(xx - 200.0f, yy - 120.0f);
     _text ->setFont(_font);
     _text->setFillColor(sf::Color::Red);
+
+
+    _scoretext = new sf::Text("Score: ",_font, 45);
+    _scoretext ->setPosition(xx - 200.0f, yy - 20.0f);
+    _scoretext ->setFont(_font);
+    _scoretext->setFillColor(sf::Color::Red); 
     
 }

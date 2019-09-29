@@ -31,7 +31,7 @@ public:
     virtual sf::Shape* GetShape() noexcept = 0;
     float CalcAngularVelocity(float current_speed)const noexcept;
     float CalcAcceleration(float current_speed, bool add)const noexcept;
-    virtual void OnCollide(Object* other)noexcept;
+    virtual bool OnCollide(Object* other)noexcept;
     virtual void SetForeign(int value)noexcept;
 protected:
     virtual void UpdateTransforms()noexcept = 0;

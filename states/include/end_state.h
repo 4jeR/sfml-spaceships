@@ -12,7 +12,8 @@ public:
     sf::Font GetFont()noexcept;
     void InitState(std::array<State*, 5>& states)noexcept override;
 private:
-    sf::Text* _text;    
+    sf::Text* _text; 
+    sf::Text* _scoretext;   
     sf::Font _font;
     
     State* _gameptr;

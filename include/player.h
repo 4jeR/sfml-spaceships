@@ -24,7 +24,7 @@ public:
     void UpdateAll() noexcept override;
     sf::Shape* GetShape() noexcept override;
     sf::CircleShape* GetDot()noexcept;
-    void OnCollide(Object* other)noexcept override;
+    bool OnCollide(Object* other)noexcept override;
     void AddScore(int value)noexcept;
 private:
     void Move()noexcept;

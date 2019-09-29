@@ -94,7 +94,7 @@ bool Object::DisappearedFromWindow()noexcept{
 }
 
 
-void Object::OnCollide(Object* other)noexcept{
+bool Object::OnCollide(Object* other)noexcept{
     if(this->_foreign != other ->_foreign){
         float dx = this->_x - other->_x;
         float dy = this->_y - other->_y;
@@ -103,8 +103,10 @@ void Object::OnCollide(Object* other)noexcept{
             std::cout << "collision detected! between "<<  _name << " and " << other->Name() << std::endl;
             this->GetDestroyState() = true;
             other->GetDestroyState() = true;
+            return true;
         }
     }
+    return false;
 }
 
 

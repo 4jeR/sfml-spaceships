@@ -146,7 +146,7 @@ void Player::Rotate()noexcept {
     }
 }
 
-void Player::OnCollide(Object* other)noexcept{
+bool Player::OnCollide(Object* other)noexcept{
     if(this->_foreign != other ->Foreign()){
         float dx = this->_x - other->X();
         float dy = this->_y - other->Y();
@@ -155,6 +155,8 @@ void Player::OnCollide(Object* other)noexcept{
             std::cout << "collision detected! between "<<  _name << " and " << other->Name() << std::endl;
             --_lives;
             other->GetDestroyState() = true;
+            return true;
         }
     }
+    return false;
 }

@@ -85,18 +85,17 @@ void GameState::UpdateObjects()noexcept{
     for(auto& obj : objects){
         obj -> UpdateAll();
         for(auto& other : objects){
-            if(!(obj == other)){
-                obj->OnCollide(other);
-                if(obj->IsDestroyed() && other -> IsDestroyed()){
-                    player->AddScore(20);
-                    --enemies_count;
-                }
+            if(!(obj == other) && obj->OnCollide(other)){
+                player->AddScore(20);
+                --enemies_count;
             }
-
         }
     }
     for(auto& obj : objects){
-        player->OnCollide(obj);
+        if(player->OnCollide(obj)){
+            player->AddScore(20);
+            --enemies_count;
+        }
     }
 }
 
