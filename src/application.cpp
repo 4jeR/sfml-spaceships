@@ -13,7 +13,7 @@ const int Application::WINDOWY;
 
 Application::Application()
 {
-    srand(std::rand()%RAND_MAX);
+    srand(static_cast<unsigned int>(std::rand()%RAND_MAX));
     window = new sf::RenderWindow(sf::VideoMode(WINDOWX, WINDOWY), "Spaceships");
     InitStates();
 }

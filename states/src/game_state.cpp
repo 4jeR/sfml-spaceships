@@ -10,24 +10,23 @@ sf::Sound GameState::_sound[3];
 GameState::GameState(std::array<State*, 5>& states, sf::RenderWindow* window)
 :State(window)
 {
-    srand(static_cast<unsigned int>(std::rand()%RAND_MAX));
     window_ptr = window;
     InitState(states);
 
     if(!_sound_buffer[0].loadFromFile("../audio/pause.wav")){}
     _sound[0].setBuffer(_sound_buffer[0]);
-    _sound[0].setVolume(40.0f);
+    _sound[0].setVolume(30.0f);
     _sound[0].setPitch(0.8f);
 
     if(!_sound_buffer[1].loadFromFile("../audio/failure.wav")){}
 
     _sound[1].setBuffer(_sound_buffer[1]);
-    _sound[1].setVolume(60.0f);
+    _sound[1].setVolume(30.0f);
     _sound[1].setPitch(0.9f);
 
     if(!_sound_buffer[2].loadFromFile("../audio/explosion.wav")){}
     _sound[2].setBuffer(_sound_buffer[2]);
-    _sound[2].setVolume(40.0f);
+    _sound[2].setVolume(30.0f);
     _sound[2].setPitch(1.5f);
 }
 
@@ -78,7 +77,6 @@ void GameState::UpdatePlayer()noexcept{
 }
 
 void GameState::UpdateObjects()noexcept{
-    // SPAWN ENEMIES
     if(enemies_count <= 3 + player->Score() / 100){
         float randX = static_cast<float>(std::rand()%900+1);
         float randY = static_cast<float>(std::rand()%700+1);
@@ -90,14 +88,11 @@ void GameState::UpdateObjects()noexcept{
     for(auto& obj : objects){
         obj -> UpdateAll();
         for(auto& other : objects){
-            if(!(obj == other) && obj->OnCollide(other)){
-                if(!destroyed){
-                    destroyed=true;
-                    player->AddScore(20);
-                    --enemies_count;
-                    _sound[2].play();
-                }
-                    
+            if(!(obj == other) && obj->OnCollide(other) && !destroyed){
+                destroyed=true;
+                player->AddScore(20);
+                --enemies_count;
+                _sound[2].play();
             }
         }
     }
@@ -122,12 +117,10 @@ void GameState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long 
     FreeDestroyedObjects();
     CheckForGameOver(states, current_state);
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P)){
         _sound[0].play();   
         current_state = 2;
     }
-    
-
 }
 
 

@@ -15,7 +15,7 @@ OptionsState::OptionsState(std::array<State*, 5>& states, sf::RenderWindow* wind
     }
     _sprite.setTexture(_menutexture);
     _sound.setBuffer(_sound_buffer);
-    _sound.setVolume(50);
+    _sound.setVolume(30);
 }
 
 OptionsState::~OptionsState(){

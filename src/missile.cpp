@@ -4,14 +4,12 @@
 Missile::Missile(float x, float y, sf::RenderWindow* winptr, float radius, int foreign)
 :Object(x, y, winptr, radius, foreign)
 {
-    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     _shape = new sf::RectangleShape(sf::Vector2f(2.0f, 8.0f));
     _shape -> setPosition(_x, _y );
     _shape -> setOutlineColor(sf::Color::Red);
     _shape -> setOutlineThickness(1.0f);
     _shape -> setFillColor(sf::Color::Transparent);
     _currentSpeed = 1500.0f;
-    
     _name = "missile";
 }
 
@@ -21,17 +19,9 @@ Missile* Missile::InstantiateMissile(float x, float y, sf::RenderWindow* winptr,
 
 
 Missile::~Missile(){
-    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     delete _shape;
 }
 
-
-
-Missile& Missile::operator=(const Missile& rhs){
-    Object::operator=(rhs);
-
-    return *this;
-}
 
 void Missile::UpdateAll() noexcept {
     UpdateTransforms();

@@ -25,7 +25,7 @@ Enemy::Enemy(float x, float y, sf::RenderWindow* winptr, float radius, int forei
 
     }
     _sound.setBuffer(_sound_buffer);
-    _sound.setVolume(40);
+    _sound.setVolume(30);
 }
 
 Enemy* Enemy::InstantiateEnemy(float x, float y, sf::RenderWindow* winptr, float radius, int foreign ){

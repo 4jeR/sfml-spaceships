@@ -13,7 +13,7 @@ MenuState::MenuState(std::array<State*, 5>& states, sf::RenderWindow* window)
     }
     _sprite.setTexture(_menutexture);
     _sound.setBuffer(_sound_buffer);
-    _sound.setVolume(50);
+    _sound.setVolume(30);
 }
 
 MenuState::~MenuState(){

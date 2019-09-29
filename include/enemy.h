@@ -7,12 +7,8 @@ class Enemy : public Object{
 public:
     Enemy(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 11.0f, int foreign = 2);
     ~Enemy();
-
-    static Enemy* InstantiateEnemy(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 11.0f, int foreign = 2);
-
-
-
     void UpdateAll() noexcept override;
+    static Enemy* InstantiateEnemy(float x, float y, sf::RenderWindow* winptr = nullptr, float radius = 11.0f, int foreign = 2);
     sf::Shape* GetShape() noexcept override;
     Missile* Shoot()noexcept;
 private:    

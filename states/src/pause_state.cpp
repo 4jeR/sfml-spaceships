@@ -6,9 +6,8 @@ PauseState::PauseState(std::array<State*, 5>& states, sf::RenderWindow* window)
 {
     _gameptr = states[1];
     InitState(states);
-    if(!_sound_buffer.loadFromFile("../audio/pause.wav")){
+    if(!_sound_buffer.loadFromFile("../audio/pause.wav")){}
 
-    }
     _sound.setBuffer(_sound_buffer);
     _sound.setVolume(30);
     _sound.setPitch(0.70f);
@@ -20,8 +19,6 @@ PauseState::~PauseState(){
     delete _pause.second;
     delete _text;
     delete _unpauseText;
-
-    
 }
 
 
@@ -40,19 +37,17 @@ void PauseState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
         current_state = 1;
         _sound.play();
-        
     }
 }
 
 
 void PauseState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexcept {
-    if(!_font.loadFromFile("../fonts/leders st.ttf")){
-    }
+    if(!_font.loadFromFile("../fonts/leders st.ttf")){}
+
     float xx = static_cast<float>(_window->getSize().x) / 2.0f;
     float yy = static_cast<float>(_window->getSize().y) / 2.0f;
     _pause.first = new sf::RectangleShape(sf::Vector2f(xx, yy));
     _pause.second = new sf::RectangleShape(sf::Vector2f(xx + 40.0f, yy));
-
 
     _pause.first ->setSize(sf::Vector2f(20, 100));
     _pause.first ->setFillColor(sf::Color::Yellow);
@@ -71,7 +66,6 @@ void PauseState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexce
     _text ->setFont(_font);
     _text->setFillColor(sf::Color::Red);
 
-    
     _unpauseText = new sf::Text("to unpause press [enter]", _font, 15);
     _unpauseText ->setPosition(xx , yy + 140.0f);
     _unpauseText ->setFont(_font);
@@ -86,6 +80,7 @@ std::pair<sf::RectangleShape*, sf::RectangleShape*>& PauseState::GetPause()noexc
     return _pause;
 }
 
+
 sf::Text* PauseState::GetText()noexcept{
     return _text;
 }
@@ -95,11 +90,11 @@ sf::Font PauseState::GetFont()noexcept{
     return _font;
 }
 
+
 void PauseState::RotateText(sf::Text* txt)noexcept{
     ++_cooldown;
-    if(_cooldown % 800 /* 0-99 */ < 400)
+    if(_cooldown % 800 < 400)
         txt->rotate(0.025f );
     else 
         txt->rotate(-0.025f);
-
 }
