@@ -1,12 +1,13 @@
 # sfml-spaceships
 SFML game written in learning purposes.
+Unit tests are written with the usage of GoogleTest framework.
 
 All sounds have been download from https://freesound.org/.
 
 # Install
 In order to build this app it is required to have CMake (3.14) installed.
 
-Move to the destinated location and  
+Open terminal, move to the destinated location and type:  
 `git clone https://github.com/4jeR/sfml-spaceships.git`  
 `cd sfml-spaceships`  
 `cd build`  
