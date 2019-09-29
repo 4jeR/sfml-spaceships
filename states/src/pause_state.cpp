@@ -10,8 +10,8 @@ PauseState::PauseState(std::array<State*, 5>& states, sf::RenderWindow* window)
 
     }
     _sound.setBuffer(_sound_buffer);
-    _sound.setVolume(40);
-    _sound.setPitch(0.80f);
+    _sound.setVolume(30);
+    _sound.setPitch(0.70f);
 }
 
 
