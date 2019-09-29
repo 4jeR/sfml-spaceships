@@ -48,7 +48,7 @@ TEST(Player, get_score_copy){
 TEST(Player, get_score_ref){
     Player p(240, 350);
     p.GetScore() = 20;
-    EXPECT_EQ(2, p.Score());
+    EXPECT_EQ(20, p.Score());
 }
 
 

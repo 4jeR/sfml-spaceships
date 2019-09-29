@@ -85,7 +85,7 @@ void GameState::UpdateObjects()noexcept{
     for(auto& obj : objects){
         obj -> UpdateAll();
         for(auto& other : objects){
-            if(!(obj == other))
+            if(obj->Name() == "player")
                 obj->OnCollide(other);
         }
     }
