@@ -1,7 +1,7 @@
 #include "pause_state.h"
 
 
-PauseState::PauseState(std::array<State*, 4>& states, sf::RenderWindow* window)
+PauseState::PauseState(std::array<State*, 5>& states, sf::RenderWindow* window)
 :State(window)
 {
     _gameptr = states[1];
@@ -34,7 +34,7 @@ void PauseState::Render() noexcept {
 }
 
 
-void PauseState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long unsigned int& current_state) noexcept {
+void PauseState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long unsigned int& current_state) noexcept {
     Render();
     RotateText(_unpauseText);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)){
@@ -45,7 +45,7 @@ void PauseState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long
 }
 
 
-void PauseState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcept {
+void PauseState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexcept {
     if(!_font.loadFromFile("../fonts/leders st.ttf")){
     }
     float xx = static_cast<float>(_window->getSize().x) / 2.0f;

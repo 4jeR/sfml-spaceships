@@ -2,7 +2,7 @@
 
 #include "menu_state.h"
 
-OptionsState::OptionsState(std::array<State*, 4>& states, sf::RenderWindow* window)
+OptionsState::OptionsState(std::array<State*, 5>& states, sf::RenderWindow* window)
 :State(window),selected_button(0)
 {
     InitState(states);
@@ -34,7 +34,7 @@ void OptionsState::Render() noexcept {
 
 }
 
-void OptionsState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcept {
+void OptionsState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexcept {
     menu_buttons[0] = new Button(90, 150, "todo...");
     RotateButton(menu_buttons[0], true);
     menu_buttons[1] = new Button(140, 270, "back");
@@ -42,7 +42,7 @@ void OptionsState::InitState([[maybe_unused]] std::array<State*, 4>& states)noex
 
 
 
-void OptionsState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long unsigned int& current_state) noexcept {
+void OptionsState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long unsigned int& current_state) noexcept {
     ++_cooldown;
     ++_cooldown2;
     long unsigned int prev = selected_button;

@@ -2,7 +2,7 @@
 
 
 sf::RenderWindow* Application::window;
-std::array<State*, 4> Application::states;
+std::array<State*, 5> Application::states;
 long unsigned int Application::currentState = 0;
 
 sf::Event Application::event;
@@ -64,4 +64,5 @@ void Application::InitStates()noexcept{
     states[1] = new GameState(states, window);      
     states[2] = new PauseState(states, window);     
     states[3] = new OptionsState(states, window);   
+    states[4] = new EndState(states, window);
 }

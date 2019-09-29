@@ -4,13 +4,13 @@
 
 class OptionsState : public State{
 public:
-    OptionsState(std::array<State*, 4>& states, sf::RenderWindow* window);
+    OptionsState(std::array<State*, 5>& states, sf::RenderWindow* window);
     ~OptionsState();
 
-    void UpdateState(std::array<State*, 4>& states,long unsigned int& current_state) noexcept override;
+    void UpdateState(std::array<State*, 5>& states,long unsigned int& current_state) noexcept override;
     void Render() noexcept override;
    
-    void InitState(std::array<State*, 4>& states)noexcept override;
+    void InitState(std::array<State*, 5>& states)noexcept override;
     void RotateButton(Button* button, bool clockwise)noexcept;
 private:
     std::array<Button*, 2> menu_buttons;

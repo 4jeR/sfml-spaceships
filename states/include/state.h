@@ -11,9 +11,9 @@ public:
     State(sf::RenderWindow* window);
     virtual ~State();
     virtual void Render() noexcept = 0;
-    virtual void UpdateState(std::array<State*, 4>& states,long unsigned int& current_state) noexcept = 0;
+    virtual void UpdateState(std::array<State*, 5>& states,long unsigned int& current_state) noexcept = 0;
     virtual bool ShouldQuit()const noexcept;
-    virtual void InitState(std::array<State*, 4>& states)noexcept = 0;
+    virtual void InitState(std::array<State*, 5>& states)noexcept = 0;
     int Cooldown()const noexcept;
     int& GetCooldown()noexcept;
 protected:

@@ -1,6 +1,6 @@
 #include "menu_state.h"
 
-MenuState::MenuState(std::array<State*, 4>& states, sf::RenderWindow* window)
+MenuState::MenuState(std::array<State*, 5>& states, sf::RenderWindow* window)
 :State(window),selected_button(0)
 {
     InitState(states);
@@ -32,7 +32,7 @@ void MenuState::Render() noexcept {
 
 }
 
-void MenuState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcept {
+void MenuState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexcept {
     menu_buttons[0] = new Button(90, 150, " start game");
     RotateButton(menu_buttons[0], true);
     menu_buttons[1] = new Button(140, 270, "multiplayer");
@@ -41,7 +41,7 @@ void MenuState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcep
 }
 
 
-void MenuState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long unsigned int& current_state) noexcept {
+void MenuState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long unsigned int& current_state) noexcept {
     ++_cooldown;
     ++_cooldown2;
     long unsigned int prev = selected_button;

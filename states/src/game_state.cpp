@@ -6,19 +6,24 @@ int GameState::enemies_count = 0;
 sf::RenderWindow* GameState::window_ptr;
 
 
-GameState::GameState(std::array<State*, 4>& states, sf::RenderWindow* window)
+GameState::GameState(std::array<State*, 5>& states, sf::RenderWindow* window)
 :State(window)
 {
     srand(time(NULL));
     window_ptr = window;
     InitState(states);
 
-    if(!_sound_buffer.loadFromFile("../audio/pause.wav")){
+    if(!_sound_buffer[0].loadFromFile("../audio/pause.wav")){
 
     }
-    
-    _sound.setBuffer(_sound_buffer);
-    _sound.setVolume(40);
+    if(!_sound_buffer[1].loadFromFile("../audio/failure.wav")){
+
+    }
+    _sound[0].setBuffer(_sound_buffer[0]);
+    _sound[0].setPitch(80.0f);
+
+    _sound[1].setBuffer(_sound_buffer[1]);
+    _sound[1].setVolume(60.0f);
 }
 
 
@@ -82,25 +87,28 @@ void GameState::UpdateObjects()noexcept{
         for(auto& other : objects){
             if(!(obj == other))
                 obj->OnCollide(other);
-            
         }
+    }
+    for(auto& obj : objects){
+        player->OnCollide(obj);
     }
 }
 
 
-void GameState::InitState([[maybe_unused]] std::array<State*, 4>& states)noexcept{
+void GameState::InitState([[maybe_unused]] std::array<State*, 5>& states)noexcept{
     player = new Player(static_cast<float>(_window->getSize().x) / 2, static_cast<float>(_window->getSize().y) / 2, _window);
     tracker = new StatsTracker();
 }
 
 
-void GameState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long unsigned int& current_state) noexcept {
+void GameState::UpdateState([[maybe_unused]] std::array<State*, 5>& states,long unsigned int& current_state) noexcept {
     UpdatePlayer();
     UpdateObjects();
     FreeDestroyedObjects();
+    CheckForGameOver(states, current_state);
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
-       _sound.play();   
+       _sound[0].play();   
         current_state = 2;
     }
     
@@ -108,3 +116,9 @@ void GameState::UpdateState([[maybe_unused]] std::array<State*, 4>& states,long 
 }
 
 
+void GameState::CheckForGameOver([[maybe_unused]] std::array<State*, 5>& states,long unsigned int& current_state)noexcept{
+    if(player->Lives() <= 0){
+        _sound[1].play(); 
+        current_state = 4;
+    }
+}  

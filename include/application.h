@@ -4,6 +4,7 @@
 #include "menu_state.h"
 #include "options_state.h"
 #include "enemy.h"
+#include "end_state.h"
 
 #include <iostream>
 #include <vector>
@@ -29,6 +30,6 @@ private:
     
     
     static sf::RenderWindow* window;
-    static std::array<State*, 4> states;
+    static std::array<State*, 5> states;
     static long unsigned int currentState;
 };
