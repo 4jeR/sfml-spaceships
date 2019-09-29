@@ -5,15 +5,10 @@ Object::Object(float x, float y, sf::RenderWindow* winptr, float radius, int for
 :_x(x), _y(y),_window(winptr),_radius(radius),_currentSpeed(0.0f),_isDestroyed(false),_foreign(foreign)
 {
     // std::cout << __PRETTY_FUNCTION__ << std::endl;
-    if(!_sb_destroy.loadFromFile("../audio/destroy.wav")){
-
-    }
-    _sound_destroy.setBuffer(_sb_destroy);
-    _sound_destroy.setVolume(40);
+    
 }
 
 Object::~Object(){
-
 }
 
 bool Object::operator==(const Object& rhs)const noexcept{
@@ -58,9 +53,6 @@ float& Object::GetCurrentSpeed()noexcept{
     return _currentSpeed;
 }
 
-sf::Sound& Object::Sound()noexcept{
-    return _sound_destroy;
-}
 
 
 std::string Object::Name()const noexcept{

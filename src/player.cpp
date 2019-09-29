@@ -102,6 +102,7 @@ int Player::Score()const noexcept{
 
 void Player::UpdateAll() noexcept{
    UpdateTransforms();
+   DisappearedFromWindow();
    ++_cooldown;
    
    // and more stuff later on ...
@@ -159,4 +160,14 @@ bool Player::OnCollide(Object* other)noexcept{
         }
     }
     return false;
+}
+
+bool Player::DisappearedFromWindow()noexcept{
+    float xx = static_cast<float>(_window->getSize().x);
+    float yy = static_cast<float>(_window->getSize().y);
+    if(!((0 < _x && _x < xx) && (0 < _y && _y < yy))){
+        _isDestroyed = true;
+        _lives = 0;
+    }
+    return _isDestroyed;
 }

@@ -63,7 +63,7 @@ Missile* Enemy::Shoot()noexcept{
 }
 
 void Enemy::UpdateTransforms()noexcept{
-    // Rotate();
+    Rotate();
     Patrol();
 }
 
@@ -83,20 +83,20 @@ void Enemy::Patrol()noexcept{
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
     */
 
-    sf::Vector2f dest = CalcDistanceTo(_currentPath);
-    if((dest.x - _x == 0.0f)&&(dest.y -_y)){
-        ++_currentPath;
-        if(_currentPath >= 4){
-            _currentPath = 0;
-        }
-    }
+    // sf::Vector2f dest = CalcDistanceTo(_currentPath);
+    // if((dest.x - _x == 0.0f)&&(dest.y -_y)){
+    //     ++_currentPath;
+    //     if(_currentPath >= 4){
+    //         _currentPath = 0;
+    //     }
+    // }
 
-    float byX = 0.021f * _currentSpeed *  static_cast<float>(std::sin(static_cast<double>(dest.x)));
-    float byY = 0.021f * _currentSpeed *  static_cast<float>(std::cos(static_cast<double>(dest.y)));
+    // float byX = 0.02f * _currentSpeed *  static_cast<float>(std::sin(static_cast<double>(dest.x)));
+    // float byY = 0.02f * _currentSpeed *  static_cast<float>(std::cos(static_cast<double>(dest.y)));
      
 
-    // float byX = 0.001f * _currentSpeed *  static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
-    // float byY = 0.001f * _currentSpeed *  static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    float byX = 0.001f * _currentSpeed *  static_cast<float>(std::sin(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
+    float byY = 0.001f * _currentSpeed *  static_cast<float>(std::cos(static_cast<double>(_shape->getRotation()) * M_PI / 180.0));
        
     _shape -> move(byX, byY );
     _x += byX;

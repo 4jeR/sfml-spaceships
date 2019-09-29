@@ -20,7 +20,7 @@ private:
     static void UpdateObjects()noexcept;
     static void FreeDestroyedObjects();
     void CheckForGameOver(std::array<State*, 5>& states,long unsigned int& current_state)noexcept;
-    
+    void PlaySound()noexcept;
     
     static int enemies_count;
     static Player* player;

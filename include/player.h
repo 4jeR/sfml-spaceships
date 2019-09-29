@@ -32,6 +32,7 @@ private:
     void UpdateTransforms()noexcept override;
     void Rotate()noexcept override;
     void Accelerate()noexcept;
+    bool DisappearedFromWindow()noexcept override;
 
 
 

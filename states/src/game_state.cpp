@@ -16,14 +16,15 @@ GameState::GameState(std::array<State*, 5>& states, sf::RenderWindow* window)
     if(!_sound_buffer[0].loadFromFile("../audio/pause.wav")){
 
     }
-    if(!_sound_buffer[1].loadFromFile("../audio/failure.wav")){
-
-    }
     _sound[0].setBuffer(_sound_buffer[0]);
     _sound[0].setPitch(80.0f);
 
+    if(!_sound_buffer[1].loadFromFile("../audio/failure.wav")){
+
+    }
     _sound[1].setBuffer(_sound_buffer[1]);
     _sound[1].setVolume(60.0f);
+
 }
 
 
@@ -81,19 +82,22 @@ void GameState::UpdateObjects()noexcept{
         ++enemies_count;
     }
     
-
+    bool destroyed = false;
     for(auto& obj : objects){
         obj -> UpdateAll();
         for(auto& other : objects){
             if(!(obj == other) && obj->OnCollide(other)){
-                player->AddScore(20);
-                --enemies_count;
+                if(!destroyed){
+                    destroyed=true;
+                    player->AddScore(20);
+                    --enemies_count;
+                }
+                    
             }
         }
     }
     for(auto& obj : objects){
         if(player->OnCollide(obj)){
-            player->AddScore(20);
             --enemies_count;
         }
     }
@@ -127,3 +131,7 @@ void GameState::CheckForGameOver([[maybe_unused]] std::array<State*, 5>& states,
         current_state = 4;
     }
 }  
+
+void GameState::PlaySound()noexcept{
+    _sound[2].play();
+}

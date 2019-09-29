@@ -22,7 +22,6 @@ public:
     bool& GetDestroyState()noexcept;
     float Radius()const noexcept;
     float& GetRadius()noexcept;
-    sf::Sound& Sound()noexcept;
     std::string Name()const noexcept;
     int Foreign()const noexcept;
     int& GetForeign() noexcept;
@@ -36,7 +35,7 @@ public:
 protected:
     virtual void UpdateTransforms()noexcept = 0;
     virtual void Rotate()noexcept = 0;
-    bool DisappearedFromWindow()noexcept;
+    virtual bool DisappearedFromWindow()noexcept;
     float _x;
     float _y;
     sf::RenderWindow* _window;
@@ -44,7 +43,5 @@ protected:
     float _currentSpeed;
     bool _isDestroyed;
     std::string _name;
-    sf::SoundBuffer _sb_destroy;
-    sf::Sound _sound_destroy;
     int _foreign;
 };
