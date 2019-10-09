@@ -1,3 +1,5 @@
+
+
 # sfml-spaceships
 SFML game written in learning purposes.
 Unit tests are written with the usage of GoogleTest framework.
@@ -31,3 +33,7 @@ while being in `build` directory.
 To run the tests just type  
 `./testsRunAll` 
 
+![screenshot3](https://user-images.githubusercontent.com/38592844/66511346-0dafbd00-ead7-11e9-965e-7aaac1f6475b.png)
+![spaceships1](https://user-images.githubusercontent.com/38592844/66511180-c0335000-ead6-11e9-9630-29531dd04854.png)
+![screenshot2](https://user-images.githubusercontent.com/38592844/66511244-e0630f00-ead6-11e9-8b55-b7a9338cebc6.png)
+![screenshot4](https://user-images.githubusercontent.com/38592844/66511499-5798a300-ead7-11e9-9e7e-4338fc73fff4.png)
